@@ -15,7 +15,9 @@ var Express = require('express'),
 const Attachments = require('../libs/templatetopdf')
 const azure = require('azure-storage')
 const config = require('../config/default.js')
-var blobService = azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
+
+// TODO: Currently we are not generating refunds.
+var blobService = 'asd';//  azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
 
 // This values are used to filter the query
 var attributes = [
