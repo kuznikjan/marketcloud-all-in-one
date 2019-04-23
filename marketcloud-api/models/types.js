@@ -293,12 +293,12 @@ Types.Category = new Schematic.Schema('Category', {
   'name': {
     type: 'string',
     min: 2,
-    max: 30,
+    max: 256,
     required: true
   },
   'description': {
     type: 'string',
-    max: 1400
+    max: 20000
   },
   'url': {
     type: 'string'
@@ -317,12 +317,12 @@ Types.CategoryNew = new Schematic.Schema('Category', {
   'name': {
     type: 'string',
     min: 2,
-    max: 30,
+    max: 256,
     required: true
   },
   'description': {
     type: 'string',
-    max: 1400
+    max: 20000
   },
   'url': {
     type: 'string'
@@ -513,7 +513,7 @@ Types.Coupon = new Schematic.Schema('Coupon', {
 Types.Brand = new Schematic.Schema('Brand', {
   'name': {
     type: 'string',
-    min: 3,
+    min: 1,
     max: 50,
     required: true
   },
