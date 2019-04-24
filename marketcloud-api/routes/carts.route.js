@@ -522,7 +522,7 @@ var cartController = {
     return next()
   },
   applyTaxes: function (req, res, next) {
-    if (req.client.application.show_prices_plus_taxes !== true) { return next() }
+    if (req.client.application.show_prices_plus_taxes !== 1) { return next() }
 
     var payload = req.toSend
 
