@@ -100,10 +100,18 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
 
     scope.addProduct = function (product) {
       product.quantity = 1;
+
+      if (product.has_variants) {
+        product.selectedVariant = {};
+        Object.keys(product.variantsDefinition).forEach(function (k) {
+          product.selectedVariant[k] = product.variantsDefinition[k][0]
+        })
+      }
+
       scope.order.items.push({
         product_id: product.id,
         quantity: product.quantity,
-        variant_id: product.variant_id ? product.variant_id : null,
+        variant_id: product.has_variants ? 1 : null
       });
       scope.order.products.push(product);
       scope.query.name.$regex = '';
@@ -288,6 +296,36 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
           temp[k] = k + ': ' + String(p.variant[k])
         })
       return temp
+    }
+
+    scope.updateSelectedVariantForProduct = function (idx, key, value) {
+      var selectedVariantData = scope.order.products[idx].selectedVariant
+
+
+      var productVariants = scope.order.products[idx].variants
+
+      var selectedVariant = findObjectWithKeyValue(productVariants, selectedVariantData)
+
+      scope.order.items[idx].variant_id = selectedVariant.variant_id
+    }
+
+    var findObjectWithKeyValue = function (array, object) {
+      var current = array
+      var result
+
+      Object.keys(object).forEach(function (k) {
+        var value = object[k]
+
+        current = current.filter(function (val) {
+          return val[k] === value
+        })
+
+        if (current.length === 1) {
+          result = current[0]
+        }
+      })
+
+      return result
     }
 
     // delete scope.order['items']
