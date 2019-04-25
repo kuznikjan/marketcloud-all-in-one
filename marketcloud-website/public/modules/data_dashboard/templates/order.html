@@ -199,7 +199,12 @@
 
 
 		<div class="card card-table mb50">
-			<div class="card-header"><h4>Items</h4></div>
+			<div class="card-header">
+				<h4 style="font-weight: 400" ng-if="!editingOrder">
+					<a href="" class="link pull-right" ng-click="editOrder()">Edit order</a>
+				</h4>
+				<h4>Items</h4>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
@@ -207,17 +212,20 @@
 							<th></th>
 							<th>Product</th>
 							<th>Total</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="product in order.products">
+						<tr ng-repeat="product in order.products track by $index">
 							<td>
 								<div class="thumbnail" style="width:48px;height:48px;padding:0px;">
 									<img ng-src="{{product.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" class="fluid" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/>
 								</div>
 							</td>
 							<td>
-								<a ng-href="#/{{product.type}}/{{product.id}}/edit" class="link">{{product.name}}</a> <span>x{{product.quantity}}</span>
+								<a ng-href="#/{{product.type}}/{{product.id}}/edit" class="link">{{product.name}} x</a>
+								<span ng-if="!editingOrder">{{product.quantity}}</span>
+								<input ng-if="editingOrder" class="form-control" type="number" ng-model="order.items[$index].quantity">
 								<div ng-if="true === product.has_variants">
 									<span ng-repeat="(k,v) in getSelectedVariantValues(product) track by $index" style="margin-right:5px;" class="text-muted small">{{v}} /</span>
 								</div>
@@ -234,6 +242,49 @@
 								<div ng-show="product.variant.price_discount">
 									<span style="text-decoration: line-through;">{{round(product.variant.price * product.quantity)   | currency:application.currency_code+" ":2}}</span>
 									<span>{{round(product.variant.price_discount * product.quantity)  | currency:application.currency_code+" ":2}}</span>
+								</div>
+							</td>
+							<td>
+								<a ng-if="editingOrder" href="" class="text-danger" ng-click="onRemoveItemFromOrder($index)"><i class="fa fa-trash"></i></a>
+							</td>
+						</tr>
+						<tr ng-if="editingOrder">
+							<td colspan="4" ng-if="!addingProduct" class="text-right" ng-if="editingOrder">
+								<button class="btn btn-info btn-sm" ng-click="onAddProduct()">
+									+ Add product
+								</button>
+							</td>
+							<td colspan="3" ng-if="addingProduct" style="position: relative">
+								<input type="text"
+								class="form-control no-border input-lg"
+								placeholder="Search here for products.."
+								ng-model="query.name.$regex"
+								style="padding-left:30px;"
+								focus-on-show
+								ng-model-options='{ debounce: 600 }'
+								ng-change="prepareRegex();loadProducts()"
+								ng-focus="showList()"
+								ng-blur="hideList()"
+								>
+								<div style="position: absolute;top:85px;left:0px;right:0px;z-index: 999;padding:15px;">
+									<div class="list-group"
+										style="border-top-left-radius: 0px;border-top-right-radius: 0px;"
+										ng-show="!!query.name.$regex == true && showTheList === true">
+										<a 	class="list-group-item"
+											style="cursor: pointer;"
+											ng-repeat="product in products track by $index"
+											ng-click="addProduct(product)">
+										<img ng-src="{{product.images[0]}}" style="max-width:32px;max-height: 32px;"> {{product.name}}</a>
+										<a class="list-group-item"
+											style="font-weight:bold"
+											href="#/products/create"
+										target="_blank">Add {{query.name.$regex}}..</a>
+									</div>
+								</div>
+							</td>
+							<td ng-if="addingProduct">
+								<div class="text-danger" ng-click="onCloseAddingProduct()">
+									<i class="fa fa-close"></i>
 								</div>
 							</td>
 						</tr>
@@ -267,48 +318,49 @@
 						<tr>
 							<td></td>
 							<td class="text-muted">Items total</td>
-							<td>{{order.items_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.items_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr ng-if="order.refunds_total">
 							<td></td>
 							<td class="text-muted">Refunds total</td>
-							<td>{{order.refunds_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.refunds_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr ng-show="order.promotion">
 							<td></td>
 							<td class="text-muted">Promotions (<a class="link small" href="#/promotions/{{order.promotion.id}}/edit">{{order.promotion.name}}</a>)</td>
-							<td>- {{order.promotion_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">- {{order.promotion_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td class="text-muted">Shipping <span ng-if="order.hasOwnProperty('shipping')">(<a class="link small" href="#/system/shippings/{{order.shipping.id}}/edit">{{order.shipping.name}}</a>)</span></td>
-							<td>{{order.shipping_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.shipping_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td class="text-muted">Taxes</td>
-							<td>{{order.taxes_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.taxes_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr ng-if="order.hasOwnProperty('coupon_total')">
 							<td></td>
 							<td class="text-muted">Coupon <code>{{order.coupon.code}}</code></td>
-							<td>{{order.coupon_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.coupon_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr ng-if="order.hasOwnProperty('payment_method_total')">
 							<td></td>
 							<td class="text-muted">Payment method (<a class="link small" href="#/system/payments">{{order.payment_method.name}}</a>)</td>
-							<td>{{order.payment_method_total | currency:application.currency_code+" ":2}}</td>
+							<td colspan="2">{{order.payment_method_total | currency:application.currency_code+" ":2}}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td><b>Order total</b></td>
-							<td><b>{{order.total | currency:application.currency_code+" ":2}}</b></td>
+							<td colspan="2"><b>{{order.total | currency:application.currency_code+" ":2}}</b></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="card-footer text-right">
-				<a class="btn btn-default btn-sm" data-toggle="modal" ng-click="showRefundModal()" ng-if="order.products.length > 0">Refund</a>
+				<a class="btn btn-info btn-sm" ng-if="editingOrder" ng-click="onUpdateOrder()">Save</a>
+				<a class="btn btn-default btn-sm" data-toggle="modal" ng-click="showRefundModal()" ng-if="order.products.length > 0 && !editingOrder">Refund</a>
 				<p ng-if="order.products.length === 0">All items were refunded</p>
 			</div>
 		</div>
@@ -575,10 +627,10 @@
 										<label>Estimated delivery date</label>
 										<input type="text" class="form-control" placeholder="Select a date..." moment-picker="shipmentToEdit.delivery_date" locale="en"
 										 ng-model="shipmentToEdit.delivery_date" format="YYYY-MM-DD" today="true" min-view="month" max-view="month" ng-model-options="{ updateOn: 'blur' }">
-			
+
 									</div>
 								</div>
-							
+
 							</div>
 						</div>
 						<div class="modal-footer">

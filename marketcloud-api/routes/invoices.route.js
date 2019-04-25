@@ -5,7 +5,13 @@ var Attachments = require('../libs/templatetopdf')
 var MongoDB = require('../services/mongodb.service')
 const azure = require('azure-storage')
 const config = require('../config/default.js')
-var blobService = azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
+
+/**
+ * TODO: Currently we will not be generating invoices with Marketcloud.
+ * Consider reworking the controller to communicate with Space Invoices
+ */
+
+var blobService = 'asd' // azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
 
 var resource = Resource({
   singularResourceName: 'invoice',

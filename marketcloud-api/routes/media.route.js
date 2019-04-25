@@ -9,9 +9,9 @@ const Middlewares = require('../middlewares.js')
 const sanitize = require('sanitize-filename')
 const fs = require('fs')
 const multer = require('multer')
-const azure = require('azure-storage')
 const mimeTypes = require('mime-types')
 const config = require('../config/default.js')
+const aws = require('aws-sdk');
 
 /* ******************************
     MULTER
@@ -37,11 +37,18 @@ var upload = multer({
 // This is a reference to the multer callback funnction
 var uploadFunction = upload.single('file')
 
-// The isntance of Blob Storage Service
-var blobService = azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
 
-// The name of the container inside the azure storage account we are using
-const azureContainerName = 'files'
+// The name of the container inside the digitalocean s3 account we are using
+var containerName = 'files';
+
+// s3 instance for digitalocean
+var s3 = new aws.S3({
+  endpoint: process.env.DO_S3_SPACES_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.DO_S3_SPACES_ACCESS,
+    secretAccessKey: process.env.DO_S3_SPACES_SECRET,
+  },
+});
 
 /*
 
@@ -298,7 +305,7 @@ Router.delete('/:id', function (req, res, next) {
   })
 })
 
-var uploadBase64FileToAzure = function (req, res, next) {
+var uploadBase64FileToDigitalOcean = function (req, res, next) {
   var validation = Types.File.validate(req.body)
 
   if (validation.valid === false) {
@@ -340,7 +347,15 @@ var uploadBase64FileToAzure = function (req, res, next) {
       contentEncoding: 'base64'
     }
   }
-  blobService.createBlockBlobFromText(azureContainerName, filename, fileBuffer, options, function (error, result, response) {
+
+  var params = {
+    Bucket: 'marketcloud',
+    Key: `${containerName}/${name}`,
+    Body: fileBuffer,
+    ACL: 'public-read',
+  };
+
+  s3.putObject(params, function(error, result) {
     if (error) {
       return next(error)
     }
@@ -355,9 +370,9 @@ var uploadBase64FileToAzure = function (req, res, next) {
       mime_type: contentType,
       application_id: req.client.application_id,
       original_filename: originalFileName,
-      filename: result.name,
+      filename: filename,
       name: req.body.name,
-      url: config.storage.azureStorageCDNBaseUrl + '/files/' + result.name,
+      url: 'https://marketcloud.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
       size: Buffer.byteLength(req.body.file, 'utf8'),
       created_at: new Date()
     })
@@ -386,7 +401,7 @@ var uploadBase64FileToAzure = function (req, res, next) {
           })
       })
       .catch(Utils.getSequelizeErrorHandler(req, res, next))
-  })
+  });
 }
 
 Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
@@ -394,7 +409,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
     // If the app is uploading a base64 encoded file as a string we use
     // the uploadBase64File handler
     if (req.body && req.body.hasOwnProperty('file')) {
-      return uploadBase64FileToAzure(req, res, next)
+      return uploadBase64FileToDigitalOcean(req, res, next)
     }
 
     // Otherwise we use Multer's middleware to upload files.
@@ -443,30 +458,39 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
       // In order to make new uploads of the same file return the new file, we must append some sort of timestamp
       filename += '-' + String(Date.now())
 
-      blobService.createBlockBlobFromLocalFile(azureContainerName,
-        filename,
-        req.file.path,
-        function (error, result, response) {
+      fs.readFile(req.file.path, function (err, data) {
+        if (err) throw err;
+
+        var params = {
+          Bucket: 'marketcloud',
+          Key: `${containerName}/${filename}`,
+          Body: data,
+          ACL: 'public-read',
+        };
+
+        s3.putObject(params, function(error, result) {
           if (error) {
-            console.log('An error has occurred while uploading file to Blob Storage')
-            fs.unlink(req.file.path, function (err) {
-              if (err) {
-                console.log('Unable to unlink file after upload error occurred')
-              }
-            })
             return next(error)
           }
 
-          console.log('Upload to Azure successful,', result)
+          var fileData = Utils.subsetInverse(req.body, ['file'])
 
-          var fileData = {
+          if (!fileData.access) {
+            fileData.access = 'public'
+          }
+
+          Utils.augment(fileData, {
             mime_type: req.file.mimetype,
             application_id: req.client.application_id,
-            original_filename: originalFilename,
-            name: result.name,
-            url: config.storage.azureStorageCDNBaseUrl + '/files/' + result.name,
-            size: req.file.size,
+            original_filename: filename,
+            filename: filename,
+            url: 'https://marketcloud.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+            size: Buffer.byteLength(data, 'utf8'),
             created_at: new Date()
+          })
+
+          if (req.client.user_id) {
+            fileData.user_id = req.client.user_id
           }
 
           sequelize
@@ -476,13 +500,8 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
             .then(function (id) {
               fileData.id = id[1]['0']['LAST_INSERT_ID()']
 
-              mongodb.collection('media').insert(fileData, function (err, doc) {
-                if (err) {
-                  return next(err)
-                }
-
-                // Now we remove the file
-                fs.unlink(req.file.path, function (err) {
+              mongodb.collection('media')
+                .insert(fileData, function (err, doc) {
                   if (err) {
                     return next(err)
                   }
@@ -492,10 +511,10 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
                     data: fileData
                   })
                 })
-              })
             })
             .catch(Utils.getSequelizeErrorHandler(req, res, next))
-        })
+        });
+      });
     })
   })
 

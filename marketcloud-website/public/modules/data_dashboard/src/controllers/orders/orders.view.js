@@ -5,6 +5,8 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
     scope.countries = countries
     // Data fetched by the resolve
     scope.order = order.data.data
+    scope.products = [];
+    scope.itemsToAdd = [];
 
     scope.addressToEdit = {}
 
@@ -36,6 +38,87 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
     scope.showEditAddressDialog = function (addressToEdit) {
       scope.addressToEdit = addressToEdit
       $('#editAddressModal').modal('show')
+    }
+
+    scope.onUpdateOrder = function () {
+      $marketcloud.orders.update(scope.order.id, scope.order)
+      .then(function (res) {
+        notie.alert(1, 'Order successfully updated', 1.5);
+        scope.order = res.data.data;
+        scope.addingProduct = false;
+        scope.editingOrder = false;
+      });
+    }
+
+    scope.editOrder = function () {
+      scope.editingOrder = true;
+    }
+
+    scope.onRemoveItemFromOrder = function (idx) {
+      console.log(idx);
+      var product = scope.order.products[idx];
+      notie.confirm('Are you sure you want to remove ' + product.name + '?', 'Yes, remove.', ' No.', function () {
+        scope.$apply(function() {
+          scope.order.items.splice(idx, 1);
+          scope.order.products.splice(idx, 1);
+        });
+      });
+    }
+
+    scope.query = {};
+
+    scope.onAddProduct = function () {
+      scope.addingProduct = true;
+    }
+
+    scope.onCloseAddingProduct = function () {
+      scope.addingProduct = false;
+    }
+
+    scope.prepareRegex = function() {
+      scope.query.name.$options = 'i'
+    }
+
+    scope.loadProducts = function(query) {
+      query = query || scope.query
+
+      $marketcloud.products.list(query)
+        .then(function(response) {
+          scope.products = response.data.data
+            .filter(function(item) {
+              return scope.itemsToAdd
+                .map(function(i) {
+                  return i.id
+                })
+                .indexOf(item.id) < 0
+            })
+        })
+        .catch(function(response) {
+          notie.alert(3, 'An error has occurred. Please try again')
+        })
+    }
+
+    scope.addProduct = function (product) {
+      product.quantity = 1;
+      scope.order.items.push({
+        product_id: product.id,
+        quantity: product.quantity,
+        variant_id: product.variant_id ? product.variant_id : null,
+      });
+      scope.order.products.push(product);
+      scope.query.name.$regex = '';
+      scope.products = [];
+    }
+
+    scope.showTheList = false
+    scope.showList = function() {
+      scope.showTheList = true
+    }
+    scope.hideList = function() {
+      window.setTimeout(function() {
+        scope.showTheList = false
+        scope.$apply()
+      }, 200)
     }
 
     scope.saveAddress = function () {
@@ -207,7 +290,7 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
       return temp
     }
 
-    delete scope.order['items']
+    // delete scope.order['items']
 
     scope.updateStatus = function (status) {
       scope.order.status = status

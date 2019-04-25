@@ -158,7 +158,7 @@
     $account.set(window.user);
 
     $rootScope.$on('$routeChangeStart', function(event, next, current){
-      
+
       var nextRouteName = next.$$route.name;
       var currentUserRole = $application.get("role");
 
@@ -171,10 +171,10 @@
       if (next.$$route.acl){
         var deniedRoles = next.$$route.acl.deny || [];
 
-        
+
         if (deniedRoles.indexOf(currentUserRole) > -1) {
           notie.alert(2,"Access restricted for users with role "+currentUserRole,2);
-          
+
           // We also hide the loading animation to prevent the view from
           // being hidden
           $rootScope.$evalAsync(function() {
@@ -189,7 +189,7 @@
           // Cancel the route change event
           event.preventDefault();
 
-        } 
+        }
 
       }
 
@@ -327,7 +327,7 @@
                   _from.setHours(0,0,0,0);
 
                   var _to = new Date();
-                  _to.setHours(0,0,0,0);          
+                  _to.setHours(0,0,0,0);
                 break;
                 case "this week":
                   var _from = new Date();
@@ -342,7 +342,7 @@
                 break;
               }
 
-              
+
 
               if (!_to)
                 _to = new Date();
@@ -357,7 +357,7 @@
             }]
           ,
           customers : ['$marketcloud','$location', function($marketcloud, $location) {
-             
+
 
             var range = $location.search().range || "this month";
 
@@ -375,7 +375,7 @@
                   _from.setHours(0,0,0,0);
 
                   var _to = new Date();
-                  _to.setHours(0,0,0,0);          
+                  _to.setHours(0,0,0,0);
                 break;
                 case "this week":
                   var _from = new Date();
@@ -390,7 +390,7 @@
                 break;
               }
 
-              
+
 
               if (!_to)
                 _to = new Date();
@@ -402,7 +402,7 @@
             })
           }],
           carts : ['$marketcloud','$location', function($marketcloud, $location) {
-             
+
 
             var range = $location.search().range || "this month";
 
@@ -420,7 +420,7 @@
                   _from.setHours(0,0,0,0);
 
                   var _to = new Date();
-                  _to.setHours(0,0,0,0);          
+                  _to.setHours(0,0,0,0);
                 break;
                 case "this week":
                   var _from = new Date();
@@ -435,7 +435,7 @@
                 break;
               }
 
-              
+
 
               if (!_to)
                 _to = new Date();
@@ -872,7 +872,7 @@
               return 'users';
             },
             dependencies: ['$q', function($q) {
-              
+
               return $q.when({});
 
             }]
@@ -907,7 +907,7 @@
               return 'categories';
             },
             dependencies: ['$q', function($q) {
-              
+
 
               return $q.when({});
             }]

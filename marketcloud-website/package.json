@@ -74,7 +74,8 @@
     "technology-icons": "git+https://github.com/Marketcloud/technology-icons.git",
     "trumbowyg": "^2.6.0",
     "trumbowyg-ng": "git+https://github.com/lizardK/trumbowyg-ng.git",
-    "typed.js": "^2.0.5"
+    "typed.js": "^2.0.5",
+    "webpack-stats-plugin": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",

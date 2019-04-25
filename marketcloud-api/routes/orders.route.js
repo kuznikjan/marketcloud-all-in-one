@@ -15,7 +15,9 @@ var Express = require('express'),
 const Attachments = require('../libs/templatetopdf')
 const azure = require('azure-storage')
 const config = require('../config/default.js')
-var blobService = azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
+
+// TODO: Currently we are not generating refunds.
+var blobService = 'asd';//  azure.createBlobService(config.storage.azureStorageAccountName, config.storage.azureStorageAccountAccessKey)
 
 // This values are used to filter the query
 var attributes = [
@@ -1092,52 +1094,159 @@ var orderController = {
       })
       return
     }
+    var newOrder = req.body
+    var updatingPromises = {}
 
-    // TODO add validation
-    var mongodb = req.app.get('mongodb')
+    var order = new OrderModel(req.body, {
+      sequelize: req.app.get('sequelize'),
+      mongodb: req.app.get('mongodb'),
+      client: req.client
+    })
 
-    mongodb.collection('orders')
-      .findAndModify({
-        application_id: req.client.application_id,
-        id: Number(req.params.orderId)
-      }, [], {
-        $set: req.body
-      }, {
-        'new': true
-      },
-      function (err, updated_order) {
-        if (err) {
-          return next(err)
-        }
+    // If updating items
+    if (req.body.items) {
+      var promises = {
+        products: order.populateItems(),
+        taxes: order.loadTaxes()
+      }
 
-        updated_order = updated_order.value
+      var orderContent = new Promise(function (resolve, reject) {
+        return Promise
+        .props(promises)
+        .then(function (response) {
+          var modifiedOrder = req.body
 
-        // If the update included a status update
-        // we might have to send a notification to the customer
-        // So we enqueue a notification
-        if (req.body.hasOwnProperty('status')) {
-          var queue = req.app.get('mail-queue')
+          modifiedOrder.products = response.products
+          modifiedOrder.taxes = response.taxes
 
-          var message = {
-            type: 'orders.update.' + req.body.status,
-            resource_id: Number(req.params.orderId),
-            application: req.client.application
+          modifiedOrder.items_total = modifiedOrder.products.map(x => {
+            // If the item is a variant, we must check the variant's
+            // price and price_discount
+            // A variant might not have a price
+            if (Utils.hasVariants(x) && x.variant.hasOwnProperty('price_discount')) {
+              return x.variant.price_discount * x.quantity
+            } else if (Utils.hasVariants(x) && x.variant.hasOwnProperty('price')) {
+              return x.variant.price * x.quantity
+            } else if (x.hasOwnProperty('price_discount')) {
+              return x.price_discount * x.quantity
+            } else {
+              return x.price * x.quantity
+            }
+          }).reduce((x, y) => x + y)
+
+          var taxAmount = 0
+          switch (req.client.application.tax_type) {
+            case 'nothing':
+
+              taxAmount = 0
+
+              break
+            case 'all':
+              var tax_for_shipping = 0
+              if (order.shipping) {
+                tax_for_shipping = Utils.getTotalTaxesForShipping(modifiedOrder, req.client.application)
+              }
+
+              var tax_for_products = Utils.getTotalTaxesForProducts(modifiedOrder, req.client.application)
+              taxAmount = tax_for_shipping + tax_for_products
+
+              break
+            case 'products_only':
+
+              taxAmount = Utils.getTotalTaxesForProducts(modifiedOrder, req.client.application)
+
+              break
+            case 'shipping_only':
+
+              var taxAmount = 0
+
+              if (req.order.shipping) {
+                taxAmount = Utils.getTotalTaxesForShipping(modifiedOrder, req.client.application)
+              }
+              break
+            default:
+              taxAmount = 0
+              break
           }
 
-          queue
-            .sendToQueue('marketcloud-mail', message)
-            .then(function () {
-              return console.log('Message (' + message.type + ') enqueued to Mail queue correctly')
-            }).catch(function (err) {
-              return console.log('Message was not enqueued to Mail service', err)
-            })
+          modifiedOrder.taxes_total = taxAmount
+          // Solving rounding issues
+          modifiedOrder.taxes_total = (Math.round(modifiedOrder.taxes_total * 100) / 100)
+
+          // TODO this will take in account discount, taxes, shipping etc....
+          // req.order.total = req.order.products.map(x => x.price * x.quantity).reduce((x, y) => x + y);
+
+          modifiedOrder.total = 0
+          modifiedOrder.total += modifiedOrder.items_total
+          modifiedOrder.total += modifiedOrder.taxes_total
+          modifiedOrder.total += modifiedOrder.shipping_total
+
+          resolve(modifiedOrder)
+        })
+        .catch(reject)
+      })
+      updatingPromises.orderContent = orderContent
+    }
+
+    Promise.props(updatingPromises)
+      .then((response) => {
+        if (response.orderContent) {
+          newOrder = response.orderContent
         }
 
-        res.send({
-          status: true,
-          data: updated_order
-        })
+        var mongodb = req.app.get('mongodb')
+        delete newOrder._id
+
+        mongodb.collection('orders')
+          .findAndModify({
+            application_id: req.client.application_id,
+            id: Number(req.params.orderId)
+          }, [], {
+            $set: newOrder
+          }, {
+            'new': true
+          },
+          function (err, updated_order) {
+            if (err) {
+              return next(err)
+            }
+
+            updated_order = updated_order.value
+
+            // If the update included a status update
+            // we might have to send a notification to the customer
+            // So we enqueue a notification
+            if (req.body.hasOwnProperty('status')) {
+              var queue = req.app.get('mail-queue')
+
+              var message = {
+                type: 'orders.update.' + req.body.status,
+                resource_id: Number(req.params.orderId),
+                application: req.client.application
+              }
+
+              queue
+                .sendToQueue('marketcloud-mail', message)
+                .then(function () {
+                  return console.log('Message (' + message.type + ') enqueued to Mail queue correctly')
+                }).catch(function (err) {
+                  return console.log('Message was not enqueued to Mail service', err)
+                })
+            }
+
+            res.send({
+              status: true,
+              data: updated_order
+            })
+          })
       })
+
+    // TODO: Create function to calculate product and order values
+
+    // prepareOrderCreation
+
+    // TODO add validation
+
   }
 }
 
