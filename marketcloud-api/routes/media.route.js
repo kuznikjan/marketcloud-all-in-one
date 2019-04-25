@@ -372,7 +372,7 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
       original_filename: originalFileName,
       filename: filename,
       name: req.body.name,
-      url: 'https://' + (process.env.DO_S3_SPACES_NAME || 'marketcloud-local') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+      url: 'https://marketcloud-' + (process.env.NODE_ENV || 'development') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
       size: Buffer.byteLength(req.body.file, 'utf8'),
       created_at: new Date()
     })
