@@ -44,6 +44,8 @@ services:
     hostname: marketcloud-mongodb-1
     image: mongo:latest
     env_file: .env
+    ports:
+      - '27017:27017'
     expose:
       - "27017"
     volumes:
@@ -76,7 +78,7 @@ services:
   #############################################################
   api:
     restart: unless-stopped
-    build: 
+    build:
       context: ../marketcloud-api
       dockerfile: Dockerfile
     ports:
@@ -94,7 +96,7 @@ services:
   #############################################################
   website:
     restart: unless-stopped
-    build: 
+    build:
       context: ../marketcloud-website
       dockerfile: Dockerfile
     ports:
@@ -111,7 +113,7 @@ services:
   #############################################################
   mailer-service:
     restart: unless-stopped
-    build: 
+    build:
       context: ../marketcloud-mailer
       dockerfile: Dockerfile
     env_file: .env
@@ -126,7 +128,7 @@ services:
   #############################################################
   webhooks-service:
     restart: unless-stopped
-    build: 
+    build:
       context: ../marketcloud-webhook-service
       dockerfile: Dockerfile
     env_file: .env
