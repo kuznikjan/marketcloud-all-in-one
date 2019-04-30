@@ -431,7 +431,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
           return next(new Errors.BadRequest(multerErrors[err.code]))
         } else {
           // Otherwise it is a generic error
-          return next(new Errors.BadRequest('Something is wrong with the file you are trying to upload. If you think this is a bug, please contact us at info@marketcloud.it'))
+          return next(new Errors.BadRequest('Something is wrong with the file you are trying to upload. If you think this is a bug, please contact us at info@marketcloud.studio404.net'))
         }
       }
 

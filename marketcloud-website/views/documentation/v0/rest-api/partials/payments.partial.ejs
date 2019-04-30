@@ -52,7 +52,7 @@
 <h5>Example request with custom payment method</h5>
 <pre><code class="bash">
 curl --request POST
-  --url http://api.marketcloud.it/v0/payments \
+  --url https://api.marketcloud.studio404.net/v0/payments \
   --header 'content-type: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{ payment_method_id" : 1234 ,   "order_id" : 123}'
@@ -61,7 +61,7 @@ curl --request POST
 <p>For further information see the <a class="link" href="/documentation/guides/integrations/stripe">integration page</a>.</p>
 <pre><code class="bash">
 curl --request POST
-  --url http://api.marketcloud.it/v0/payments \
+  --url https://api.marketcloud.studio404.net/v0/payments \
   --header 'content-type: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{ "method" : "Stripe" ,   "order_id" : 123, "source" : "token-from-stripe.js"}'
@@ -70,7 +70,7 @@ curl --request POST
 <p>For further information see the <a class="link" href="/documentation/guides/integrations/braintree">integration page</a>.</p>
 <pre><code class="bash">
 curl --request POST
-  --url http://api.marketcloud.it/v0/payments \
+  --url https://api.marketcloud.studio404.net/v0/payments \
   --header 'content-type: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{ "method" : "Braintree" ,   "order_id" : 123, "nonce" : "token-from-braintree.js"}'

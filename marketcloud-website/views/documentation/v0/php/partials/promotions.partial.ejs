@@ -3,7 +3,7 @@
 <!-- Promotions -->
       <h3 class="section-title"  id="promotions">Promotions</h3>
       <blockquote class="blockquote-warning">
-    <b>Warning</b><br/> This is a new feature, if you find some issue, please report at info@marketcloud.it.
+    <b>Warning</b><br/> This is a new feature, if you find some issue, please report at info@marketcloud.studio404.net.
     Also, note that you have to create promotions from the dashboard.
   </blockquote>
 
@@ -14,10 +14,10 @@
       <h5>Example request</h5>
         <pre><code class="php">//Retrieves a paginated list of promotions
 $query = array(
-  "active" => true 
+  "active" => true
 )
 Marketcloud\Promotions::get($query);
-      
+
       </code></pre>
 
 
@@ -54,9 +54,9 @@ Marketcloud\Promotions::get($query);
         <td>Boolean</td>
         <td>If false, the promotion can not be used by any order.</td>
       </tr>
-    
-     
-      
+
+
+
     </tbody>
   </table>
 </div>
@@ -83,8 +83,8 @@ Marketcloud\Promotions::get($query);
         <td>Number</td>
         <td>The value of the</td>
       </tr>
-       
-      
+
+
     </tbody>
   </table>
 </div>
@@ -112,14 +112,14 @@ Marketcloud\Promotions::get($query);
         <td>Number</td>
         <td>The value of the effect.</td>
       </tr>
-      
+
     </tbody>
   </table>
 </div>
 
       <h5>Example request</h5>
-        <pre><code class="php">//Creates a new promotion that grants 
-//free shipping on order with a cart value above 70$ 
+        <pre><code class="php">//Creates a new promotion that grants
+//free shipping on order with a cart value above 70$
 $promotion = array(
   "name" => "Free shipping above 70$",
   "conditions" => array(
@@ -192,7 +192,7 @@ Marketcloud\Promotions::getById($id);
           </tr>
         </thead>
         <tbody>
-          
+
           <tr>
             <td class="code">cart_id</td>
             <td>Integer</td>

@@ -11,7 +11,7 @@
 <a class="anchor" id="setBaseCurrency"></a>
 <h4 class="mt50">Set a base currency</h4>
 <p>Every application in Marketcloud has a base currency. This is the currency used when entering the price of your products and it is used as default when no currency is specified during checkout and when requesting information from the API. Most stores will do just fine with one single currency, but others will sell their products in other cuntries.
-To set your basic currency, <a class="link" href="https://www.marketcloud.it/applications">open your dashboard</a> and click on your app's backoffice. <br/>
+To set your basic currency, <a class="link" href="https://marketcloud.studio404.net/applications">open your dashboard</a> and click on your app's backoffice. <br/>
 Once your store's dashboard is loaded. click on <b>System > Settings > Basic information</b>, here you can find the currency section to set your base currency. Once you selected the basic currency for your store, remember to save your changes.
 </p>
 <blockquote class="blockquote-info"><b>Important</b><br/>The base currency is the one used internally to represent base prices. These basic values are then used to translate prices and fees in other currencies.</blockquote>
@@ -19,7 +19,7 @@ Once your store's dashboard is loaded. click on <b>System > Settings > Basic inf
 <a class="anchor" id="supportMultipleCurrencies"></a>
 <h4 class="mt50">Support multiple currencies</h4>
 <p>Sometimes one currency is not enough, maybe the store wants to sell products in another country which requires to show prices and in another currency. For this kind of situations you can add multiple currencies to your store.</p>
-<p>To add multiple currencies, <a class="link" href="https://www.marketcloud.it/applications">open your dashboard</a> and click on your app's backoffice. <br/>
+<p>To add multiple currencies, <a class="link" href="https://marketcloud.studio404.net/applications">open your dashboard</a> and click on your app's backoffice. <br/>
 Once your store's dashboard is loaded. click on <b>System > Localization > Currencies</b>, here you can find the currency section to add additional currencies for your store.
 <blockquote class="blockquote-warning"><b>Warning</b><br/>In order to be able to show prices in other currencies you must add each currency in this section with the most appropriate rate. We provide a <i>fetch rate</i> functionality that grabs the current value from various financial systems, but <b>this rate will not refresh automatically!</b></blockquote>
 </p>
@@ -34,7 +34,7 @@ Once your store's dashboard is loaded. click on <b>System > Localization > Curre
 <p>Once we added both base and additional currencies in our store we are ready to display our products prices in the correct currency.</p>
 <p>Retrieving products in a particular currency is as easy as setting a GET parameter named <code>currency</code> and setting it to one of the supported currency codes.</p>
 <p>Suppose we want to retrieve our products and our customer selected US Dollars as currency, all we have to do to show converted prices is:</p>
-<pre><code class="bash">curl -XGET https://api.marketcloud.it/v0/products?currency=USD</code></pre>
+<pre><code class="bash">curl -XGET https://marketcloud.studio404.net/api/v0/products?currency=USD</code></pre>
 
 <blockquote class="blockquote-info">
 <b>Info</b>
@@ -107,7 +107,7 @@ Once your store's dashboard is loaded. click on <b>System > Localization > Curre
   "display_items_total": "15 EUR",
   "display_total": "29.3 EUR"
 }
-    
+
   </code>
 </pre>
 

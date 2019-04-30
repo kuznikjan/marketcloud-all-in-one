@@ -164,7 +164,7 @@ Errors.EntityTooLarge = function (message) {
   let e = {
     'code': 413,
     'type': 'EntityTooLarge',
-    'message': 'The request entity is too large to be processed. Please review the documentation at www.marketcloud.it for more information.'
+    'message': 'The request entity is too large to be processed. Please review the documentation at www.marketcloud.studio404.net for more information.'
   }
   if (typeof message !== 'undefined') { e.message = message }
 

@@ -11,87 +11,87 @@ router.get('/', function(req, res, next) {
   res.send({
     "name": "Marketcloud Storefront API v0",
     "version": package.version,
-    "documentation": "https://www.marketcloud.it/documentation",
+    "documentation": "https://marketcloud.studio404.net/documentation",
     "resources": {
       "addresses": {
-        url: "https://api.marketcloud.it/v0/addresses",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/addresses",
+        url: "https://marketcloud.studio404.net/api/v0/addresses",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/addresses",
       },
       "application": {
-        url: "https://api.marketcloud.it/v0/application",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/application"
+        url: "https://marketcloud.studio404.net/api/v0/application",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/application"
       },
       "brands": {
-        url: "https://api.marketcloud.it/v0/brands",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/brands"
+        url: "https://marketcloud.studio404.net/api/v0/brands",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/brands"
       },
       "carts": {
-        url: "https://api.marketcloud.it/v0/carts",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/carts"
+        url: "https://marketcloud.studio404.net/api/v0/carts",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/carts"
       },
       "categories": {
-        url: "https://api.marketcloud.it/v0/categories",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/categories"
+        url: "https://marketcloud.studio404.net/api/v0/categories",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/categories"
       },
       "collections": {
-        url: "https://api.marketcloud.it/v0/collections",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/collections"
+        url: "https://marketcloud.studio404.net/api/v0/collections",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/collections"
       },
       "contents": {
-        url: "https://api.marketcloud.it/v0/contents",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/contents"
+        url: "https://marketcloud.studio404.net/api/v0/contents",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/contents"
       },
       "coupons": {
-        url: "https://api.marketcloud.it/v0/coupons",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/coupons"
+        url: "https://marketcloud.studio404.net/api/v0/coupons",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/coupons"
       },
       "invoices": {
-        url: "https://api.marketcloud.it/v0/invoices",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/invoices"
+        url: "https://marketcloud.studio404.net/api/v0/invoices",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/invoices"
       },
       "files": {
-        url: "https://api.marketcloud.it/v0/files",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/files"
+        url: "https://marketcloud.studio404.net/api/v0/files",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/files"
       },
       "orders": {
-        url: "https://api.marketcloud.it/v0/orders",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/orders"
+        url: "https://marketcloud.studio404.net/api/v0/orders",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/orders"
       },
       "paymentMethods": {
-        url: "https://api.marketcloud.it/v0/paymentMethods",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/paymentMethods"
+        url: "https://marketcloud.studio404.net/api/v0/paymentMethods",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/paymentMethods"
       },
       "products": {
-        url: "https://api.marketcloud.it/v0/products",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/products"
+        url: "https://marketcloud.studio404.net/api/v0/products",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/products"
       },
       "promotions": {
-        url: "https://api.marketcloud.it/v0/promotions",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/promotions"
+        url: "https://marketcloud.studio404.net/api/v0/promotions",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/promotions"
       },
       "shippings": {
-        url: "https://api.marketcloud.it/v0/shippings",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/shippings"
+        url: "https://marketcloud.studio404.net/api/v0/shippings",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/shippings"
       },
       "stores": {
-        url: "https://api.marketcloud.it/v0/stores",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/stores"
+        url: "https://marketcloud.studio404.net/api/v0/stores",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/stores"
       },
       "taxes": {
-        url: "https://api.marketcloud.it/v0/taxes",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/taxes"
+        url: "https://marketcloud.studio404.net/api/v0/taxes",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/taxes"
       },
       "tokens": {
-        url: "https://api.marketcloud.it/v0/tokens",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/tokens"
+        url: "https://marketcloud.studio404.net/api/v0/tokens",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/tokens"
       },
       "users": {
-        url: "https://api.marketcloud.it/v0/users",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/users"
+        url: "https://marketcloud.studio404.net/api/v0/users",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/users"
       },
       "variables": {
-        url: "https://api.marketcloud.it/v0/variables",
-        documentation: "https://www.marketcloud.it/documentation/rest-api/variables"
+        url: "https://marketcloud.studio404.net/api/v0/variables",
+        documentation: "https://marketcloud.studio404.net/documentation/rest-api/variables"
       },
     }
   });

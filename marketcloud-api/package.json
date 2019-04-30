@@ -1,11 +1,11 @@
 {
   "name": "marketcloud-api-v0",
   "description": "Marketcloud API server. This node application implements our REST api server. Will be eventually deprecated in favor of a microservice oriented architecture.",
-  "homepage": "https://api.marketcloud.it",
+  "homepage": "https://api.marketcloud.studio404.net",
   "author": "Herapi SRLS",
   "contributors": [
-    "Mattia Alfieri <m.alfieri@marketcloud.it>",
-    "Simone Imbrescia <s.imbrescia@marketcloud.it>"
+    "Mattia Alfieri <m.alfieri@marketcloud.studio404.net>",
+    "Simone Imbrescia <s.imbrescia@marketcloud.studio404.net>"
   ],
   "version": "0.18.17",
   "private": true,

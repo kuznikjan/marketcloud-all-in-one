@@ -1,6 +1,6 @@
 # Marketcloud all in one
 
-This is the open source version of the discontinued backend as a service [marketcloud](http://www.marketcloud.it)
+This is the open source version of the discontinued backend as a service [marketcloud](https://marketcloud.studio404.net)
 
 ## Roadmap
 

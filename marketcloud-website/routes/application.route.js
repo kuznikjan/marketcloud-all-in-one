@@ -109,7 +109,7 @@ function sendMail(config) {
     var compiled_template = ejs.render(template, config.context)
     var email_config = {
       to: config.to,
-      from: 'info@marketcloud.it',
+      from: 'info@marketcloud.studio404.net',
       fromname: 'Marketcloud',
       subject: config.subject || 'Your Marketcloud Account',
       text: compiled_template,
@@ -698,9 +698,9 @@ router.get('/:applicationId/dashboard', function(req, res, next) {
     }
 
     var sql = ''
-    
+
     sql = 'SELECT * FROM applications as app WHERE app.owner = ? AND (app.status = \'active\' OR app.status = \'exceeded_quota\'); SELECT * FROM applications as app JOIN collaborators AS coll ON coll.application_id = app.id WHERE coll.email = ?;'
-    
+
     connection.query(sql, [req.session.user.email, req.session.user.email],
       function(err, data) {
         connection.release()
@@ -765,7 +765,7 @@ router.get('/:applicationId/dashboard', function(req, res, next) {
               // The 2.x.x branch dashboard name
               if (app_data.storm_version[0] === "2")
                 template_name = "storm"
-              
+
 
               res.render('data_dashboard/'+template_name, {
                 token: response.body.token,

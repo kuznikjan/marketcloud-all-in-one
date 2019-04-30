@@ -3,7 +3,7 @@
 <!-- Promotions -->
       <h3 class="section-title"  id="promotions">Promotions</h3>
       <blockquote class="blockquote-warning">
-    <b>Warning</b><br/> This is a new feature, if you find some issue, please report at info@marketcloud.it.
+    <b>Warning</b><br/> This is a new feature, if you find some issue, please report at info@marketcloud.studio404.net.
     Also, note that you have to create promotions from the dashboard.
   </blockquote>
 
@@ -50,9 +50,9 @@ marketcloud.promotions.get({"active" : true});
         <td>Boolean</td>
         <td>If false, the promotion can not be used by any order.</td>
       </tr>
-    
-     
-      
+
+
+
     </tbody>
   </table>
 </div>
@@ -79,8 +79,8 @@ marketcloud.promotions.get({"active" : true});
         <td>Number</td>
         <td>The value of the</td>
       </tr>
-       
-      
+
+
     </tbody>
   </table>
 </div>
@@ -108,14 +108,14 @@ marketcloud.promotions.get({"active" : true});
         <td>Number</td>
         <td>The value of the effect.</td>
       </tr>
-      
+
     </tbody>
   </table>
 </div>
 
       <h5>Example request</h5>
-        <pre><code class="javascript">//Creates a new promotion that grants 
-//free shipping on order with a cart value above 70$ 
+        <pre><code class="javascript">//Creates a new promotion that grants
+//free shipping on order with a cart value above 70$
 var newPromotion = {
   name : "Free shipping above 70$",
   conditions : [
@@ -127,8 +127,8 @@ var newPromotion = {
 }
 marketcloud.promotions.create(newPromotion);
 
-//Creates a new promotion that grants 
-//10% discount on each item on orders with a cart value above 70$ 
+//Creates a new promotion that grants
+//10% discount on each item on orders with a cart value above 70$
 var newPromotion = {
   name : "10% discount above 70$",
   conditions : [
@@ -141,8 +141,8 @@ var newPromotion = {
 marketcloud.promotions.create(newPromotion);
 
 
-//Creates a new promotion that grants 
-//10$ discount  on orders with a cart value above 70$ 
+//Creates a new promotion that grants
+//10$ discount  on orders with a cart value above 70$
 var newPromotion = {
   name : "10$ discount above 70$",
   conditions : [
@@ -204,7 +204,7 @@ marketcloud.promotions.getById(123);
           </tr>
         </thead>
         <tbody>
-          
+
           <tr>
             <td class="code">cart_id</td>
             <td>Integer</td>
