@@ -4,7 +4,7 @@
     "app.bundle.js from UglifyJs\nSide effects in initialization of unused variable modules [./public/modules/data_dashboard/main.js:10,4]\nDropping unused variable removeImage [./public/modules/data_dashboard/src/components/imageSelector/imageSelector.component.js:181,6]\nSide effects in initialization of unused variable current_app_id [./public/modules/data_dashboard/src/components/sidebar/sidebar.component.js:55,10]\nDropping unused variable ctrl [./public/modules/data_dashboard/src/components/sortingSelector/sortingSelector.component.js:9,8]\nDropping unused variable validateCard [./public/modules/data_dashboard/src/controllers/application/billing.controller.js:53,8]\nDropping unused function getNextMonth [./public/modules/data_dashboard/src/controllers/application/overview.controller.js:25,13]\nDropping unused variable getResourceNameFromPath [./public/modules/data_dashboard/src/controllers/home.js:14,8]\nDropping unused variable formatted [./public/modules/data_dashboard/src/controllers/media.list.js:25,10]\nDropping unused function noop [./public/modules/data_dashboard/src/controllers/products/products.list.js:522,15]\nDropping unused function noop2 [./public/modules/data_dashboard/src/controllers/products/products.list.js:524,15]\nDropping unused variable variantNames [./public/modules/data_dashboard/src/controllers/products/products.list.js:309,14]\nDropping unused variable invalidItemIndex [./public/modules/data_dashboard/src/controllers/products/products.list.js:441,10]\nDropping unused function transformVariantObject [./public/modules/data_dashboard/src/controllers/products/productsWithVariants.new.js:278,15]\nDropping unused function getArrayOfVariants [./public/modules/data_dashboard/src/controllers/products/productsWithVariants.new.js:291,15]\nSide effects in initialization of unused variable element [./public/modules/data_dashboard/src/controllers/products/simpleProduct.edit.js:140,16]\nDropping unused variable controller [./public/modules/data_dashboard/src/controllers/shippingMethods/shipping.edit.js:2,4]\nSide effects in initialization of unused variable current_app_id [./public/modules/data_dashboard/src/controllers/sidebar.js:28,10]\nDropping unused variable props_to_translate [./public/modules/data_dashboard/src/controllers/translations.js:64,6]\nDropping unused variable _upperCase [./public/modules/data_dashboard/src/directives/avatar.directive.js:57,20]\nDropping unused function getAllTrueProfile [./public/modules/data_dashboard/src/factories/rolesPresets.factory.js:14,13]\nDropping unused function attachTableManagerFunctions [./public/modules/data_dashboard/src/factories/tableManager.factory.js:21,13]\nDropping unreachable code [./public/modules/data_dashboard/src/factories/validation.service.js:78,8]\nDropping unreachable code [./public/modules/data_dashboard/src/factories/validation.service.js:82,8]"
   ],
   "version": "1.15.0",
-  "hash": "f9486a2820ccffba246a",
+  "hash": "09943ab16128131d41b9",
   "publicPath": "",
   "assetsByChunkName": {
     "main": [
@@ -15,7 +15,7 @@
   "assets": [
     {
       "name": "app.bundle.js",
-      "size": 347750,
+      "size": 348713,
       "chunks": [
         0
       ],
@@ -25,7 +25,7 @@
     },
     {
       "name": "app.bundle.map",
-      "size": 1468467,
+      "size": 1472343,
       "chunks": [
         0
       ],
@@ -41,7 +41,7 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 513973,
+      "size": 515289,
       "names": [
         "main"
       ],
@@ -49,7 +49,7 @@
         "app.bundle.js",
         "app.bundle.map"
       ],
-      "hash": "257f2b3ccf54145f4b04",
+      "hash": "4505e0b69f8cc8fcec80",
       "parents": [],
       "origins": [
         {
@@ -1891,7 +1891,7 @@
       "name": "./public/modules/data_dashboard/src/controllers/contents/content.new.js",
       "index": 59,
       "index2": 57,
-      "size": 2073,
+      "size": 3389,
       "cacheable": true,
       "built": true,
       "optional": true,
@@ -1914,7 +1914,7 @@
           "userRequest": "./controllers/contents/content.new.js"
         }
       ],
-      "source": "'use strict';\n\nvar app = angular.module('DataDashboard');\napp.controller('ContentController', ['$scope', '$http', '$location', '$marketcloud', '$utils', '$validation', '$models', '$account', function (scope, http, location, $marketcloud, $utils, $validation, $models, $account) {\n\n  scope.content = {\n    title: '',\n    slug: '',\n    text: '',\n    published: false,\n    author: {\n      name: $account.get('full_name'),\n      description: '',\n      images: [$account.get('image_url')]\n\n    },\n    seo: {\n      meta: {},\n      twitter: {},\n      facebook: {}\n    }\n  };\n\n  scope.customPropertiesData = {};\n\n  // This method must be implemented in order to\n  // make the media manager work\n  scope.getImagesContainer = function () {\n    return scope.content.author.images;\n  };\n\n  scope.removeImage = function (i) {\n    scope.content.author.images.splice(i, 1);\n  };\n\n  // This function is invoked when a seo property\n  // changes.\n  scope.computeSeoTags = function () {};\n\n  scope.unsafeSlug = false;\n  scope.updateSlug = function () {\n    scope.content.slug = $utils.getSlugFromString(scope.content.title);\n  };\n  scope.saveContent = function () {\n    for (var k in scope.customPropertiesData) {\n      scope.content[k] = scope.customPropertiesData[k];\n    }\n    console.log(\"Salvo questo\", scope.content);\n    $validation.hideErrors();\n    $marketcloud.contents.save(scope.content).then(function (response) {\n      // title text author\n      notie.alert(1, 'Content saved', 2);\n      location.path('/contents');\n    }).catch(function (response) {\n\n      if (response.status === 400) {\n        notie.alert(2, 'The data you entered has some errors', 1.5);\n\n        var validation = response.data.errors[0];\n        var selector = '[ng-model=\"content.' + validation.invalidPropertyName + '\"]';\n\n        if (angular.element(selector).length === 0) selector = '[validate-for=\"' + validation.invalidPropertyName + '\"]';\n\n        $validation.showErrorMessage(validation, $models.Content.schema, selector);\n      } else notie.alert(3, 'An error has occurred.', 2);\n    });\n  };\n}]);"
+      "source": "'use strict';\n\nvar app = angular.module('DataDashboard');\napp.controller('ContentController', ['$scope', '$http', '$location', '$marketcloud', '$utils', '$validation', '$models', '$account', function (scope, http, location, $marketcloud, $utils, $validation, $models, $account) {\n\n  scope.content = {\n    title: '',\n    slug: '',\n    text: '',\n    published: false,\n    items: [],\n    author: {\n      name: $account.get('full_name'),\n      description: '',\n      images: [$account.get('image_url')]\n\n    },\n    seo: {\n      meta: {},\n      twitter: {},\n      facebook: {}\n    }\n  };\n\n  scope.products = [];\n  scope.itemsToAdd = [];\n\n  scope.selectedProducts = [];\n\n  scope.customPropertiesData = {};\n\n  // This method must be implemented in order to\n  // make the media manager work\n  scope.getImagesContainer = function () {\n    return scope.content.author.images;\n  };\n\n  scope.removeImage = function (i) {\n    scope.content.author.images.splice(i, 1);\n  };\n\n  // This function is invoked when a seo property\n  // changes.\n  scope.computeSeoTags = function () {};\n\n  scope.addProduct = function (product) {\n    product.quantity = 1;\n\n    scope.selectedProducts.push(product);\n\n    console.log(scope.selectedProducts);\n\n    scope.query.name.$regex = '';\n    scope.products = [];\n  };\n\n  scope.showTheList = false;\n  scope.showList = function () {\n    scope.showTheList = true;\n  };\n\n  scope.hideList = function () {\n    window.setTimeout(function () {\n      scope.showTheList = false;\n      scope.$apply();\n    }, 200);\n  };\n\n  scope.loadProducts = function (query) {\n    query = query || scope.query;\n\n    $marketcloud.products.list(query).then(function (response) {\n      scope.products = response.data.data.filter(function (item) {\n        return scope.itemsToAdd.map(function (i) {\n          return i.id;\n        }).indexOf(item.id) < 0;\n      });\n    }).catch(function (response) {\n      notie.alert(3, 'An error has occurred. Please try again');\n    });\n  };\n\n  scope.unsafeSlug = false;\n  scope.updateSlug = function () {\n    scope.content.slug = $utils.getSlugFromString(scope.content.title);\n  };\n  scope.saveContent = function () {\n    for (var k in scope.customPropertiesData) {\n      scope.content[k] = scope.customPropertiesData[k];\n    }\n\n    var products = '';\n    scope.selectedProducts.map(function (prod) {\n      return prod.id;\n    }).forEach(function (product, idx) {\n      products += product;\n\n      if (idx < scope.selectedProducts.length - 1) {\n        products += ',';\n      }\n    });\n\n    if (products.length > 0) {\n      scope.content.items = products;\n    }\n\n    console.log(scope.content);\n\n    $validation.hideErrors();\n    $marketcloud.contents.save(scope.content).then(function (response) {\n      // title text author\n      notie.alert(1, 'Content saved', 2);\n      location.path('/contents');\n    }).catch(function (response) {\n\n      if (response.status === 400) {\n        notie.alert(2, 'The data you entered has some errors', 1.5);\n\n        var validation = response.data.errors[0];\n        var selector = '[ng-model=\"content.' + validation.invalidPropertyName + '\"]';\n\n        if (angular.element(selector).length === 0) selector = '[validate-for=\"' + validation.invalidPropertyName + '\"]';\n\n        $validation.showErrorMessage(validation, $models.Content.schema, selector);\n      } else notie.alert(3, 'An error has occurred.', 2);\n    });\n  };\n}]);"
     },
     {
       "id": 60,
