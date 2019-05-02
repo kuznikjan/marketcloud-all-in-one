@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      
+
       <tr>
         <td class="code">id</td>
         <td>Number</td>
@@ -66,7 +66,7 @@
           <div class="documentation">
             <h3>POST /categories</h3>
             <p >Creates a new Category.</p>
-            <pre><code class="http">POST https://api.marketcloud.it/v0/categories</code></pre>
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/categories</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead>
@@ -114,22 +114,22 @@
     id:10,
     name: "Brewery",
     description: "Find the best breweries in the world and taste their amazing beers.",
-    image_url: "http://media.marketcloud.it/v0/",
+    image_url: "http://media.marketcloud.studio404.net/v0/",
     url: "Brewery"
   },
   links : {
-    self : "https://api.marketcloud.it/v0/categories/10"
+    self : "https://api.marketcloud.studio404.net/v0/categories/10"
   }
-}</code></pre>              
+}</code></pre>
               </div>
-<!-- / CATEGORY CREATE -->            
+<!-- / CATEGORY CREATE -->
 
 <!-- CATEGORY LIST -->
             <a class="anchor" id="categories.list"></a>
             <div class="documentation">
             <h3>GET /categories</h3>
             <p >Retrieves a list of categories from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/categories</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/categories</code></pre>
             <h5>Request parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -178,15 +178,15 @@
       id:9,
       name: "Wine",
       description: "Find and taste the best wine in the world.",
-      image_url: "http://media.marketcloud.it/v0/",
+      image_url: "http://media.marketcloud.studio404.net/v0/",
       url: "wine"
     },
     links : {
-      first : 'https://api.marketcloud.it/v0/categories/9',
-      last : 'https://api.marketcloud.it/v0/categories/10',
-      self : 'https://api.marketcloud.it/v0/categories/9',
+      first : 'https://api.marketcloud.studio404.net/v0/categories/9',
+      last : 'https://api.marketcloud.studio404.net/v0/categories/10',
+      self : 'https://api.marketcloud.studio404.net/v0/categories/9',
       prev : null,
-      next : 'https://api.marketcloud.it/v0/categories/10'
+      next : 'https://api.marketcloud.studio404.net/v0/categories/10'
     }
 
   },{
@@ -194,28 +194,28 @@
       id:10,
       name: "Brewery",
       description: "Find the best breweries in the world and taste their amazing beers.",
-      image_url: "http://media.marketcloud.it/v0/",
+      image_url: "http://media.marketcloud.studio404.net/v0/",
       url: "Brewery"
     }
     links : {
-      first : 'https://api.marketcloud.it/v0/categories/9',
-      last : 'https://api.marketcloud.it/v0/categories/10',
-      self : 'https://api.marketcloud.it/v0/categories/10',
-      prev : 'https://api.marketcloud.it/v0/categories/9'
+      first : 'https://api.marketcloud.studio404.net/v0/categories/9',
+      last : 'https://api.marketcloud.studio404.net/v0/categories/10',
+      self : 'https://api.marketcloud.studio404.net/v0/categories/10',
+      prev : 'https://api.marketcloud.studio404.net/v0/categories/9'
       next : null
     }
   }
   ]
-}</code></pre>              
+}</code></pre>
 
             </div>
-<!-- / CATEGORY LIST -->            
+<!-- / CATEGORY LIST -->
 <!-- CATEGORY GET BY ID -->
             <a class="anchor" id="categories.getbyid"></a>
             <div class="documentation">
             <h3>GET /categories/:id</h3>
             <p >Retrieve a specific category given its id.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/categories/:id;</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/categories/:id;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -250,13 +250,13 @@
     id:9,
     name: "Wine",
     description: "Find and taste the best wine in the world.",
-    image_url: "http://media.marketcloud.it/v0/",
+    image_url: "http://media.marketcloud.studio404.net/v0/",
     url: "wine"
   },
   links : {
-    self : "https://api.marketcloud.it/v0/categories/9"
+    self : "https://api.marketcloud.studio404.net/v0/categories/9"
   }
-}</code></pre>              
+}</code></pre>
               </div>
             </div>
 <!-- / CATEGORY GET BY ID -->
@@ -265,7 +265,7 @@
         <div class="documentation">
             <h3>PUT /categories/:id</h3>
             <p >Updates a category given an id. Returns the updated category.</p>
-            <pre><code class="http">PUT https://api.marketcloud.it/v0/categories/:id;</code></pre>
+            <pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/categories/:id;</code></pre>
             <h5>Parameters</h5>
             <p>See <a href="#categories.create" class="link">POST /categories</a></p>
             <h5>Example Request</h5>
@@ -278,27 +278,27 @@
     id:9,
     name: "Wine Company",
     description: "Find and taste the best wine in the world.",
-    image_url: "http://media.marketcloud.it/v0/",
+    image_url: "http://media.marketcloud.studio404.net/v0/",
     url: "wine"
   },
   links : {
-    self : "https://api.marketcloud.it/v0/categories/9"
+    self : "https://api.marketcloud.studio404.net/v0/categories/9"
   }
-}</code></pre>            
-            </div>  
+}</code></pre>
+            </div>
 <!-- / CATEGORY UPDATE BY ID -->
 <!-- CATEGORY DELETE BY ID -->
         <a class="anchor" id="categories.delete"></a>
         <div class="documentation">
             <h3>DELETE /categories/:id</h3>
             <p >Deletes a specific category given its id.</p>
-            <pre><code class="http">DELETE https://api.marketcloud.it/v0/categories/:id;</code></pre>
+            <pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/categories/:id;</code></pre>
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/categories/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
   status:true
-}</code></pre>    
-</div>              
+}</code></pre>
+</div>
 <!-- / CATEGORY DELETE BY ID -->

@@ -9,18 +9,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -42,7 +42,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										
+
 										<tr>
 											<td class="code">id</td>
 											<td>Number</td>
@@ -73,7 +73,7 @@
 					<div class="documentation">
 						<h3>POST /taxes</h3>
 						<p class="lead">Creates a new Tax.</p>
-						<pre class="code http-call">POST http://api.marketcloud.it/v0/taxes</pre>
+						<pre class="code http-call">POST https://api.marketcloud.studio404.net/v0/taxes</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -84,7 +84,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										
+
 										<tr>
 											<td class="code">name <span  class="label label-success">Required</span></td>
 											<td>String</td>
@@ -114,17 +114,17 @@
 		description: "To be applied for first use goods (food, press...)"
 	},
 	links : {
-		self : "http://api.marketcloud.it/v0/taxes/10"
+		self : "https://api.marketcloud.studio404.net/v0/taxes/10"
 	}
-}</pre>								
+}</pre>
 							</div>
-<!-- / TAX CREATE -->						
+<!-- / TAX CREATE -->
 
 <!-- TAX LIST -->
 						<div class="documentation">
 						<h3>GET /taxes</h3>
 						<p class="lead">Retrieves a paginated response of a list of taxes from your application.</p>
-						<pre class="code http-call">GET http://api.marketcloud.it/v0/taxes</pre>
+						<pre class="code http-call">GET https://api.marketcloud.studio404.net/v0/taxes</pre>
 						<h5>Request parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -165,11 +165,11 @@
 			description: "To be applied when other VAT does not apply"
 		},
 		links : {
-				first : 'http://api.marketcloud.it/v0/taxes/9',
-				last : 'http://api.marketcloud.it/v0/taxes/10',
-				self : 'http://api.marketcloud.it/v0/taxes/9',
+				first : 'https://api.marketcloud.studio404.net/v0/taxes/9',
+				last : 'https://api.marketcloud.studio404.net/v0/taxes/10',
+				self : 'https://api.marketcloud.studio404.net/v0/taxes/9',
 				prev : null,
-				next : 'http://api.marketcloud.it/v0/taxes/10'
+				next : 'https://api.marketcloud.studio404.net/v0/taxes/10'
 		}
 
 	},{
@@ -179,23 +179,23 @@
 			description: "To be applied for first use goods (food, press...)"
 		},
 		links : {
-				first : 'http://api.marketcloud.it/v0/taxes/9',
-				last : 'http://api.marketcloud.it/v0/taxes/10',
-				self : 'http://api.marketcloud.it/v0/taxes/10',
-				prev : 'http://api.marketcloud.it/v0/taxes/9'
+				first : 'https://api.marketcloud.studio404.net/v0/taxes/9',
+				last : 'https://api.marketcloud.studio404.net/v0/taxes/10',
+				self : 'https://api.marketcloud.studio404.net/v0/taxes/10',
+				prev : 'https://api.marketcloud.studio404.net/v0/taxes/9'
 				next : null
 		}
 	}
 	]
-}</pre>								
+}</pre>
 
 						</div>
-<!-- / TAX LIST -->						
+<!-- / TAX LIST -->
 <!-- TAX GET BY ID -->
 						<div class="documentation">
 						<h3>GET /taxes/:id</h3>
 						<p class="lead">Retrieve a specific tax given its id.</p>
-						<pre class="code http-call">GET http://api.marketcloud.it/v0/taxes/:id;</pre>
+						<pre class="code http-call">GET https://api.marketcloud.studio404.net/v0/taxes/:id;</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -227,9 +227,9 @@
 			description: "To be applied when other VAT does not apply"
 		},
 	links : {
-		self : "http://api.marketcloud.it/v0/taxes/9"
+		self : "https://api.marketcloud.studio404.net/v0/taxes/9"
 	}
-}</pre>								
+}</pre>
 							</div>
 						</div>
 <!-- / TAX GET BY ID -->
@@ -237,7 +237,7 @@
 				<div class="documentation">
 						<h3>PUT /taxes/:id</h3>
 						<p class="lead">Updates a tax given an id. Returns the updated tax.</p>
-						<pre class="code http-call">PUT http://api.marketcloud.it/v0/taxes/:id;</pre>
+						<pre class="code http-call">PUT https://api.marketcloud.studio404.net/v0/taxes/:id;</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -272,26 +272,26 @@
 			description: "To be applied when other VAT does not apply"
 		},
 	links : {
-		self : "http://api.marketcloud.it/v0/taxes/3"
+		self : "https://api.marketcloud.studio404.net/v0/taxes/3"
 	}
-}</pre>							
-						</div>	
+}</pre>
+						</div>
 <!-- / TAX UPDATE BY ID -->
 <!-- TAX DELETE BY ID -->
 				<div class="documentation">
 						<h3>DELETE /taxes/:id</h3>
 						<p class="lead">Deletes a specific tax given its id.</p>
-						<pre class="code http-call">DELETE https://api.marketcloud.it/v0/taxes/:id;</pre>
+						<pre class="code http-call">DELETE https://api.marketcloud.studio404.net/v0/taxes/:id;</pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/carts/update.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre class="code prettyprint" >
 {
 	status:true
-}</pre>			
-</div>							
+}</pre>
+</div>
 <!-- / TAX DELETE BY ID -->
-       
+
         </div>
       </div>
 </div>

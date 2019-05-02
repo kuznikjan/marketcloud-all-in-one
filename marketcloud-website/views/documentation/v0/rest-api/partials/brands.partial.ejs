@@ -58,7 +58,7 @@
           <div class="documentation">
             <h3>POST /brands</h3>
             <p >Creates a new Brand. </p>
-            <pre><code class="http">POST https://api.marketcloud.it/v0/brands</code></pre>
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/brands</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -95,11 +95,11 @@
     id:3,
     name: "Paulaner",
     url: "Paulaner-Beer",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     description: "Paulaner is a German brewery, established in 1634 in Munich by ..."
     }
   links : {
-    self : "https://api.marketcloud.it/v0/brands/3"
+    self : "https://api.marketcloud.studio404.net/v0/brands/3"
   }
 }</code></pre>
               </div>
@@ -110,7 +110,7 @@
             <div class="documentation">
             <h3>GET /brands</h3>
             <p >Retrieves a list of brands from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">paging information</a>.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/brands</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/brands</code></pre>
             <h5>Request parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -154,15 +154,15 @@
       id:1,
       name: "Guinness",
       url: "Guinness-Beer",
-      img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+      img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
       description: "Guinness is an Irish dry stout that originated in the brewery of Arthur Guinness..."
     },
     links : {
-        first : 'https://api.marketcloud.it/v0/brands/1',
-        last : 'https://api.marketcloud.it/v0/brands/3',
-        self : 'https://api.marketcloud.it/v0/brands/1',
+        first : 'https://api.marketcloud.studio404.net/v0/brands/1',
+        last : 'https://api.marketcloud.studio404.net/v0/brands/3',
+        self : 'https://api.marketcloud.studio404.net/v0/brands/1',
         prev : null,
-        next : 'https://api.marketcloud.it/v0/brands/3'
+        next : 'https://api.marketcloud.studio404.net/v0/brands/3'
     }
 
   },
@@ -171,14 +171,14 @@
         id:3,
         name: "Paulaner",
         url: "Paulaner-Beer",
-        img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+        img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
         description: "Paulaner is a German brewery, established in 1634 in Munich by..."
       },
       links : {
-        first : 'https://api.marketcloud.it/v0/brands/1',
-        last : 'https://api.marketcloud.it/v0/brands/3',
-        self : 'https://api.marketcloud.it/v0/brands/3',
-        prev : 'https://api.marketcloud.it/v0/brands/1',
+        first : 'https://api.marketcloud.studio404.net/v0/brands/1',
+        last : 'https://api.marketcloud.studio404.net/v0/brands/3',
+        self : 'https://api.marketcloud.studio404.net/v0/brands/3',
+        prev : 'https://api.marketcloud.studio404.net/v0/brands/1',
         next : null
 
       }
@@ -193,7 +193,7 @@
             <div class="documentation">
             <h3>GET /brands/:id</h3>
             <p >Retrieve a specific brand given its id.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/brands/:id;</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/brands/:id;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -222,11 +222,11 @@
     id:1,
     name: "Guinness",
     url: "Guinness-Beer",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     description: "Guinness is an Irish dry stout that originated in the brewery of Arthur Guinness ..."
     }
   links : {
-    self : "https://api.marketcloud.it/v0/brands/1"
+    self : "https://api.marketcloud.studio404.net/v0/brands/1"
   }
 }</code></pre>
               </div>
@@ -237,7 +237,7 @@
         <div class="documentation">
             <h3>PUT /brands/:id</h3>
             <p >Updates a brand given an id. Returns the updated brand.</p>
-            <pre><code class="http">PUT https://api.marketcloud.it/v0/brands/:id;</code></pre>
+            <pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/brands/:id;</code></pre>
             <h5>Parameters</h5>
             <p>See <a href="#brands.create" class="link">POST /brands</a></p>
             <h5>Example Request</h5>
@@ -250,11 +250,11 @@
     id:3,
     name: "Paulaner Brauerei",
     url: "Paulaner-Beer",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     description: "Paulaner is a German brewery, established in 1634 in Munich by ..."
     }
   links : {
-    self : "https://api.marketcloud.it/v0/brands/3"
+    self : "https://api.marketcloud.studio404.net/v0/brands/3"
   }
 }</code></pre>
             </div>
@@ -264,7 +264,7 @@
         <div class="documentation">
             <h3>DELETE /brands/:id</h3>
             <p >Deletes a specific brand given its id.</p>
-            <pre><code class="http">DELETE https://api.marketcloud.it/v0/brands/:id</code></pre>
+            <pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/brands/:id</code></pre>
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/brands/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>

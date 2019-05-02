@@ -134,7 +134,7 @@
           $log.warn('An error was logged.');
         })
         .catch(function(response) {
-          $log.warn('Unable to log errors, if you see this message, please contact us at info@marketcloud.it .Thank you.');
+          $log.warn('Unable to log errors, if you see this message, please contact us at info@marketcloud.studio404.net .Thank you.');
         });
       return true;
     };

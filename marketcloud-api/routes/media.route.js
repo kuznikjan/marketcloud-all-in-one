@@ -372,7 +372,7 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
       original_filename: originalFileName,
       filename: filename,
       name: req.body.name,
-      url: 'https://marketcloud.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+      url: 'https://marketcloud-' + (process.env.NODE_ENV || 'development') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
       size: Buffer.byteLength(req.body.file, 'utf8'),
       created_at: new Date()
     })
@@ -431,7 +431,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
           return next(new Errors.BadRequest(multerErrors[err.code]))
         } else {
           // Otherwise it is a generic error
-          return next(new Errors.BadRequest('Something is wrong with the file you are trying to upload. If you think this is a bug, please contact us at info@marketcloud.it'))
+          return next(new Errors.BadRequest('Something is wrong with the file you are trying to upload. If you think this is a bug, please contact us at info@marketcloud.studio404.net'))
         }
       }
 

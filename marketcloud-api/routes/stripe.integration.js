@@ -77,7 +77,7 @@ router.post('/charges', function (req, res, next) {
       if (result === null) {
         res.status(404).send({
           status: false,
-          errors: [new Errors.BadRequest('The Stripe integration is not active for you application. You can activate it from you Dashboard > Integrations > Stripe. For further help, contact us at info@marketcloud.it .')]
+          errors: [new Errors.BadRequest('The Stripe integration is not active for you application. You can activate it from you Dashboard > Integrations > Stripe. For further help, contact us at info@marketcloud.studio404.net .')]
         })
         return
       }
