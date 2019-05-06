@@ -15,6 +15,8 @@ app.controller('SettingsController', [
     scope.images = []
 
     scope.application.apply_discounts_before_taxes = Boolean(scope.application.apply_discounts_before_taxes)
+    scope.application.show_prices_plus_taxes = Boolean(scope.application.show_prices_plus_taxes)
+    console.log(scope.application)
 
     scope.currencies = Object.keys(currencies)
       .map(function (c) {
@@ -73,6 +75,7 @@ app.controller('SettingsController', [
         tax_rate: scope.application.tax_rate,
         tax_type: scope.application.tax_type,
         apply_discounts_before_taxes: scope.application.apply_discounts_before_taxes,
+        show_prices_plus_taxes: scope.application.show_prices_plus_taxes,
         email_address: scope.application.email_address,
         company_name: scope.application.company_name,
         company_taxid: scope.application.company_taxid,
@@ -83,6 +86,8 @@ app.controller('SettingsController', [
         company_postalcode: scope.application.company_postalcode,
         invoices_prefix: scope.application.invoices_prefix
       }
+
+      console.log(payload);
 
       if (scope.images.length >= 1) { payload.logo = scope.images[0] }
 

@@ -6,7 +6,7 @@
 <div class="container-fluid" style="padding-bottom: 50px;">
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Basic information</h4></div>
 			<div class="form">
@@ -34,8 +34,8 @@
 					<label>Store URL</label>
 					<input type="text" ng-model="application.url" class="form-control " placeholder="https://www.mystore.com">
 				</div>
-				
-				
+
+
 				<div class="form-group">
 					<label>Base Currency</label>
 					<select ng-model="application.currency_code"
@@ -46,7 +46,7 @@
 					<select ng-model="application.timezone"
 					ng-options="timezone.value as timezone.text for timezone in timezones" class="form-control "></select>
 				</div>
-			
+
 			</div>
 		</div>
 
@@ -68,15 +68,15 @@
 
 				<div class="form-group">
 					<label>Company country</label>
-					<autocomplete 
-								items="countries" 
-								label="name" 
+					<autocomplete
+								items="countries"
+								label="name"
 								value="name"
 								my-model="application.company_country"/>
 				</div>
 
 
-				
+
 				<div class="form-group">
 					<label>Company state</label>
 					<input type="text" ng-model="application.company_state" class="form-control " placeholder="My state">
@@ -97,8 +97,8 @@
 					<label>Company postal code</label>
 					<input type="text" ng-model="application.company_postalcode" class="form-control " placeholder="1234">
 				</div>
-				
-			
+
+
 			</div>
 		</div>
 
@@ -115,13 +115,13 @@
 				</div>
 			</div>
 
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Taxes</h4></div>
 			<div class="form">
-				
-				
-				
+
+
+
 				<div class="form-group">
 					<label>Taxing method</label>
 					<select ng-model="application.tax_type"
@@ -132,16 +132,24 @@
 					<input class="form-control " type="number" step="0.1" min="0" max="100" ng-model="application.tax_rate" />
 					<p class="text-muted small">This tax rate will be overridden if a product being purchased is assigned to a tax class you created.</p>
 				</div>
-				<div class="checkbox">
+				<div class="checkbox mb-3">
 						<input type="checkbox" ng-model="application.apply_discounts_before_taxes" id="apply_discounts_before_taxes" />
 						<label for="apply_discounts_before_taxes">
 							Apply discounts before taxes
 						</label>
 						<p class="small text-muted">Check this option if you want to calculate taxes <b>after</b> calculating discounts, in this way the total including taxes will be lower.</p>
 				</div>
-				
-				
-				
+
+				<div class="checkbox mb-3">
+						<input type="checkbox" ng-model="application.show_prices_plus_taxes" id="show_prices_plus_taxes" />
+						<label for="show_prices_plus_taxes">
+							Show prices plus taxes (a property 'price_with_tax' will be added to the products)
+						</label>
+						<p class="small text-muted">Check this option if you want to add a price with tax property when querying products</p>
+				</div>
+
+
+
 			</div>
 			<div class="card-footer">
 				<div class="text-right">
@@ -149,15 +157,15 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Notifications</h4></div>
 			<p class="text-muted mt10">The email address of the store. Email notifications (e.g. order creations, user creations) will be sent to your customers with this address as "from" field.</p>
 			<p class="text-muted">The store name will be used as "from name" field.</p>
 			<div class="form">
-				
-				
-				
+
+
+
 				<div class="form-group">
 					<label>From address</label>
 					<input type="email" class="form-control" name="application.email_address" ng-model="application.email_address">
@@ -169,7 +177,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 </div>
