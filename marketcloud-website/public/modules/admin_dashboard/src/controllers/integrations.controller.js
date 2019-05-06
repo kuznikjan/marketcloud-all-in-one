@@ -32,6 +32,54 @@ app.controller('IntegrationsController',function($scope,$http,application,$rootS
 	$rootScope.$broadcast('$dashboardSectionChange',{section : "integrations"});
 });
 
+app.controller('IntegrationSpaceinvoicesController',function($scope,$http,$routeParams, SpaceinvoicesIntegration){
+	console.log('Integration status', StripeIntegration);
+
+
+	/*
+	*	The integration states are
+	*
+	*	Not installed
+	*	Installed inactive
+	*	Installed active
+	*
+	*	Installed means that the oauth flow was completed and we have the data
+	*	StripeIntegration is the object we use to inject the integration state fetched from the api
+	*
+	*	If it's null, we conclude that it is not installed
+	*/
+	if (StripeIntegration){
+		$scope.isIntegrationInstalled = true;
+		$scope.StripeIntegration = StripeIntegration;
+	} else {
+		$scope.isIntegrationInstalled = false;
+	}
+
+	$scope.currentApplication = window.current_application;
+
+	// TODO
+	// Lo switch deve essere visibile se e solo se l'integrazione è installata. così da
+	// non essere clicccabile altrimenti.
+
+
+	$scope.toggleIntegration = function(){
+		alert($scope.StripeIntegration.isActive);
+		return $http({
+			method : 'PUT',
+			url :  '/applications/'+window.current_application.id+'/integrations/stripe',
+			data : {isActive : $scope.StripeIntegration.isActive}
+		})
+			.then(function(response){
+				notie.alert(1,'Integration correctly updated',1);
+
+			})
+			.catch(function(response){
+				notie.alert(3,'An error has occurred. Integration not updated',1);
+			});
+	};
+
+});
+
 app.controller('IntegrationStripeController',function($scope,$http,$routeParams, StripeIntegration){
 	console.log('Integration status',StripeIntegration);
 
@@ -58,9 +106,9 @@ app.controller('IntegrationStripeController',function($scope,$http,$routeParams,
 	$scope.currentApplication = window.current_application;
 
 	// TODO
-	// Lo switch deve essere visibile se e solo se l'integrazione è installata. così da 
+	// Lo switch deve essere visibile se e solo se l'integrazione è installata. così da
 	// non essere clicccabile altrimenti.
-		
+
 
 	$scope.toggleIntegration = function(){
 		alert($scope.StripeIntegration.isActive);
@@ -77,12 +125,12 @@ app.controller('IntegrationStripeController',function($scope,$http,$routeParams,
 				notie.alert(3,'An error has occurred. Integration not updated',1);
 			});
 	};
-		
+
 });
 
 
 app.controller('IntegrationBraintreeController',function($scope,$http,$routeParams, BraintreeIntegration){
-		
+
 
 		// This bool is used to show/hide credentials form
 		// This form is used to update the credentials
@@ -91,10 +139,10 @@ app.controller('IntegrationBraintreeController',function($scope,$http,$routePara
 	$scope.currentApplication = window.current_application;
 
 	$scope.braintreeConfiguration = BraintreeIntegration.data.data;
-	
+
 	$scope.braintreeUpdate = angular.copy(BraintreeIntegration.data.data);
 
-	
+
 
 		//If the integration is not enabled we initialize it to false
 	if (!$scope.braintreeUpdate.hasOwnProperty('isActive'))
@@ -126,15 +174,15 @@ app.controller('IntegrationBraintreeController',function($scope,$http,$routePara
 			});
 	};
 	$scope.saveBraintreeConfiguration = function() {
-		
-		
+
+
 
 		var payload = {
 				environment : $scope.braintreeUpdate.environment,
 				isActive : $scope.braintreeUpdate.isActive
 		}
 
-		// If the user also changed the config, 
+		// If the user also changed the config,
 		if (
 			$scope.braintreeUpdate.merchantId &&
 			$scope.braintreeUpdate.publicKey &&
@@ -169,7 +217,7 @@ app.controller('IntegrationBraintreeController',function($scope,$http,$routePara
 			});
 	};
 
-		
+
 });
 
 

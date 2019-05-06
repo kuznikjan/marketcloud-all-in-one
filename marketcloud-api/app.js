@@ -239,6 +239,7 @@ routes.variables = require('./routes/variables.route.js')
 // Integrations
 routes.stripe = require('./routes/stripe.integration.js')
 routes.braintree = require('./routes/braintree.integration.js')
+routes.spaceinvoices = require('./routes/spaceinvoices.integration.js')
 
 /* MORGAN LOGGER */
 
@@ -350,6 +351,7 @@ Integrations
  */
 app.use('/v0/integrations/stripe', routes.stripe)
 app.use('/v0/integrations/braintree', routes.braintree)
+app.use('/v0/integrations/spaceinvoices', routes.spaceinvoices)
 
 
 

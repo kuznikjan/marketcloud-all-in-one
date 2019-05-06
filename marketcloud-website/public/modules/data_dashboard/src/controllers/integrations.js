@@ -26,12 +26,20 @@ app.controller('IntegrationsController',
     links: {
       'view': '/documentation/guides/facebook-login'
     }
+  }, {
+    name: 'spaceinvoices',
+    tags: ['invoicing'],
+    image: 'https://spaceinvoices.com/assets/images/logo/landscape/color.svg',
+    description: 'Simple invoicing with Spaceinvoices',
+    links: {
+      'view': '/documentation/guides/spaceinvoices'
+    }
   }]
-}])
+  }])
 
-app.controller('IntegrationStripeController', 
+app.controller('IntegrationStripeController',
   [
-  '$scope', 
+  '$scope',
   '$http',
   '$routeParams',
   'StripeIntegration',
@@ -80,9 +88,9 @@ app.controller('IntegrationStripeController',
 }])
 
 app.controller('IntegrationBraintreeController', [
-  '$scope', 
-  '$http', 
-  '$routeParams', 
+  '$scope',
+  '$http',
+  '$routeParams',
   'BraintreeIntegration',
   '$application',
   function($scope, $http, $routeParams, BraintreeIntegration,$application) {

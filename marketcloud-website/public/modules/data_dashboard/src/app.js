@@ -1028,6 +1028,34 @@
             }]
           }
         })
+        .when('/integrations/spaceinvoices', {
+          name: 'integrations.spaceinvoices',
+          templateUrl: '/modules/data_dashboard/templates/integration_spaceinvoices.html',
+          controller: 'IntegrationSpaceinvoicesController',
+          resolve: {
+            SpaceinvoicesIntegration: ['$http', function($http) {
+
+              return $http({
+                  method: 'GET',
+                  url: API_BASE_URL + '/integrations/spaceinvoices',
+                  headers: {
+                    Authorization: window.public_key + ':' + window.token
+                  }
+                })
+                .then(function(response) {
+
+                  return new Promise(function(resolve) {
+                    resolve(response);
+                  });
+                })
+                .catch(function() {
+                  return new Promise(function(resolve) {
+                    resolve(null);
+                  });
+                });
+            }]
+          }
+        })
         .when('/integrations/stripe', {
           name: 'integrations.stripe',
           templateUrl: '/modules/data_dashboard/templates/integration_stripe.html',

@@ -27,6 +27,14 @@ app.controller('IntegrationsController', function($scope, $http, $application, $
     links: {
       'view': '/documentation/guides/facebook-login'
     }
+  }, {
+    name: 'spaceinvoices',
+    tags: ['invoicing'],
+    image: 'https://spaceinvoices.com/assets/images/logo/landscape/color.svg',
+    description: 'Simple invoicing with Spaceinvoices',
+    links: {
+      'view': '/documentation/guides/spaceinvoices'
+    }
   }]
   rootScope.currentSection = 'application.integrations'
 })
@@ -75,6 +83,57 @@ app.controller('IntegrationStripeController', function($scope, $http, $routePara
         notie.alert(3, 'An error has occurred. Integration not updated', 1)
       })
   }
+})
+
+app.controller('IntegrationSpaceinvoicesController', function($scope, $http, $routeParams, SpaceinvoicesIntegration) {
+  console.log('Integration status', SpaceinvoicesIntegration)
+
+  $scope.spaceinvoicesIntegrated = !!SpaceinvoicesIntegration
+
+  $scope.onInstallSpaceinvoices = function () {
+
+  }
+  /*
+   *  The integration states are
+   *
+   *  Not installed
+   *  Installed inactive
+   *  Installed active
+   *
+   *  Installed means that the oauth flow was completed and we have the data
+   *  StripeIntegration is the object we use to inject the integration state fetched from the api
+   *
+   *  If it's null, we conclude that it is not installed
+   */
+  // if (StripeIntegration) {
+  //   $scope.isIntegrationInstalled = true
+  //   $scope.StripeIntegration = StripeIntegration
+  // } else {
+  //   $scope.isIntegrationInstalled = false
+  // }
+
+  // $scope.currentApplication = $application.get()
+
+  // // TODO
+  // // Lo switch deve essere visibile se e solo se l'integrazione è installata. così da
+  // // non essere clicccabile altrimenti.
+
+  // $scope.toggleIntegration = function() {
+  //   alert($scope.StripeIntegration.isActive)
+  //   return $http({
+  //       method: 'PUT',
+  //       url: '/applications/' + $application.get().id + '/integrations/stripe',
+  //       data: {
+  //         isActive: $scope.StripeIntegration.isActive
+  //       }
+  //     })
+  //     .then(function(response) {
+  //       notie.alert(1, 'Integration correctly updated', 1)
+  //     })
+  //     .catch(function(response) {
+  //       notie.alert(3, 'An error has occurred. Integration not updated', 1)
+  //     })
+  // }
 })
 
 app.controller('IntegrationBraintreeController', function($scope, $http, $routeParams, BraintreeIntegration) {
