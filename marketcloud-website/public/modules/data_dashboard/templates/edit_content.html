@@ -101,7 +101,61 @@
 
 			<div class="card mb50">
 				<div class="card-header"><h4>Products</h4></div>
-				asd
+				<div class="text-secondary" style="margin-top: 2rem; margin-bottom: 2rem">
+					Here you can add products to showcase them on the blog.
+				</div>
+				<div>
+					<table class="table">
+						<thead>
+							<th></th>
+							<th>Name</th>
+							<th>Type</th>
+							<th></th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="includedItem in selectedProducts track by $index" ng-init="sectionIndex = $index">
+								<td>
+									<div class="thumbnail" style="width:48px;height:48px;padding:0px;">
+										<img
+											ng-src="{{includedItem.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}"
+											class="fluid"
+											fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png" />
+									</div>
+								</td>
+								<td>
+									<div>
+										<a ng-href="#/{{includedItem.type}}/{{includedItem.id}}/edit"
+											class="link">{{includedItem.name}}</a>
+									</div>
+								</td>
+								<td>
+									{{ includedItem.type }}
+								</td>
+								<td>
+									<a href="" class="text-danger" ng-click="removeProduct($index)"><i
+											class="fa fa-trash"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="position: relative">
+					<input type="text" class="form-control no-border input-lg" placeholder="Search here for products.."
+						ng-model="query.name.$regex" style="padding-left:30px;" focus-on-show
+						ng-model-options='{ debounce: 600 }' ng-change="prepareRegex();loadProducts()" ng-focus="showList()"
+						ng-blur="hideList()">
+					<div style="position: absolute;top:30px;left:0px;right:0px;z-index: 999;padding:15px;">
+						<div class="list-group" style="border-top-left-radius: 0px;border-top-right-radius: 0px;"
+							ng-show="!!query.name.$regex == true && showTheList === true">
+							<a class="list-group-item" style="cursor: pointer;"
+								ng-repeat="product in products track by $index" ng-click="addProduct(product)">
+								<img ng-src="{{product.images[0]}}" style="max-width:32px;max-height: 32px;">
+								{{product.name}}</a>
+							<a class="list-group-item" style="font-weight:bold" href="#/products/create" target="_blank">Add
+								{{query.name.$regex}}..</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

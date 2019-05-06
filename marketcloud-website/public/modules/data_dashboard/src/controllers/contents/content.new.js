@@ -52,6 +52,10 @@ app.controller('ContentController', [
 
     }
 
+    scope.removeProduct = function (idx) {
+      scope.selectedProducts.splice(idx, 1);
+    }
+
     scope.addProduct = function (product) {
       product.quantity = 1
 
@@ -113,10 +117,8 @@ app.controller('ContentController', [
       })
 
       if (products.length > 0) {
-        scope.content.items = products
+        scope.content.products = products
       }
-
-      console.log(scope.content)
 
       $validation.hideErrors()
       $marketcloud.contents.save(scope.content)
