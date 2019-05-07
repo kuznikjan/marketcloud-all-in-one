@@ -409,6 +409,25 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
                 }) */
     }
 
+    scope.updateShipmentUrl = function () {
+      var trackingCode = scope.newShipment.tracking_code
+      var shipmetUrlStructures = {
+        gls: `http://online.gls-slovenia.com/tt_page.php?tt_value=${trackingCode}`,
+        postaSlovenije: `http://sledenje.posta.si/Default.aspx?tn=${trackingCode}&guid=577712B3-9D04&lang=sl`
+      }
+
+      if (scope.shipmentURIPreset) {
+        if (scope.shipmentURIPreset === 'gls') {
+          scope.newShipment.tracking_link = shipmetUrlStructures.gls
+        } else if (scope.shipmentURIPreset === 'postaSlovenije') {
+          scope.newShipment.tracking_link = shipmetUrlStructures.postaSlovenije
+        }
+      } else {
+        scope.newShipment.tracking_link = ''
+        scope.newShipment.tracking_code = ''
+      }
+    }
+
     scope.saveShipment = function () {
       // Removing all validation feedback from the shipment
       $('#shipmentModal .has-error').removeClass('has-error')
