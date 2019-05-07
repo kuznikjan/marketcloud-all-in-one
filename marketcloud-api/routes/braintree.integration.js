@@ -42,12 +42,12 @@ var setupBraintreeGateway = function (req, res, next) {
 
       // Making sure that every key is correctly populated
 
-      if (typeof document.braintree.merchantId !== 'string' || document.braintree.merchantId.length === 0) { return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree merchantId is correctly set at https://www.marketcloud.it/applications/' + req.client.application_id + '/dashboard#/integrations/braintree')) }
+      if (typeof document.braintree.merchantId !== 'string' || document.braintree.merchantId.length === 0) { return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree merchantId is correctly set at https://marketcloud.studio404.net/applications/' + req.client.application_id + '/dashboard#/integrations/braintree')) }
 
-      if (typeof document.braintree.publicKey !== 'string' || document.braintree.publicKey.length === 0) { return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree publicKey is correctly set at https://www.marketcloud.it/applications/' + req.client.application_id + '/dashboard#/integrations/braintree')) }
+      if (typeof document.braintree.publicKey !== 'string' || document.braintree.publicKey.length === 0) { return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree publicKey is correctly set at https://marketcloud.studio404.net/applications/' + req.client.application_id + '/dashboard#/integrations/braintree')) }
 
       if (typeof document.braintree.privateKey !== 'string' || document.braintree.privateKey.length === 0) {
-        return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree privateKey is correctly set at https://www.marketcloud.it/applications/' + req.client.application_id + '/dashboard#/integrations/braintree'))
+        return next(new Errors.BadRequest('The Braintree integration is misconfigured, please ensure that the Braintree privateKey is correctly set at https://marketcloud.studio404.net/applications/' + req.client.application_id + '/dashboard#/integrations/braintree'))
       }
 
       var decryptedMerchantId = cipher.decrypt(document.braintree.merchantId)

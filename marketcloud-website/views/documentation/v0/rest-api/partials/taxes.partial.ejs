@@ -26,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        
+
         <tr>
           <td class="code">id</td>
           <td>Number</td>
@@ -92,7 +92,7 @@
             <td>String</td>
             <td>The city in which the tax rate should be applied. If set to "*" matches any city. Matches against the billing address of the order.</td>
           </tr>
-          
+
         </tbody>
       </table>
     </div>
@@ -104,7 +104,7 @@
 <div class="documentation">
   <h3>POST /taxes</h3>
   <p >Creates a new Tax.</p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/taxes</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/taxes</code></pre>
 <h5>Parameters</h5>
   <div class="table-responsive">
     <table class="table table-striped documentation">
@@ -175,7 +175,7 @@
             <td>String</td>
             <td>The city in which the tax rate should be applied. If set to "*" matches any city. Matches against the billing address of the order.</td>
           </tr>
-          
+
         </tbody>
       </table>
     </div>
@@ -187,32 +187,32 @@
             <pre><code class="javascript">
 {
     "data": {
-        "id": 123, 
-        "name": "Regular VAT", 
+        "id": 123,
+        "name": "Regular VAT",
         "rates": [
             {
-                "city": "*", 
-                "country": "Italy", 
-                "name": "", 
-                "postcode": "*", 
-                "priority": 1, 
-                "rate": 22, 
+                "city": "*",
+                "country": "Italy",
+                "name": "",
+                "postcode": "*",
+                "priority": 1,
+                "rate": 22,
                 "state": "*"
             }
         ]
-    }, 
+    },
     "status": true
 }
-</code></pre>                
+</code></pre>
               </div>
-<!-- / TAX CREATE -->           
+<!-- / TAX CREATE -->
 
 <!-- TAX LIST -->
 <a class="anchor" id="taxes.list"></a>
 <div class="documentation">
   <h3>GET /taxes</h3>
   <p >Retrieves a list of taxes from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/taxes</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/taxes</code></pre>
 <h5>Request parameters</h5>
 <div class="table-responsive">
   <table class="table table-striped documentation">
@@ -234,7 +234,7 @@
         <td>Mixed</td>
         <td>Any resource attribute that you want to use to filter the result list.</td>
       </tr>
-      
+
       <tr>
         <td  class="code">per_page</td>
         <td>Number</td>
@@ -256,60 +256,60 @@
     "status": true
     "data": [
         {
-            "id": 1, 
-            "name": "Reduced VAT", 
+            "id": 1,
+            "name": "Reduced VAT",
             "rates": [
                 {
-                    "city": "ExampleCity", 
-                    "country": "Italy", 
-                    "name": "standard", 
-                    "postcode": "", 
-                    "rate": 12, 
+                    "city": "ExampleCity",
+                    "country": "Italy",
+                    "name": "standard",
+                    "postcode": "",
+                    "rate": 12,
                     "state": "*"
                 }
             ]
-        }, 
+        },
         {
-            "id": 2, 
-            "name": "Standard VAT", 
+            "id": 2,
+            "name": "Standard VAT",
             "rates": [
                 {
-                    "city": "*", 
-                    "country": "Italy", 
-                    "name": "", 
-                    "postcode": "*", 
-                    "priority": 1, 
-                    "rate": 22, 
+                    "city": "*",
+                    "country": "Italy",
+                    "name": "",
+                    "postcode": "*",
+                    "priority": 1,
+                    "rate": 22,
                     "state": "*"
-                }, 
+                },
                 {
-                    "city": "*", 
-                    "country": "Italy", 
-                    "name": "", 
-                    "postcode": "60*", 
-                    "priority": 2, 
-                    "rate": 30, 
+                    "city": "*",
+                    "country": "Italy",
+                    "name": "",
+                    "postcode": "60*",
+                    "priority": 2,
+                    "rate": 30,
                     "state": "Marche"
                 }
             ]
         }
-    ], 
-    "page": 1, 
+    ],
+    "page": 1,
     "pages": 1,
      "_links": {
-        "curr": "http://api.marketcloud.it/v0/taxes"
-    }, 
+        "curr": "https://api.marketcloud.studio404.net/v0/taxes"
+    },
     "count": 2
-}</code></pre>               
+}</code></pre>
 
             </div>
-<!-- / TAX LIST -->           
+<!-- / TAX LIST -->
 <!-- TAX GET BY ID -->
 <a class="anchor" id="taxes.getbyid"></a>
 <div class="documentation">
   <h3>GET /taxes/:id</h3>
   <p >Retrieve a specific tax given its id.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/taxes/:id;</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/taxes/:id;</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive">
   <table class="table table-striped documentation">
@@ -336,22 +336,22 @@
               <pre><code class="javascript">
 {
     "data": {
-        "id": 123, 
-        "name": "Regular VAT", 
+        "id": 123,
+        "name": "Regular VAT",
         "rates": [
             {
-                "city": "*", 
-                "country": "Italy", 
-                "name": "", 
-                "postcode": "*", 
-                "priority": 1, 
-                "rate": 22, 
+                "city": "*",
+                "country": "Italy",
+                "name": "",
+                "postcode": "*",
+                "priority": 1,
+                "rate": 22,
                 "state": "*"
             }
         ]
-    }, 
+    },
     "status": true
-}</code></pre>               
+}</code></pre>
               </div>
             </div>
 <!-- / TAX GET BY ID -->
@@ -360,7 +360,7 @@
 <div class="documentation">
   <h3>PUT /taxes/:id</h3>
   <p >Updates a tax given an id. Returns the updated tax.</p>
-<pre><code class="http">PUT https://api.marketcloud.it/v0/taxes/:id;</code></pre>
+<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/taxes/:id;</code></pre>
 <h5>Parameters</h5>
 <p>See <a href="#taxes.create" class="link">POST /taxes
 </a></p>
@@ -377,23 +377,23 @@
       description: "To be applied when other VAT does not apply"
     },
   links : {
-    self : "https://api.marketcloud.it/v0/taxes/3"
+    self : "https://api.marketcloud.studio404.net/v0/taxes/3"
   }
-}</code></pre>             
-            </div>  
+}</code></pre>
+            </div>
 <!-- / TAX UPDATE BY ID -->
 <!-- TAX DELETE BY ID -->
 <a class="anchor" id="taxes.delete"></a>
 <div class="documentation">
   <h3>DELETE /taxes/:id</h3>
   <p >Deletes a specific tax given its id.</p>
-<pre><code class="http">DELETE https://api.marketcloud.it/v0/taxes/:id;</code></pre>
+<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/taxes/:id;</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/taxes/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 <h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
   status:true
-}</code></pre>     
-</div>              
+}</code></pre>
+</div>
 <!-- / TAX DELETE BY ID -->

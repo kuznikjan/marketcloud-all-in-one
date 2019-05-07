@@ -19,7 +19,7 @@ var application = {
   currency_code: 'CHF',
   timezone: 'Romance Standard Time',
   email_address: 'hello@we-are-wild.com',
-  logo: 'https://www.marketcloud.it/img/logo/normal.png',
+  logo: 'https://marketcloud.studio404.net/img/logo/normal.png',
   stripe_subscription_id: null,
   storage_max: 524288,
   storage_left: 524288,
@@ -99,8 +99,8 @@ var order = {
       'name': 'Sea Salt',
       'description': '<b>Dark Chocolate blended with house roasted almonds.</b><p>70% cacao, cane sugar, cocoabutter, almonds, sea salt.<br></p><p>Cacao origin: Tanzania</p><p></p>',
       'images': [
-        'http://cdn.marketcloud.it/files/229118_WEBSITE_STRUCTURE_OK16jpg',
-        'http://cdn.marketcloud.it/files/229118_Large_Goat_Milk_1024x1024jpg'
+        'http://cdn.marketcloud.studio404.net/files/229118_WEBSITE_STRUCTURE_OK16jpg',
+        'http://cdn.marketcloud.studio404.net/files/229118_Large_Goat_Milk_1024x1024jpg'
       ],
       'published': true,
       'has_variants': true,
@@ -139,7 +139,7 @@ var order = {
       },
       'quantity': 2
     },
-    
+
   ],
   'items_total': 20,
   'created_at': 1503564541026.0,
@@ -156,7 +156,7 @@ var order = {
     'rate': 1
   },
   'id': 240658,
-  
+
 }
 
 describe('Test taxes value calculation functions', function () {
@@ -187,7 +187,7 @@ describe('Test taxes value calculation functions', function () {
     expect(v).to.equal(2)
   })
 
-  
+
 
   it('Should apply correctly the global tax to the single product', function(){
     var product = {

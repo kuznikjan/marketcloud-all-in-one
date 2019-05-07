@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -64,9 +64,9 @@
         <td>Boolean</td>
         <td>If false, the promotion can not be used by any order.</td>
       </tr>
-    
-     
-      
+
+
+
     </tbody>
   </table>
 </div>
@@ -93,8 +93,8 @@
         <td>Number</td>
         <td>The value of the</td>
       </tr>
-       
-      
+
+
     </tbody>
   </table>
 </div>
@@ -122,7 +122,7 @@
         <td>Number</td>
         <td>The value of the effect.</td>
       </tr>
-      
+
     </tbody>
   </table>
 </div>
@@ -134,13 +134,13 @@
 					<div class="documentation"  id="promotions.create">
 						<h3>POST /promotions</h3>
 						<p class="lead">Creates a new Promotion. </p>
-						<pre><code class="http">POST http://api.marketcloud.it/v0/promotions</code></pre>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/promotions</code></pre>
 						<h5>Parameters</h5>
 						<p>See the model description above.</p>
 						<h5>Example Request</h5>
 						<pre><code class="curl">
 curl --request POST \
-  --url http://api.marketcloud.it/v0/promotions \
+  --url https://api.marketcloud.studio404.net/v0/promotions \
   --header 'accept: application/json' \
   --header 'Authorization:<PUBLIC_KEY>:<TOKEN>' \
   --header 'content-type: application/json' \
@@ -172,15 +172,15 @@ EOF
     "active": false,
     "id": 11121
   }
-}</code></pre>								
+}</code></pre>
 							</div>
-<!-- / PRODUCT CREATE -->						
+<!-- / PRODUCT CREATE -->
 
 <!-- PRODUCT LIST -->
 						<div class="documentation" id="promotions.list">
 						<h3>GET /promotions</h3>
 						<p class="lead">Retrieves a paginated response of a list of promotions from your application.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/promotions</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/promotions</code></pre>
 						<h5>Request parameters</h5>
 						<div class="table-responsive"><table class="table table-striped documentation">
       <thead>
@@ -191,8 +191,8 @@ EOF
         </tr>
       </thead>
       <tbody>
-        
-        
+
+
         <tr>
           <td><code>&lt;attribute_name&gt;</code></td>
           <td>Mixed</td>
@@ -221,43 +221,43 @@ EOF
 						<pre><code class="javascript">
 {
     "_links": {
-        "curr": "http://api.marketcloud.it/v0/promotions?"
-    }, 
-    "count": 1, 
+        "curr": "https://api.marketcloud.studio404.net/v0/promotions?"
+    },
+    "count": 1,
     "data": [
         {
-            "active": false, 
+            "active": false,
             "conditions": [
                 {
-                    "type": "MIN_CART_VALUE", 
+                    "type": "MIN_CART_VALUE",
                     "value": 20
                 }
-            ], 
+            ],
             "effects": [
                 {
-                    "type": "CART_VALUE_NET_REDUCTION", 
+                    "type": "CART_VALUE_NET_REDUCTION",
                     "value": 4
                 }
-            ], 
-            "id": 82524, 
-            "name": "Free sticker above 20 euros", 
+            ],
+            "id": 82524,
+            "name": "Free sticker above 20 euros",
             "priority": 0
         }
-    ], 
-    "page": 1, 
-    "pages": 1, 
+    ],
+    "page": 1,
+    "pages": 1,
     "status": true
 }
 
-</code></pre>								
+</code></pre>
 
 						</div>
-<!-- / PRODUCT LIST -->						
+<!-- / PRODUCT LIST -->
 <!-- PRODUCT GET BY ID -->
 						<div class="documentation"  id="promotions.getById">
 						<h3>GET /promotions/:id</h3>
 						<p class="lead">Retrieve a specific promotion given its id.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/promotions/:id;</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/promotions/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -282,27 +282,27 @@ EOF
 						<pre><code class="javascript">
 {
 	"status": true,
-    "data": 
+    "data":
         {
-            "active": false, 
+            "active": false,
             "conditions": [
                 {
-                    "type": "MIN_CART_VALUE", 
+                    "type": "MIN_CART_VALUE",
                     "value": 20
                 }
-            ], 
+            ],
             "effects": [
                 {
-                    "type": "CART_VALUE_NET_REDUCTION", 
+                    "type": "CART_VALUE_NET_REDUCTION",
                     "value": 4
                 }
-            ], 
-            "id": 82524, 
-            "name": "Free sticker above 20 euros", 
+            ],
+            "id": 82524,
+            "name": "Free sticker above 20 euros",
             "priority": 0
      }
 }
-</code></pre>								
+</code></pre>
 							</div>
 						</div>
 <!-- / PRODUCT GET BY ID -->
@@ -310,8 +310,8 @@ EOF
 				<div class="documentation"  id="promotions.update">
 						<h3>PUT /promotions/:id</h3>
 						<p class="lead">Updates a promotion given an id. Returns the updated promotion.</p>
-						<pre><code class="http">PUT http://api.marketcloud.it/v0/promotions/:id;</code></pre>
-						
+						<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/promotions/:id;</code></pre>
+
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/promotions/update.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
@@ -319,40 +319,40 @@ EOF
 {
 	status:true,
 	data: {
-            "active": false, 
+            "active": false,
             "conditions": [
                 {
-                    "type": "MIN_CART_VALUE", 
+                    "type": "MIN_CART_VALUE",
                     "value": 20
                 }
-            ], 
+            ],
             "effects": [
                 {
-                    "type": "CART_VALUE_NET_REDUCTION", 
+                    "type": "CART_VALUE_NET_REDUCTION",
                     "value": 4
                 }
-            ], 
-            "id": 82524, 
-            "name": "Black saturday", 
+            ],
+            "id": 82524,
+            "name": "Black saturday",
             "priority": 0
         }
 
-}</code></pre>							
-						</div>	
+}</code></pre>
+						</div>
 <!-- / PRODUCT UPDATE BY ID -->
 <!-- PRODUCT DELETE BY ID -->
 				<div class="documentation"  id="promotions.delete">
 						<h3>DELETE /promotions/:id</h3>
 						<p class="lead">Deletes a specific promotion given its id.</p>
-						<pre><code class="http">DELETE https://api.marketcloud.it/v0/promotions/:id;</code></pre>
+						<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/promotions/:id;</code></pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/promotions/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
 	status:true
-}</code></pre>			
-</div>							
+}</code></pre>
+</div>
 <!-- / PRODUCT DELETE BY ID -->
 
 

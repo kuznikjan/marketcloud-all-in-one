@@ -188,7 +188,7 @@ Middlewares.verifyToken = function verifyToken (req, res, next) {
   // to this api to crash everything, as if expressjs, the http module and the tcp module
   // didnt validate fields using defaults (80KB is max length for a header in the HTTP module.)
   if (validateAuthorizationHeader(req) === false) {
-    return next(new Errors.BadRequest('Invalid authorization header. Please check the documentation at https://www.marketcloud.it/documentation'))
+    return next(new Errors.BadRequest('Invalid authorization header. Please check the documentation at https://marketcloud.studio404.net/documentation'))
   }
 
   // Checking if the client is providing an authorization header
@@ -246,7 +246,7 @@ Middlewares.verifyToken = function verifyToken (req, res, next) {
       // The token is wrong or expired
       if (authData === null) {
         // Bad public Key
-        var _err = new Errors.Unauthorized('The provided authorization header (' + req.headers['authorization'] + ') is invalid. The token might be expired or you provided a wrong public key. Read more at https://www.marketcloud.it/documentation/rest-api/authentication')
+        var _err = new Errors.Unauthorized('The provided authorization header (' + req.headers['authorization'] + ') is invalid. The token might be expired or you provided a wrong public key. Read more at https://marketcloud.studio404.net/documentation/rest-api/authentication')
         _err.type = 'INVALID_TOKEN'
         return next(_err)
       }

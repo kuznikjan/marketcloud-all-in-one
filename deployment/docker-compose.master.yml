@@ -4,20 +4,39 @@ volumes:
   mysql_data:
   rabbitmq_data:
   mongodb_data:
+  certs:
+  certs-data:
   logs:
 
 
-
 services:
-    #############################################################
+  #############################################################
+  #                           NGINX                           #
+  #############################################################
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+    links:
+      - api
+      - website
+
+
+  #############################################################
   #                 REDIS CONFIG BLOCK                     #
   #############################################################
   redis:
     hostname: marketcloud-redis-1
     image: "redis"
-    env_file: .env
-    ports:
-      - "6379:6379"
+    env_file: .master.env
+    # ports:
+    #   - "6379:6379"
+    expose:
+      - "6379"
 
 
   #############################################################
@@ -26,9 +45,11 @@ services:
   rabbitmq:
     build: ./rabbitmq
     hostname: marketcloud-rabbitmq-1
-    env_file: .env
-    ports:
-      - "5672:5672"
+    env_file: .master.env
+    # ports:
+    #   - "5672:5672"
+    expose:
+      - "5672"
     tty: true
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
@@ -42,14 +63,13 @@ services:
     build: ./mongodb
     restart: unless-stopped
     hostname: marketcloud-mongodb-1
-    env_file: .env
-    ports:
-      - '27017:27017'
+    env_file: .master.env
+    # ports:
+    #   - '27017:27017'
     expose:
       - "27017"
     volumes:
       - ./mongodb_data:/data/db
-      - ./mongodb:/docker-entrypoint-initdb.d
 
 
 
@@ -61,9 +81,9 @@ services:
     build: ./mysql
     restart: unless-stopped
     hostname: marketcloud-mysql-1
-    env_file: .env
-    ports:
-      - '3306:3306'
+    env_file: .master.env
+    # ports:
+    #   - '3306:3306'
     expose:
       - '3306'
     volumes:
@@ -79,9 +99,7 @@ services:
     build:
       context: ../marketcloud-api
       dockerfile: Dockerfile
-    ports:
-    - 5000:5000
-    env_file: .env
+    env_file: .master.env
     depends_on:
       - mongodb
       - mysql
@@ -97,9 +115,7 @@ services:
     build:
       context: ../marketcloud-website
       dockerfile: Dockerfile
-    ports:
-    - 8000:8000
-    env_file: .env
+    env_file: .master.env
     depends_on:
       - mongodb
       - mysql
@@ -114,7 +130,7 @@ services:
     build:
       context: ../marketcloud-mailer
       dockerfile: Dockerfile
-    env_file: .env
+    env_file: .master.env
     depends_on:
       - mongodb
       - mysql
@@ -129,7 +145,7 @@ services:
     build:
       context: ../marketcloud-webhook-service
       dockerfile: Dockerfile
-    env_file: .env
+    env_file: .master.env
     depends_on:
       - mongodb
       - mysql
