@@ -5,9 +5,9 @@
     .controller('EditSimpleProductController', EditSimpleProductController)
 
   EditSimpleProductController.$inject = [
-  '$scope', 
-  '$marketcloud', 
-  'product', 
+  '$scope',
+  '$marketcloud',
+  'product',
   '$http',
   '$utils',
   '$validation']
@@ -21,6 +21,40 @@
 
     // Should we be able to edit the slug? this is a on/off
     scope.unsafeSlug = false
+
+    scope.selectedCategories = []
+
+    if (scope.product.categories.length) {
+      var cats = scope.product.categories.split(',')
+      var promises = []
+      cats.forEach(function (categoryId) {
+        promises.push($marketcloud.categories.list({
+          id: categoryId
+        }))
+      })
+
+      Promise.all(promises)
+        .then(function (response) {
+          response.forEach(function (res) {
+            if (res.data.data[0]) {
+              var category = {
+                category_id: res.data.data[0].id,
+                text: res.data.data[0].path
+              }
+              scope.selectedCategories.push(category)
+            }
+          })
+        })
+    }
+
+    // Listening to category selector events
+    scope.$on('selectedCategory', function (event, data) {
+      var categoryId = data.category_id
+
+      if (scope.selectedCategories.map(cat => cat.category_id).indexOf(categoryId) === -1) {
+        scope.selectedCategories.push(data)
+      }
+    })
 
     // mapping non-core attributes into scope.customPropertiesData
     var coreProperties = Models.Product.getPropertyNames()
@@ -80,6 +114,15 @@
       scope.product.images.splice(i, 1)
     }
 
+    scope.setMainCategoryToLast = function () {
+
+      if (scope.selectedCategories.length > 0) {
+        scope.product.category_id = scope.selectedCategories[scope.selectedCategories.length - 1].category_id
+      } else {
+        scope.product.category_id = null
+      }
+    }
+
     scope.newAttribute = {
       name: null,
       value: null,
@@ -123,6 +166,16 @@
           break
       }
 
+      var categories = ''
+      scope.selectedCategories.forEach(function (category, idx) {
+        categories += category.category_id
+
+        if (idx < scope.selectedCategories.length - 1) {
+          categories += ','
+        }
+      })
+
+      scope.product.categories = categories
 
       $marketcloud.products.update(scope.product.id, scope.product)
         .then(function(response) {
@@ -140,10 +193,10 @@
             var element = angular.element('[ng-model="'+invalidPropertyName+'"]').parent()
 
             $validation.showErrorMessage(validation,'[ng-model="'+invalidPropertyName+'"]')
-            
 
-            
-    
+
+
+
           } else
             notie.alert(3, 'Update failed', 1.5)
         })

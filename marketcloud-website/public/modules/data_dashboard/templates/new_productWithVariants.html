@@ -1,3 +1,24 @@
+<style>
+
+tags-input .tags .tag-item {
+  height: unset;
+}
+
+.category-select .tag-list + input {
+	display: none;
+}
+
+.category-select .tags {
+	border: none !important;
+}
+
+tags-input *:focus,
+tags-input:focus, .tag-item:focus {
+	box-shadow: none !important;
+	outline: none;
+}
+
+</style>
 <div class="dashboard-section-header">
 	<span class="hidden-xs">
 		<a class="root link" href="#/products">Products</a>  / New product <b>with variants</b>
@@ -8,7 +29,7 @@
 	<div class="row">
 		<div class="col-md-4 col-xs-6">
 			<div class="form-group">
-				
+
 				<div class="form-group">
 					<label>Copy from existing product</label>
 					<input type="text"
@@ -61,7 +82,7 @@
 						placeholder="e.g. Lightsaber"
 						ng-change="updateSlug()"
 						ng-model="product.name" />
-						
+
 					</div>
 					<div class="checkbox">
 						<input type="checkbox" ng-model="unsafeSlug" id="unsafeSlug" />
@@ -78,7 +99,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-xs-12">
-							
+
 							<label>Description</label>
 							<div trumbowyg-ng
 								ng-model="product.description"
@@ -86,13 +107,13 @@
 							</div>
 						</div>
 					</div>
-					
-					
+
+
 				</div>
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Inventory</h4></div>
-				
+
 				<div class="row">
 					<div class="form-group col-lg-6"  ng-class="{'has-error' : errorField === 'stock_type'}">
 						<label>Inventory policy *</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose how should Marketcloud track your inventory"></span>
@@ -101,7 +122,7 @@
 							ng-change="updateStockManagementForVariants()">
 							<option value="track">Track quantities</option>
 							<option value="status">Status</option>
-							
+
 						</select>
 					</div>
 					<div class="form-group col-lg-6"
@@ -121,7 +142,7 @@
 							ng-model="product.stock_status">
 							<option value="in_stock">In stock</option>
 							<option value="out_of_stock">Out of stock</option>
-							
+
 						</select>
 					</div>
 				</div>
@@ -150,19 +171,19 @@
 				<div class="card-header"><b>Publishing</b></div>
 				<div class="card-content">
 					<div class="form-group">
-						
+
 						<label>Product published</label>
 						<div>
 							<switch value="product.published"></switch>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Pricing</h4></div>
 				<div class="card-content">
-					
+
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'price'}">
 						<label>Price*</label>
 						<div class="input-group input-group-right">
@@ -172,7 +193,7 @@
 							ng-model="product.price" money/>
 							<span class="input-group-addon ">{{application.currency_code}}</span>
 						</div>
-						
+
 					</div>
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'price_discount'}">
 						<label>Discount price</label>
@@ -189,21 +210,39 @@
 						<taxes-selector
 						tax="product.tax_id"></taxes-selector>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Taxonomy</h4></div>
 				<div class="card-content">
-					<div class="form-group"
+					<div class="form-group category-select"
 						ng-class="{'has-error' : errorField === 'category_id'}">
 						<label>Category</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's category"></span>
+						<span style="font-size: 14px; color: #bababa; display: block;" ng-if="selectedCategories.length > 0">
+							Selected categories:
+						</span>
+						<tags-input
+								ng-model="selectedCategories"
+								min-length="1"
+								placeholder="e.g Blue"
+								on-tag-added=""
+								on-tag-removed="setMainCategoryToLast()"
+								></tags-input>
 						<categories-selector
 						category="product.category_id"></categories-selector>
+						<div ng-if="selectedCategories.length > 0">
+							<span style="font-size: 14px; color: #bababa; display: block;">
+								Main category:
+							</span>
+							<select ng-model="product.category_id" class="form-control">
+								<option ng-value="category.category_id" ng-repeat="category in selectedCategories">{{ category.text }}</option>
+							</select>
+						</div>
 					</div>
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'brand_id'}">
 						<label>Brand</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's brand"></span>
-						
+
 						<brands-selector
 						brand="product.brand_id"></brands-selector>
 					</div>
@@ -218,7 +257,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			
+
 			<div class="card mb50">
 				<div class="card-header"><h4>Shipping information</h4></div>
 				<div class="form-group">
@@ -236,7 +275,7 @@
 					<div class="row">
 						<div class="form-group col-lg-8 col-xs-12">
 							<label>Weight (Kg)</label>
-							
+
 							<div class="input-group input-group-right">
 								<input type="number"
 								class="form-control  "
@@ -249,7 +288,7 @@
 					<div class="row">
 						<div class="form-group col-xs-4">
 							<label>Depth</label>
-							
+
 							<div class="input-group input-group-right">
 								<input type="number"
 								class="form-control  "
@@ -285,7 +324,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			
+
 			<custom-attributes-form
 			resource="product"
 			properties="customPropertiesData"
@@ -294,24 +333,24 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-8 ">
-			
-			
+
+
 			<seo-form seo="product.seo"></seo-form>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			
+
 			<div class="card card-table mb50">
 				<div class="card-header"><h4>Variants</h4></div>
 				<div class="card-content">
 					<p class="text-muted">Type the variant name on the left box and then add the list of comma separated variant values on the right box. </p>
 					<p class="text-muted">Example: Type 'size' on the left box and then on the right box add some tshirt sizes: xxl, xl, l and so on.</p>
 					<div >
-						
-						
+
+
 						<div class="row" ng-repeat="variant in addedVariants2 track by $index">
-							
+
 							<div class="form-group col-xs-4">
 								<label>Variant name</label>
 								<input type="text"
@@ -348,7 +387,7 @@
 					<table class="table table-bodered">
 						<thead>
 							<tr>
-								
+
 								<th></th>
 								<th>Variant</th>
 								<th>Inventory</th>
@@ -363,13 +402,13 @@
 									<div class="checkbox">
 										<input type="checkbox" ng-model="variant.save">
 										<label for="variantCheck">
-											
+
 										</label>
 									</div>
 								</td>
-								
+
 								<td>
-									
+
 									<span ng-repeat="(k,v) in filterVariantProps(variant) track by $index" class="{{getVariantClass($index)}}" style="margin-right:5px;">{{v}}</span>
 								</td>
 								<td>
@@ -377,7 +416,7 @@
 									ng-model="variant.stock_type">
 									<option value="track">Track quantities</option>
 									<option value="status">Status</option>
-									
+
 								</select>
 							</td>
 							<td>
@@ -385,13 +424,13 @@
 								class="form-control"
 								ng-show="variant.stock_type === 'track'"
 								ng-model="variant.stock_level" />
-								
+
 								<select class="form-control "
 									ng-show="variant.stock_type === 'status'"
 									ng-model="variant.stock_status">
 									<option value="in_stock">In stock</option>
 									<option value="out_of_stock">Out of stock</option>
-									
+
 								</select>
 							</td>
 							<td><input type="number"  class="form-control" ng-model="variant.price" /></td>
@@ -413,7 +452,7 @@
 												<table class="table table-bodered">
 														<thead>
 																<tr>
-																		
+
 																		<th></th>
 																		<th>Variant</th>
 																		<th>Inventory</th>
@@ -427,7 +466,7 @@
 																				<div class="checkbox">
 																						<input type="checkbox" ng-model="variant.save">
 																						<label for="variantCheck">
-																								
+
 																						</label>
 																				</div>
 																		</td>
@@ -440,13 +479,13 @@
 																				class="form-control "
 																				ng-show="product.stock_type === 'track'"
 																				ng-model="variant.stock_level" />
-																				
+
 																				<select class="form-control  "
 																						ng-show="product.stock_type === 'status'"
 																						ng-model="variant.stock_status">
 																						<option value="in_stock">In stock</option>
 																						<option value="out_of_stock">Out of stock</option>
-																						
+
 																				</select>
 																		</td>
 																		<td><input type="number"  class="form-control " ng-model="variant.price" /></td>

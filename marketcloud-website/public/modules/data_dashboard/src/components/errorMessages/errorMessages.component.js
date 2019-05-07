@@ -43,14 +43,12 @@ function ErrorMessagesController (scope, Models) {
   }
 
   this.$onChanges = function(changes) {
-    var validation = changes.validation.currentValue;
+    // var validation = changes.validation.currentValue;
 
-    if (validation.invalidPropertyName === this.propertyName)
-        $('html, body').animate({
-          scrollTop: $("[property-name='"+validation.invalidPropertyName+"']").offset().top - 200
-        }, 500);
-
-
+    // if (validation.invalidPropertyName === this.propertyName)
+    //     $('html, body').animate({
+    //       scrollTop: $("[property-name='"+validation.invalidPropertyName+"']").offset().top - 200
+    //     }, 500);
   }
 
 

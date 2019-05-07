@@ -1,3 +1,24 @@
+<style>
+
+	tags-input .tags .tag-item {
+		height: unset;
+	}
+
+	.category-select .tag-list + input {
+		display: none;
+	}
+
+	.category-select .tags {
+		border: none !important;
+	}
+
+	tags-input *:focus,
+	tags-input:focus, .tag-item:focus {
+		box-shadow: none !important;
+		outline: none;
+	}
+
+	</style>
 <div class="dashboard-section-header"><a href="#/products" class="link root">Products</a> / {{product.name}}
 <div class="btn-group pull-right">
 	<button type="button" class="btn btn-info btn-sm" ng-click="updateProduct()">Save</button>
@@ -15,7 +36,7 @@
 <div class="container-fluid">
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Basic information</h4></div>
 			<div class="form-group" ng-class="{'has-error' : errorField === 'name'}">
@@ -39,8 +60,8 @@
 				ng-disabled="false === unsafeSlug"
 				ng-model="product.slug" />
 			</div>
-			
-			
+
+
 			<div class="row">
 				<div class="form-group col-xs-12">
 					<label>Description</label>
@@ -57,7 +78,7 @@
 			<div class="card-header"><b>Publishing</b></div>
 			<div class="card-content">
 				<div class="form-group">
-					
+
 					<label>Product published</label>
 					<div>
 						<switch value="product.published"></switch>
@@ -68,7 +89,7 @@
 		<div class="card mb50">
 			<div class="card-header"><h4>Pricing</h4></div>
 			<div class="card-content">
-				
+
 				<div class="form-group"  ng-class="{'has-error' : errorField === 'price'}">
 					<label>Price*</label>
 					<div class="input-group input-group-right">
@@ -78,7 +99,7 @@
 						ng-model="product.price" />
 						<span class="input-group-addon ">{{application.currency_code}}</span>
 					</div>
-				
+
 				</div>
 				<div class="form-group"  ng-class="{'has-error' : errorField === 'price_discount'}">
 					<label>Discount price</label>
@@ -95,21 +116,39 @@
 					<taxes-selector
 					tax="product.tax_id"></taxes-selector>
 				</div>
-				
+
 			</div>
 		</div>
 		<div class="card mb50">
 			<div class="card-header"><h4>Taxonomy</h4></div>
 			<div class="card-content">
-				<div class="form-group"
+				<div class="form-group category-select"
 					ng-class="{'has-error' : errorField === 'category_id'}">
 					<label>Category</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's category"></span>
+					<span style="font-size: 14px; color: #bababa; display: block;" ng-if="selectedCategories.length > 0">
+						Selected categories:
+					</span>
+					<tags-input
+							ng-model="selectedCategories"
+							min-length="1"
+							placeholder="e.g Blue"
+							on-tag-added=""
+							on-tag-removed="setMainCategoryToLast()"
+							></tags-input>
 					<categories-selector
 					category="product.category_id"></categories-selector>
+					<div ng-if="selectedCategories.length > 0">
+						<span style="font-size: 14px; color: #bababa; display: block;">
+							Main category:
+						</span>
+						<select ng-model="product.category_id" class="form-control">
+							<option ng-value="category.category_id" ng-repeat="category in selectedCategories">{{ category.text }}</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group"  ng-class="{'has-error' : errorField === 'brand_id'}">
 					<label>Brand</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's brand"></span>
-					
+
 					<brands-selector
 					brand="product.brand_id"></brands-selector>
 				</div>
@@ -119,7 +158,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Inventory</h4></div>
 			<div class="row">
@@ -149,7 +188,7 @@
 						ng-model="product.stock_status">
 						<option value="in_stock">In stock</option>
 						<option value="out_of_stock">Out of stock</option>
-						
+
 					</select>
 				</div>
 			</div>
@@ -176,7 +215,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Shipping information</h4></div>
 			<div class="form-group">
@@ -194,7 +233,7 @@
 				<div class="row">
 					<div class="form-group col-lg-8 col-xs-12">
 						<label>Weight (Kg)</label>
-						
+
 						<div class="input-group input-group-right">
 							<input type="number"
 							class="form-control input-lg "
@@ -207,7 +246,7 @@
 				<div class="row">
 					<div class="form-group col-xs-4">
 						<label>Depth</label>
-						
+
 						<div class="input-group input-group-right">
 							<input type="number"
 							class="form-control input-lg "
@@ -243,18 +282,18 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<custom-attributes-form
 		resource="product"
 		properties="customPropertiesData"
 		></custom-attributes-form>
-		
+
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<images-card items="product.images"></images-card>
 	</div>
 </div>
@@ -287,7 +326,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -300,13 +339,13 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-8 ">
 					<h4>SEO</h4>
-					
+
 					<seo-form seo="product.seo"></seo-form>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-lg-8">
-					
+
 					<div class="card card-table mb50">
 						<div class="card-header"><h4>Variants</h4></div>
 						<div class="card-toolbar text-right">
@@ -319,7 +358,7 @@
 										<th>ID</th>
 										<th>Variant</th>
 										<th>Image</th>
-										
+
 										<th>Price</th>
 										<th>SKU</th>
 										<th></th>
@@ -330,7 +369,7 @@
 										<td>#{{variant.variant_id}}</td>
 										<td><span ng-repeat="(k,v) in filterVariantProps(variant) track by $index" ng-style="getVariantStyle($index)">&#8226; {{v}}</span></td>
 										<td><img ng-src="{{variant.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" style="max-width:64px;border:1px solid #CCC" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/></td>
-										
+
 										<td>{{variant.price}} {{application.currency_code}}</td>
 										<td>{{variant.sku || "unknown"}}</td>
 										<td>
@@ -354,10 +393,10 @@
 				The variant name must be at least 2 characters long.
 			</div>
 			<hr>
-			
+
 			<div class="row">
 				<div class="col-lg-8 col-xs-12">
-					
+
 					<div class="card mb50">
 						<div class="row">
 							<div class="text-right col-xs-12">
@@ -367,8 +406,8 @@
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 </div>
