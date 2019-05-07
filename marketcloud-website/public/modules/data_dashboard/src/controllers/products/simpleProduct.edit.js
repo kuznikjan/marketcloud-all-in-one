@@ -5,9 +5,9 @@
     .controller('EditSimpleProductController', EditSimpleProductController)
 
   EditSimpleProductController.$inject = [
-  '$scope', 
-  '$marketcloud', 
-  'product', 
+  '$scope',
+  '$marketcloud',
+  'product',
   '$http',
   '$utils',
   '$validation']
@@ -140,10 +140,10 @@
             var element = angular.element('[ng-model="'+invalidPropertyName+'"]').parent()
 
             $validation.showErrorMessage(validation,'[ng-model="'+invalidPropertyName+'"]')
-            
 
-            
-    
+
+
+
           } else
             notie.alert(3, 'Update failed', 1.5)
         })

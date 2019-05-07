@@ -1,3 +1,5 @@
+var Decimal = require('decimal.js').set({ precision: 13, rounding: 4 })
+var Decimal5 = Decimal.clone({ precision: 5, rounding: 4 })
 //@flow
 var Utils = {}
 var Errors = require('../models/errors.js')
@@ -333,7 +335,7 @@ Utils.parseFloatsInObject = function (object) {
  *   @return {Number} The total price for this line item
  */
 function getLineItemPrice (expandedLineItem) {
-  return Utils.fix2(getProductPrice(expandedLineItem) * expandedLineItem.quantity)
+  return new Decimal(getProductPrice(expandedLineItem)).mul(expandedLineItem.quantity).toNumber()
 }
 
 Utils.getLineItemPrice = getLineItemPrice
@@ -343,24 +345,39 @@ Utils.getLineItemPrice = getLineItemPrice
  * *  Covered in test/unit/couponValue.spec.js
  */
 function getCouponDiscountForLineItem (coupon, lineItem) {
-  var discount = 0
+  var _discount = new Decimal(0)
 
   // Product is a line item, so we assume it has a quantity property
   // in case it doesnt we default it to 1
+  if (coupon.target_type === 'CART_COUPON') {
+    if (coupon.discount_type === 'NET_REDUCTION') {
+      _discount = _discount.plus(coupon.discount_value * lineItem.quantity)
+    } else if (coupon.discount_type === 'PERCENTAGE_REDUCTION') {
+      var _percentageAmount = new Decimal(0)
 
-  if (coupon.discount_type === 'NET_REDUCTION') {
-    discount += coupon.discount_value * lineItem.quantity
-  } else if (coupon.discount_type === 'PERCENTAGE_REDUCTION') {
-    var percentageAmount = 0
+      var price = new Decimal(Utils.getLineItemPrice(lineItem))
 
-    var price = Utils.getLineItemPrice(lineItem)
+      _percentageAmount = price.mul(new Decimal(coupon.discount_value)).div(100)
 
-    percentageAmount = (price * coupon.discount_value) / 100
+      _discount = _discount.plus(_percentageAmount)
+    }
+  } else if (coupon.target_type === 'PRODUCT_COUPON' && lineItem.id === coupon.target_id) {
+    if (coupon.discount_type === 'NET_REDUCTION') {
+      _discount = _discount.plus(coupon.discount_value * lineItem.quantity)
+    } else if (coupon.discount_type === 'PERCENTAGE_REDUCTION') {
+      _percentageAmount = new Decimal(0)
 
-    discount += percentageAmount
+      price = new Decimal(Utils.getLineItemPrice(lineItem))
+
+      _percentageAmount = price.mul(new Decimal(coupon.discount_value)).div(100)
+
+      _discount = _discount.plus(_percentageAmount)
+    }
   }
 
-  return Utils.fix2(discount)
+  // TODO: Handle other coupons
+
+  return _discount.toDP(4, Decimal.ROUND_HALF_UP).toNumber()
 }
 
 Utils.getCouponDiscountForLineItem = getCouponDiscountForLineItem
@@ -670,6 +687,8 @@ function getPromotionTotal (order) {
 Utils.getPromotionTotal = getPromotionTotal
 
 function getPromotionTotalForLineItem (lineItem, promotion, products) {
+  // TODO: Handle calculations with Decimal
+
   var promotion_total = 0
   // Since this is a line item, we take quantities in account
   var item_total = Utils.getLineItemPrice(lineItem)
@@ -951,18 +970,24 @@ Utils.applyTaxesToProduct = function (product, application,taxes) {
     return product;
   }
 
-  product.price = Utils.fix2( product.price + applyPercentage(product.price, taxRate) );
+  var price = new Decimal(product.price).toDP(4, Decimal.ROUND_DOWN)
 
-  if (product.hasOwnProperty("price_discount"))
-    product.price_discount = Utils.fix2(product.price_discount+applyPercentage(product.price_discount, taxRate) );
+  product.price = price.plus(new Decimal(applyPercentage(price.toNumber(), taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
+
+  if (product.hasOwnProperty("price_discount")) {
+    var price_discount = new Decimal(product.price_discount).toDP(4, Decimal.ROUND_DOWN)
+    product.price_discount = price_discount.plus(new Decimal(applyPercentage(price_discount.toNumber(), taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
+  }
 
   if (product.hasOwnProperty("variants")){
-    product.variants = product.variants.map(function(variant){
+    product.variants = product.variants.map(function (variant){
+      var price = new Decimal(variant.price).toDP(4, Decimal.ROUND_DOWN)
+      variant.price = price.plus(new Decimal(applyPercentage(price, taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
 
-      variant.price = Utils.fix2(variant.price + applyPercentage(variant.price, taxRate));
-
-      if (variant.hasOwnProperty("price_discount"))
-        variant.price_discount = Utils.fix2(variant.price_discount + applyPercentage(variant.price_discount, taxRate) );
+      if (variant.hasOwnProperty("price_discount")) {
+        var price_discount = new Decimal(variant.price_discount).toDP(4, Decimal.ROUND_DOWN)
+        variant.price_discount = price_discount.plus(new Decimal(applyPercentage(price_discount.toNumber(), taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
+      }
 
       return variant;
     })
@@ -970,15 +995,15 @@ Utils.applyTaxesToProduct = function (product, application,taxes) {
 
   if (product.hasOwnProperty("variant")){
 
-      var variant = product.variant;
+    var variant = product.variant;
+    var price = new Decimal(variant.price).toDP(4, Decimal.ROUND_DOWN)
+    variant.price = price.plus(new Decimal(applyPercentage(price.toNumber(), taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
 
-      variant.price = Utils.fix2(variant.price + applyPercentage(variant.price, taxRate));
-
-      if (variant.hasOwnProperty("price_discount"))
-        variant.price_discount = Utils.fix2(variant.price_discount + applyPercentage(variant.price_discount, taxRate) );
-
+    if (variant.hasOwnProperty("price_discount")) {
+      var price_discount = new Decimal(variant.price_discount).toDP(4, Decimal.ROUND_DOWN)
+      variant.price_discount = price_discount.plus(new Decimal(applyPercentage(price_discount.toNumber(), taxRate))).toDP(2, Decimal.ROUND_HALF_UP).toNumber();
+    }
   }
-
   return product;
 }
 
@@ -991,6 +1016,7 @@ Utils.applyTaxesToProduct = function (product, application,taxes) {
 
 */
 function getTotalTaxesForProducts (order, application) {
+
   var products = order.products
   var taxes = order.taxes
   var applicationTaxRate = application.tax_rate
@@ -1014,7 +1040,7 @@ function getTotalTaxesForProducts (order, application) {
     taxes_index[tax.id] = tax
   })
 
-  var total = 0
+  var _total = new Decimal(0)
 
   products.forEach((product) => {
     var rateToApply
@@ -1042,18 +1068,30 @@ function getTotalTaxesForProducts (order, application) {
       if (order.coupon) {
         discountForLineItem += getCouponDiscountForLineItem(order.coupon, product)
       }
+
+      // FIXME: Is this working?
       if (order.promotion) {
         discountForLineItem += getPromotionTotalForLineItem(product, order.promotion, order.products)
       }
 
-      total += applyPercentage(getLineItemPrice(product) - discountForLineItem, rateToApply);
 
+      var _lineItemDiscount = new Decimal(discountForLineItem)
+      var _lineItemPrice = new Decimal(getLineItemPrice(product))
+      var _discountAccounted = _lineItemPrice.sub(_lineItemDiscount)
+      var totalLineItem = applyPercentage(_discountAccounted.toNumber(), rateToApply)
+      var _totalLineItem = new Decimal(totalLineItem)
+
+      _total = _total.plus(_totalLineItem.toDP(2, Decimal.ROUND_HALF_UP))
     } else {
-      total += applyPercentage(getLineItemPrice(product), rateToApply)
+      _lineItemPrice = new Decimal(getLineItemPrice(product))
+      totalLineItem = applyPercentage(_lineItemPrice.toNumber(), rateToApply)
+      _totalLineItem = new Decimal(totalLineItem)
+
+      _total = _total.plus(_totalLineItem.toDP(2, Decimal.ROUND_HALF_UP))
     }
   })
 
-  return Utils.fix2(total)
+  return _total.toDP(2, Decimal.ROUND_HALF_UP)
 }
 
 Utils.getTotalTaxesForProducts = getTotalTaxesForProducts
@@ -1712,23 +1750,35 @@ Utils.getTotalItemsValue = function (lineItems) {
 
   var total_value = lineItems
     .map((item) => {
+      var price, quantity
+
       if (item.variant) {
+        quantity = new Decimal(item.quantity).toDP(4, Decimal.ROUND_DOWN)
+
         if (item.variant.hasOwnProperty('price_discount')) {
-          return item.quantity * item.variant.price_discount
+          price = new Decimal(item.variant.price_discount).toDP(4, Decimal.ROUND_DOWN)
+          return price.mul(quantity).toNumber()
         } else {
-          return item.quantity * item.variant.price
+          price = new Decimal(item.variant.price).toDP(4, Decimal.ROUND_DOWN)
+          return price.mul(quantity).toNumber()
         }
       }
 
+      quantity = new Decimal(item.quantity).toDP(4, Decimal.ROUND_DOWN)
+
       if (item.hasOwnProperty('price_discount')) {
-        return item.quantity * item.price_discount
+        price = new Decimal(item.price_discount).toDP(4, Decimal.ROUND_DOWN)
+        return price.mul(quantity).toNumber()
       } else {
-        return item.quantity * item.price
+        price = new Decimal(item.price).toDP(4, Decimal.ROUND_DOWN)
+        return price.mul(quantity).toNumber()
       }
     })
     .reduce((a, b) => a + b, 0)
 
-  return (Math.round(total_value * 100) / 100)
+  var total_rounded = new Decimal(total_value).toDP(2, Decimal.ROUND_DOWN);
+
+  return total_rounded.toNumber()
 }
 
 Utils.convertCartPrices = function (cart, wantedCurrencyCode, rate) {

@@ -12,19 +12,19 @@
 		<ul class="dropdown-menu">
 			<li><a ng-click="updateProduct()">Save</a></li>
 			<li><a href="#/products/{{product.id}}/translations">Edit translations</a></li>
-			
+
 		</ul>
 	</div>
 	<back-button></back-button>
 </div>
 
 <div class="container-fluid" style="padding-bottom: 50px;">
-	
+
 	<div class="row">
-		
+
 
 		<div class="col-xs-12 col-md-8">
-			
+
 			<div class="card card-form mb20">
 				<div class="card-header"><h4>Basic information</h4></div>
 				<div class="card-content">
@@ -56,7 +56,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-xs-12">
-							
+
 							<label>Description</label>
 							<div trumbowyg-ng
 								ng-model="product.description"
@@ -69,8 +69,8 @@
 						</error-messages>
 						</div>
 					</div>
-					
-					
+
+
 				</div>
 			</div>
 			<div class="card card-form mb50">
@@ -113,7 +113,7 @@
 								ng-init="product.stock_status = 'in_stock'">
 								<option value="in_stock">In stock</option>
 								<option value="out_of_stock">Out of stock</option>
-								
+
 							</select>
 							<error-messages
 						validation="validation"
@@ -153,23 +153,23 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-md-4 col-xs-12">
 			<div class="card mb20">
 				<div class="card-header"><b>Publishing</b></div>
 				<div class="card-content">
 					<div class="form-group">
-						
+
 						<label>Product published</label>
 						<div><switch value="product.published"></switch></div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Pricing</h4></div>
 				<div class="card-content">
-					
+
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'price'}">
 						<label>Price*</label>
 						<div class="input-group input-group-right">
@@ -205,9 +205,9 @@
 						<taxes-selector
 						tax="product.tax_id"></taxes-selector>
 					</div>
-					
+
 				</div>
-				
+
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Taxonomy</h4></div>
@@ -220,24 +220,24 @@
 					</div>
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'brand_id'}">
 						<label>Brand</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's brand"></span>
-						
+
 						<brands-selector
 						brand="product.brand_id"></brands-selector>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
+
 			<images-card items="product.images"></images-card>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
-			
+
+
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
 			<div class="card card-form mb50">
 				<div class="card-header"><h4>Shipping information</h4></div>
@@ -262,7 +262,7 @@
 						<div class="row">
 							<div class="form-group col-lg-8 col-xs-12">
 								<label>Weight (Kg)</label>
-								
+
 								<div class="input-group input-group-right">
 									<input type="number"
 									class="form-control  "
@@ -280,7 +280,7 @@
 						<div class="row">
 							<div class="form-group col-xs-4">
 								<label>Depth</label>
-								
+
 								<div class="input-group input-group-right">
 									<input type="number"
 									class="form-control  "
@@ -329,25 +329,25 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
+
 			<custom-attributes-form
 			resource="product"
 			properties="customPropertiesData"
 			title="Custom properties"
 			></custom-attributes-form>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
 			<seo-form seo="product.seo"></seo-form>
 		</div>
-		
-		
-		
-		
+
+
+
+
 	</div>
-	
-	
-	
+
+
+
 </div>

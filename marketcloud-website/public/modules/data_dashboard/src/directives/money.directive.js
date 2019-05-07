@@ -7,7 +7,7 @@
  */
 
 var NUMBER_REGEXP = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/;
-var DEFAULT_PRECISION = 2;
+var DEFAULT_PRECISION = 4;
 
 angular.module('DataDashboard')
 
