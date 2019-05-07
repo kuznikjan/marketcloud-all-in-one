@@ -79,11 +79,16 @@ app.controller('ContentController', [
       }, 200)
     }
 
+    scope.prepareRegex = function() {
+      scope.query.name.$options = 'i'
+    }
+
     scope.loadProducts = function(query) {
       query = query || scope.query
 
       $marketcloud.products.list(query)
         .then(function(response) {
+          console.log(response)
           scope.products = response.data.data
             .filter(function(item) {
               return scope.itemsToAdd

@@ -97,6 +97,10 @@ app.controller('EditContentController', [
       }, 200)
     }
 
+    scope.prepareRegex = function() {
+      scope.query.name.$options = 'i'
+    }
+
     scope.loadProducts = function(query) {
       query = query || scope.query
 
