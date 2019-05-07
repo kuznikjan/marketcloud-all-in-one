@@ -79,8 +79,6 @@ app.controller('EditContentController', [
 
       scope.selectedProducts.push(product)
 
-      console.log(scope.selectedProducts)
-
       scope.query.name.$regex = ''
       scope.products = []
     }

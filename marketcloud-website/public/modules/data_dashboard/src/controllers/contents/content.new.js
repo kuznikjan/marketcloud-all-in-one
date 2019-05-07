@@ -61,8 +61,6 @@ app.controller('ContentController', [
 
       scope.selectedProducts.push(product)
 
-      console.log(scope.selectedProducts)
-
       scope.query.name.$regex = ''
       scope.products = []
     }
@@ -88,7 +86,6 @@ app.controller('ContentController', [
 
       $marketcloud.products.list(query)
         .then(function(response) {
-          console.log(response)
           scope.products = response.data.data
             .filter(function(item) {
               return scope.itemsToAdd
