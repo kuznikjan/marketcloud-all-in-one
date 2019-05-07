@@ -49,17 +49,17 @@
 
 <a  class="anchor" id="notifications.send"></a>
 <div class="documentation">
-  
+
   <h3>POST /notifications/:event_type/:resource_id</h3>
   <p >Sends a notification of type <code>event_type</code> relative to the resource <code>resource_id</code></p>
   <blockquote class="blockquote-info">
     <b>Note:</b><br>
   Please remember that a notification must be activated before you can send it through api. You can activate notifications from the dashboard.</blockquote>
-<pre><code class="http">POST https://api.marketcloud.it/v0/notifications/:event_type/:resource_id</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/notifications/:event_type/:resource_id</code></pre>
 
 <h5>Example Request</h5>
 <p>Send a "users.create" notification for user 1010</p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/notifications/users.create/1010</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/notifications/users.create/1010</code></pre>
 <h5>Example Response</h5>
 <pre><code class="json">{ "status":true }</code></pre>
 </div>

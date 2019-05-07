@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -116,7 +116,7 @@
 					<div class="documentation"  id="products.create">
 						<h3>POST /products</h3>
 						<p class="lead">Creates a new Product. </p>
-						<pre><code class="http">POST http://api.marketcloud.it/v0/products</code></pre>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/products</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -203,15 +203,15 @@
 		published :"true"
 	}
 
-}</code></pre>								
+}</code></pre>
 							</div>
-<!-- / PRODUCT CREATE -->						
+<!-- / PRODUCT CREATE -->
 
 <!-- PRODUCT LIST -->
 						<div class="documentation" id="products.list">
 						<h3>GET /products</h3>
 						<p class="lead">Retrieves a paginated response of a list of products from your application.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/products</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/products</code></pre>
 						<h5>Request parameters</h5>
 						<div class="table-responsive"><table class="table table-striped documentation">
       <thead>
@@ -304,16 +304,16 @@
 
 	],
 	"_links": {
-    "curr": "http://api.marketcloud.it/v0/products",
-    "next": "http://api.marketcloud.it/v0/products?page=2"
+    "curr": "https://api.marketcloud.studio404.net/v0/products",
+    "next": "https://api.marketcloud.studio404.net/v0/products?page=2"
   },
 	"count": 330,
 	"page": 1,
 	"pages": 17
-}</code></pre>								
+}</code></pre>
 
 						</div>
-<!-- / PRODUCT LIST -->	
+<!-- / PRODUCT LIST -->
 
 
 
@@ -322,7 +322,7 @@
 						<div class="documentation"  id="products.getById">
 						<h3>GET /products/:id</h3>
 						<p class="lead">Retrieve a specific product given its id.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/products/:id;</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/products/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -360,7 +360,7 @@
 		stock_level : "1256",
 		published :"true"
 		}
-}</code></pre>								
+}</code></pre>
 							</div>
 						</div>
 <!-- / PRODUCT GET BY ID -->
@@ -368,7 +368,7 @@
 				<div class="documentation"  id="products.update">
 						<h3>PUT /products/:id</h3>
 						<p class="lead">Updates a product given an id. Returns the updated product.</p>
-						<pre><code class="http">PUT http://api.marketcloud.it/v0/products/:id;</code></pre>
+						<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/products/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -445,22 +445,22 @@
 		published :"true"
 		}
 
-}</code></pre>							
-						</div>	
+}</code></pre>
+						</div>
 <!-- / PRODUCT UPDATE BY ID -->
 <!-- PRODUCT DELETE BY ID -->
 				<div class="documentation"  id="products.delete">
 						<h3>DELETE /products/:id</h3>
 						<p class="lead">Deletes a specific product given its id.</p>
-						<pre><code class="http">DELETE https://api.marketcloud.it/v0/products/:id;</code></pre>
+						<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/products/:id;</code></pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/products/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
 	status:true
-}</code></pre>			
-</div>							
+}</code></pre>
+</div>
 <!-- / PRODUCT DELETE BY ID -->
 
 
@@ -468,7 +468,7 @@
 <div class="documentation"  id="products.updateVariant">
 	<h3>PUT /products/:id/variants/:variant_id</h3>
 	<p class="lead">Updates a product's variant.</p>
-<pre><code class="http">PUT https://api.marketcloud.it/v0/products/:id/variants/:variant_id;</code></pre>
+<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/products/:id/variants/:variant_id;</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/products/update_variant.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="250px" seamless></iframe>
 <h5>Parameters</h5>
@@ -511,8 +511,8 @@
       "id": 2
     }
   }
-}</code></pre>			
-</div>			
+}</code></pre>
+</div>
 <!-- / -->
 
 
@@ -521,7 +521,7 @@
 <div class="documentation"  id="products.getVariants">
 	<h3>GET /products/:id/variants/:variant_id</h3>
 	<p class="lead">Get a product's variant.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/products/:id/variants/:variant_id;</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/products/:id/variants/:variant_id;</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/products/get_variant.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="250px" seamless></iframe>
 <h5>Example JSON response (200)</h5>
@@ -562,15 +562,15 @@
       "id": 2
     }
   }
-}</code></pre>			
-</div>			
+}</code></pre>
+</div>
 <!-- / -->
 
 <!-- CREATES variants-->
 <div class="documentation"  id="products.createVariant">
 	<h3>POST /products/:id/variants/</h3>
 	<p class="lead">Create a product's variants.</p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/products/:id/variants/:variant_id;</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/products/:id/variants/:variant_id;</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/products/create_variants.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="250px" seamless></iframe>
 <h5>Parameters</h5>
@@ -613,8 +613,8 @@
       "id": 2
     }
   }
-}</code></pre>			
-</div>			
+}</code></pre>
+</div>
 <!-- / -->
         </div>
       </div>

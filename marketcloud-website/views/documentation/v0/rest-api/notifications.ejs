@@ -8,14 +8,14 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 						<ol class="breadcrumb mt20">
@@ -40,7 +40,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										
+
 										<tr>
 											<td class="code">id</td>
 											<td>Number</td>
@@ -76,7 +76,7 @@
       					<p>This endpoint allows you to programmatically send notifications that have already been created from your store's dashboard.</p>
       					<h5>Available notifications</h5>
       					<p>At the moment, the list of available notification triggers is :</p>
-      					
+
       					<div class="table-responsive">
       						<table class="table table-striped">
       							<thead>
@@ -109,25 +109,25 @@
 
 <!-- files CREATE -->
 					<div class="documentation">
-						
+
 						<h3>POST /notifications/:event_type/:resource_id</h3>
 						<p class="lead">Sends a notification of type <code>event_type</code> relative to the resource <code>resource_id</code></p>
 						<blockquote class="blockquote-info">
             <b>Note:</b><br>
             Please remember that a notification must be activated before you can send it through api. You can activate notifications from the dashboard.</blockquote>
-						<pre><code class="http">POST https://api.marketcloud.it/v0/notifications/:event_type/:resource_id</code></pre>
-						
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/notifications/:event_type/:resource_id</code></pre>
+
 						<h5>Example Request</h5>
 						<p>Send a "users.create" notification for user 1010</p>
-						<pre><code class="http">POST https://api.marketcloud.it/v0/notifications/users.create/1010</code></pre>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/notifications/users.create/1010</code></pre>
 						<h5>Example Response</h5>
-						<pre><code class="json">{ "status":true }</code></pre>							
+						<pre><code class="json">{ "status":true }</code></pre>
 							</div>
-<!-- / file CREATE -->						
+<!-- / file CREATE -->
 
 <!-- file LIST -->
-						
-       
+
+
         </div>
       </div>
 </div>

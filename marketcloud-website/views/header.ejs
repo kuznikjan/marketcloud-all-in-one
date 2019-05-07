@@ -6,22 +6,22 @@
 		<% } %>
 
 
-		
+
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
+
 
 		<meta property="fb:admins" content="1524219834" />
-		
+
 
 		<% if ('undefined' !== typeof meta_tags){ %>
 			<%- meta_tags %>
 		<%} %>
-			
-	
+
+
 		<title>Marketcloud | <%= pageTitle %></title>
-		
+
 
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -86,7 +86,7 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 	window.MARKETCLOUD_USER = <%- JSON.stringify(user) %>;
 	mixpanel.identify('<%= user.email %>');
 	mixpanel.people.set({
-    "$email": "<%= user.email %>"   // only special properties need the $       
+    "$email": "<%= user.email %>"   // only special properties need the $
 });
 <% } %>
 </script>
@@ -96,8 +96,8 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
     {
       "@context": "http://schema.org",
       "@type": "Organization",
-      "url": "http://www.marketcloud.it",
-      "logo": "http://www.marketcloud.it/img/Marketcloud_Logo_Big.png"
+      "url": "https://marketcloud.studio404.net",
+      "logo": "https://marketcloud.studio404.net/img/Marketcloud_Logo_Big.png"
     }
 </script>
 
@@ -108,8 +108,8 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 <script>
 !function() {
   var t;
-  if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
-  t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+  if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
+  t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
   t.factory = function(e) {
     return function() {
       var n;
@@ -119,8 +119,8 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
     t[e] = t.factory(e);
   }), t.load = function(t) {
     var e, n, o, i;
-    e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
-    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js", 
+    e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
+    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
     n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
   });
 }();

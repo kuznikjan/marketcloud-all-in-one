@@ -1250,7 +1250,7 @@ var optionsToVariantId = function (req, res, next) {
 }
 
 /*
- *   GET api.marketcloud.it/v0/carts
+ *   GET api.marketcloud.studio404.net/v0/carts
  */
 router.get('/',
   Middlewares.verifyClientAuthorization('carts', 'list'),
@@ -1262,7 +1262,7 @@ router.get('/',
   cartController.sendToClient)
 
 /*
- *   GET api.marketcloud.it/v0/carts/:cardId
+ *   GET api.marketcloud.studio404.net/v0/carts/:cardId
  */
 router.get('/:cartId',
   Middlewares.verifyClientAuthorization('carts', 'getById'),
@@ -1274,7 +1274,7 @@ router.get('/:cartId',
   cartController.sendToClient)
 
 /*
- *   POST api.marketcloud.it/v0/carts
+ *   POST api.marketcloud.studio404.net/v0/carts
  */
 router.post('/',
   Middlewares.verifyClientAuthorization('carts', 'create'),
@@ -1285,14 +1285,14 @@ router.post('/',
   cartController.sendToClient)
 
 /*
- *   DELETE api.marketcloud.it/v0/carts/:cardId
+ *   DELETE api.marketcloud.studio404.net/v0/carts/:cardId
  */
 router.delete('/:cartId',
   Middlewares.verifyClientAuthorization('carts', 'delete'),
   cartController.delete)
 
 /*
- *   PUT api.marketcloud.it/v0/carts/:cardId
+ *   PUT api.marketcloud.studio404.net/v0/carts/:cardId
  */
 router.put('/:cartId',
   Middlewares.verifyClientAuthorization('carts', 'update'),
@@ -1303,7 +1303,7 @@ router.put('/:cartId',
   cartController.sendToClient)
 
 /*
- *   PATCH api.marketcloud.it/v0/carts/:cardId
+ *   PATCH api.marketcloud.studio404.net/v0/carts/:cardId
  */
 router.patch('/:cartId',
   cartController.validateCartUpdate,
@@ -1316,14 +1316,14 @@ router.patch('/:cartId',
   cartController.sendToClient)
 
 /*
- *   GET api.marketcloud.it/v0/carts/:cardId/count
+ *   GET api.marketcloud.studio404.net/v0/carts/:cardId/count
  */
 router.get('/:cartId/count',
   Middlewares.verifyClientAuthorization('carts', 'count'),
   cartController.count)
 
 /*
- *   PUT api.marketcloud.it/v0/carts/:cardId/coupon
+ *   PUT api.marketcloud.studio404.net/v0/carts/:cardId/coupon
  */
 router.put('/:cartId/coupon',
   Middlewares.verifyClientAuthorization('carts', 'update'),

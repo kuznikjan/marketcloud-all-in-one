@@ -41,7 +41,7 @@ Utils.removeProperties = function(obj, keys) {
         obj.forEach(x => remove(x))
     else
         remove(obj)
-    
+
 }
 
 
@@ -65,7 +65,7 @@ Utils.projectProductToVariant = function(product,variant_id) {
 //Returns true if the array has at least 1 item
 // that match the 2 parameter. which must be object
 Utils.arrayHasObject = function(arr,obj) {
-    
+
 
     return arr.some(function(a){
         var equal = true;
@@ -168,9 +168,9 @@ Utils.GroupResourceRelationships = function(object, props) {
                     delete object[k]
                 }
             }
-        } 
+        }
     })
-    
+
     return relationships
 }
 
@@ -189,7 +189,7 @@ Utils.RemoveNullRelationships = function(object,props) {
 }
 
 /*
-    
+
 */
 /*
  *   Returns true if every key in object is in array whitelist
@@ -302,7 +302,7 @@ Utils.isSet = Utils.hasValue;
 /*
 *   @param  objects, Array of objects from which properties must be extracted
 *   @param  properties, Array of strings which are the names of the properties to extract
-* 
+*
 *   Example
 *   var objects = [
         { "name" : "Mario", "email" : "mario@mail.com"},
@@ -333,7 +333,7 @@ Utils.filterObjects = Utils.extract;
 /*
 *   @param  objects, Array of objects from which properties must be extracted
 *   @param  properties, Array of strings which are the names of the properties to extract
-* 
+*
 *   Example
 *   var objects = [
         { "name" : "Mario", "email" : "mario@mail.com"},
@@ -464,7 +464,7 @@ Utils.getPagination = function(config) {
     if (pages === 0) {
         pages++;
     }
-    
+
     // Fixing current_page
     if (skip === 0){
         console.log("Non skippi un cazzo quindi current_page è 1")
@@ -473,7 +473,7 @@ Utils.getPagination = function(config) {
 
     // Hypermedia links object
     var links = {
-        curr: 'http://api.marketcloud.it/v0/'+config.resource + Utils.objectToQueryString(config.req_query)
+        curr: 'https://marketcloud.studio404.net/api/v0/'+config.resource + Utils.objectToQueryString(config.req_query)
     };
 
 
@@ -483,7 +483,7 @@ Utils.getPagination = function(config) {
         var q = config.req_query;
 
         q['page'] = Number(q['page']) - 1;
-        links.prev = 'http://api.marketcloud.it/v0/'+config.resource + Utils.objectToQueryString(q);
+        links.prev = 'https://marketcloud.studio404.net/api/v0/'+config.resource + Utils.objectToQueryString(q);
     }
     if (skip + limit < count) {
         var q = config.req_query;
@@ -491,7 +491,7 @@ Utils.getPagination = function(config) {
             q['page'] = 1
 
         q['page'] = Number(q['page']) + 1;
-        links.next = 'http://api.marketcloud.it/v0/'+config.resource + Utils.objectToQueryString(q);
+        links.next = 'https://marketcloud.studio404.net/api/v0/'+config.resource + Utils.objectToQueryString(q);
     }
     return {
         _links : links,

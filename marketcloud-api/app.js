@@ -182,7 +182,7 @@ app.use(function (req, res, next) {
 
     if (err instanceof Errors.HTTPError)
       return res.status(err.code).send({status: false, errors: [err]})
-  
+
     return next(err)
   }
   next()
@@ -368,7 +368,7 @@ app.use(Middlewares.logErrors)
 
 // / catch 404
 app.use(function (req, res, next) {
-  var err = new Errors.NotFound('The requested path (' + req.path + ') does not exist. You can check the documentation at https://www.marketcloud.it')
+  var err = new Errors.NotFound('The requested path (' + req.path + ') does not exist. You can check the documentation at https://marketcloud.studio404.net')
 
   res.status(404).send({
     status: false,
@@ -380,7 +380,7 @@ app.use(function (req, res, next) {
 // production error handler
 app.use(function (err, req, res, next) {
 
-  
+
   if (process.env.NODE_ENV !== 'production') {
     console.log('ERROR HANDLER AT ' + req.path, err, err.stack)
   }

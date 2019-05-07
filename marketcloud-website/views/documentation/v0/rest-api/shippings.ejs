@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -91,7 +91,7 @@
 					<div class="documentation">
 						<h3>POST /shippings</h3>
 						<p class="lead">Creates a new Shipping.</p>
-						<pre><code class="http">POST http://api.marketcloud.it/v0/shippings</code>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/shippings</code>
 						</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
@@ -155,17 +155,17 @@
 		"max_weight" : 30.00
 	},
 	links : {
-		self : "http://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>							
+}</code></pre>
 							</div>
-<!-- / SHIPPING CREATE -->						
+<!-- / SHIPPING CREATE -->
 
 <!-- SHIPPING LIST -->
 						<div class="documentation">
 						<h3>GET /shippings</h3>
 						<p class="lead">Retrieves a paginated response of a list of shippings from your application.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/shippings</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/shippings</code></pre>
 						<h5>Request parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -209,11 +209,11 @@
 			"max_weight" : 30.00
 		},
 		links : {
-			first : 'http://api.marketcloud.it/v0/shippings/1',
-			last : 'http://api.marketcloud.it/v0/shippings/3',
-			self : 'http://api.marketcloud.it/v0/shippings/1',
+			first : 'https://api.marketcloud.studio404.net/v0/shippings/1',
+			last : 'https://api.marketcloud.studio404.net/v0/shippings/3',
+			self : 'https://api.marketcloud.studio404.net/v0/shippings/1',
 			prev : null,
-			next : 'http://api.marketcloud.it/v0/shippings/3'
+			next : 'https://api.marketcloud.studio404.net/v0/shippings/3'
 		}
 
 	}, {
@@ -226,24 +226,24 @@
 			"max_weight" : 29.00
 		},
 		links : {
-			first : 'http://api.marketcloud.it/v0/shippings/1',
-			last : 'http://api.marketcloud.it/v0/shippings/3',
-			self : 'http://api.marketcloud.it/v0/shippings/3',
-			prev : 'http://api.marketcloud.it/v0/shippings/1',
+			first : 'https://api.marketcloud.studio404.net/v0/shippings/1',
+			last : 'https://api.marketcloud.studio404.net/v0/shippings/3',
+			self : 'https://api.marketcloud.studio404.net/v0/shippings/3',
+			prev : 'https://api.marketcloud.studio404.net/v0/shippings/1',
 			next : null
 
 		}
 	}
 	]
-}</code></pre>							
+}</code></pre>
 
 						</div>
-<!-- / SHIPPING LIST -->						
+<!-- / SHIPPING LIST -->
 <!-- SHIPPING GET BY ID -->
 						<div class="documentation">
 						<h3>GET /shippings/:id</h3>
 						<p class="lead">Retrieve a specific shipping given its id.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -277,9 +277,9 @@
 		"max_weight" : 30.00
 	},
 	links : {
-		self : "http://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>							
+}</code></pre>
 							</div>
 						</div>
 <!-- / SHIPPING GET BY ID -->
@@ -287,7 +287,7 @@
 				<div class="documentation">
 						<h3>PUT /shippings/:id</h3>
 						<p class="lead">Updates a shipping given an id. Returns the updated shipping.</p>
-						<pre><code class="http">PUT http://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -329,26 +329,26 @@
 		"max_weight" : 40.00
 	},
 	links : {
-		self : "http://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>						
-						</div>	
+}</code></pre>
+						</div>
 <!-- / SHIPPING UPDATE BY ID -->
 <!-- SHIPPING DELETE BY ID -->
 				<div class="documentation">
 						<h3>DELETE /shippings/:id</h3>
 						<p class="lead">Deletes a specific shipping given its id.</p>
-						<pre><code class="http">DELETE https://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/shippings/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
 	status:true
-}</code></pre>		
-</div>							
+}</code></pre>
+</div>
 <!-- / SHIPPING DELETE BY ID -->
-       
+
         </div>
       </div>
 </div>
