@@ -7,7 +7,7 @@
   ]);
 
 
-  window.API_BASE_URL = 'https://api.marketcloud.it';
+  window.API_BASE_URL = 'https://api.marketcloud.studio404.net';
 
   var fallbackSrcDirective = require('./directives/fallbackSrc.directive.js')(app);
   var applicationComponent = require('./components/application/application.component.js')(app);

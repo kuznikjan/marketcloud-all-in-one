@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -71,7 +71,7 @@
 					<div class="documentation">
 						<h3>POST /stores</h3>
 						<p class="lead">Creates a new Store.</p>
-						<pre class="code http-call">POST http://api.marketcloud.it/v0/stores</pre>
+						<pre class="code http-call">POST https://api.marketcloud.studio404.net/v0/stores</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -106,17 +106,17 @@
 		description: "The Beer Shop is the coolest shop ever. Come every week to taste our always new beer!"
 		}
 	links : {
-		self : "http://api.marketcloud.it/v0/stores/3"
+		self : "https://api.marketcloud.studio404.net/v0/stores/3"
 	}
-}</pre>								
+}</pre>
 							</div>
-<!-- / STORE CREATE -->						
+<!-- / STORE CREATE -->
 
 <!-- STORE LIST -->
 						<div class="documentation">
 						<h3>GET /stores</h3>
 						<p class="lead">Retrieves a paginated response of a list of stores from your application.</p>
-						<pre class="code http-call">GET http://api.marketcloud.it/v0/stores</pre>
+						<pre class="code http-call">GET https://api.marketcloud.studio404.net/v0/stores</pre>
 						<h5>Request parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -158,11 +158,11 @@
 			description: "Find the best rock shirt ever. Only @Rocknrolla!"
 		},
 		links : {
-				first : 'http://api.marketcloud.it/v0/stores/1',
-				last : 'http://api.marketcloud.it/v0/stores/3',
-				self : 'http://api.marketcloud.it/v0/stores/1',
+				first : 'https://api.marketcloud.studio404.net/v0/stores/1',
+				last : 'https://api.marketcloud.studio404.net/v0/stores/3',
+				self : 'https://api.marketcloud.studio404.net/v0/stores/1',
 				prev : null,
-				next : 'http://api.marketcloud.it/v0/stores/3'
+				next : 'https://api.marketcloud.studio404.net/v0/stores/3'
 		}
 
 	},{
@@ -173,24 +173,24 @@
 			description: "The Beer Shop is the coolest shop ever. Come every week to taste our always new beer!"
 		},
 		links : {
-			first : 'http://api.marketcloud.it/v0/stores/1',
-			last : 'http://api.marketcloud.it/v0/stores/3',
-			self : 'http://api.marketcloud.it/v0/stores/3',
-			prev : 'http://api.marketcloud.it/v0/stores/1',
+			first : 'https://api.marketcloud.studio404.net/v0/stores/1',
+			last : 'https://api.marketcloud.studio404.net/v0/stores/3',
+			self : 'https://api.marketcloud.studio404.net/v0/stores/3',
+			prev : 'https://api.marketcloud.studio404.net/v0/stores/1',
 			next : null
 
 		}
 	}
-	
-}</pre>								
+
+}</pre>
 
 						</div>
-<!-- / STORE LIST -->						
+<!-- / STORE LIST -->
 <!-- STORE GET BY ID -->
 						<div class="documentation">
 						<h3>GET /stores/:id</h3>
 						<p class="lead">Retrieve a specific store given its id.</p>
-						<pre class="code http-call">GET http://api.marketcloud.it/v0/stores/:id;</pre>
+						<pre class="code http-call">GET https://api.marketcloud.studio404.net/v0/stores/:id;</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -222,9 +222,9 @@
 		description: "Find the best rock shirt ever. Only @Rocknrolla!"
 		},
 	links : {
-		self : "http://api.marketcloud.it/v0/stores/1"
+		self : "https://api.marketcloud.studio404.net/v0/stores/1"
 	}
-}</pre>								
+}</pre>
 							</div>
 						</div>
 <!-- / STORE GET BY ID -->
@@ -232,7 +232,7 @@
 				<div class="documentation">
 						<h3>PUT /stores/:id</h3>
 						<p class="lead">Updates a store given an id. Returns the updated store.</p>
-						<pre class="code http-call">PUT http://api.marketcloud.it/v0/stores/:id;</pre>
+						<pre class="code http-call">PUT https://api.marketcloud.studio404.net/v0/stores/:id;</pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -272,26 +272,26 @@
 		description: "Find the best rock shirt ever. Only @Rocknrolla!"
 		},
 	links : {
-		self : "http://api.marketcloud.it/v0/stores/3"
+		self : "https://api.marketcloud.studio404.net/v0/stores/3"
 	}
-}</pre>							
-						</div>	
+}</pre>
+						</div>
 <!-- / STORE UPDATE BY ID -->
 <!-- STORE DELETE BY ID -->
 				<div class="documentation">
 						<h3>DELETE /stores/:id</h3>
 						<p class="lead">Deletes a specific store given its id.</p>
-						<pre class="code http-call">DELETE https://api.marketcloud.it/v0/stores/:id;</pre>
+						<pre class="code http-call">DELETE https://api.marketcloud.studio404.net/v0/stores/:id;</pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/carts/update.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre class="code prettyprint" >
 {
 	status:true
-}</pre>			
-</div>							
+}</pre>
+</div>
 <!-- / STORE DELETE BY ID -->
-       
+
         </div>
       </div>
 </div>

@@ -16,7 +16,7 @@
             <li><a href="#pagination">Pagination</a></li>
             <li><a href="#sorting">Sorting</a></li>
           </ol>
-          
+
           <div class="documentation-section">
             <a class="anchor" id="api-version"></a>
             <h4>API version</h4>
@@ -26,7 +26,7 @@
           <div class="documentation-section">
           <a class="anchor" id="root-endpoint"></a>
             <h4>Root endpoint</h4>
-            <p>You can send a <code>GET</code> request to the root endpoint of the api <code>https://api.marketcloud.it/v0</code> to get the available resources for that api version. You will also find links to the documentation. .</p>
+            <p>You can send a <code>GET</code> request to the root endpoint of the api <code>https://api.marketcloud.studio404.net/v0</code> to get the available resources for that api version. You will also find links to the documentation. .</p>
           </div>
 
 
@@ -41,22 +41,22 @@
           <div class="documentation-section" >
             <a class="anchor" id="sending-and-receiving-data"></a>
             <h4>Sending and receiving data</h4>
-            <p>All api endpoints are accessed through HTTPS and the base url is <code>https://api.marketcloud.it/{version}</code>. All data is received and sent as JSON. It is a common, simple and well known format for data exchange. There are good parsers and it is very usable in web applications.</p>
+            <p>All api endpoints are accessed through HTTPS and the base url is <code>https://api.marketcloud.studio404.net/{version}</code>. All data is received and sent as JSON. It is a common, simple and well known format for data exchange. There are good parsers and it is very usable in web applications.</p>
             <p>We wrap JSON responses in a common format. At the root of the response object we always have the status flag, which is a boolean representing the result of the operation. It reflects the HTTP status code returned, HTTP codes >= 400 turn this flag to false. The data object is always present, except for DELETE requests, and it contains a list of resources or a single resource.</p>
             <pre><code class="javascript">
-// curl https://api.marketcloud.it/v0/products          
+// curl https://api.marketcloud.studio404.net/v0/products
 {
   status : true,
   data : [...]
-}                 
-// curl https://api.marketcloud.it/v0/products/1234            
+}
+// curl https://api.marketcloud.studio404.net/v0/products/1234
 {
   status : true,
   data : {...}
-}              
+}
             </code></pre>
             </div>
-          
+
           <div class="documentation-section">
             <a class="anchor" id="authentication"></a>
             <h4>Authentication and Authorization</h4>
@@ -132,8 +132,8 @@
                       </td>
                       <td>The request was successful.</td>
                     </tr>
-                    
-                    
+
+
                     <tr>
                       <td>
                         <code>400</code>
@@ -183,14 +183,14 @@
                 </table>
                 </div>
               </div>
-              
+
 
            <div class="documentation-section">
             <a class="anchor" id="pagination"></a>
             <h4>Pagination</h4>
             <p>Requests returning a list of items will be paginated to 20 items by default. You can require a different number of item per page using the GET parameter <code>per_page</code> and you can get a specific range of items combining it with the GET parameter <code>page</code>.</p>
             <p>The following request will ask for 30 products, skipping the first 60 items.</p>
-            <pre><code class="http">curl 'https://api.marketcloud.it/v0/products?per_page=30&page=3</code></pre>
+            <pre><code class="http">curl 'https://api.marketcloud.studio404.net/v0/products?per_page=30&page=3</code></pre>
           </div>
 
 
@@ -199,7 +199,7 @@
             <h4>Sorting</h4>
             <p>Requests returning a list of items will be sorted by id in descending order by default. You can change the sorting behaviour with GET parameters <code>sort_by</code> and <code>sort_order</code>.</p>
             <p>The following request will products by name in a descending order.</p>
-            <pre><code class="http">curl 'https://api.marketcloud.it/v0/products?sort_by=name</code></pre>
+            <pre><code class="http">curl 'https://api.marketcloud.studio404.net/v0/products?sort_by=name</code></pre>
             <p>The following request will products by price in a ascending order.</p>
-            <pre><code class="http">curl 'https://api.marketcloud.it/v0/products?sort_by=price&sort_order=ASC</code></pre>
+            <pre><code class="http">curl 'https://api.marketcloud.studio404.net/v0/products?sort_by=price&sort_order=ASC</code></pre>
           </div>

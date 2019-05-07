@@ -1,5 +1,5 @@
 						<h2>Shippings</h2>
-      
+
       <h4 class="mt50">Table of contents</h4>
       <ol>
         <li><a href="#shippings.model">Resource model description</a></li>
@@ -70,7 +70,7 @@
 											<td>Number</td>
 											<td>Orders with a total weight smaller than <span class="code">max_weight</span> are eligible for this shipping rule.</td>
 										</tr>
-										
+
 									</tbody>
 								</table>
 							</div>
@@ -82,7 +82,7 @@
 					<div class="documentation">
 						<h3>POST /shippings</h3>
 						<p >Creates a new Shipping.</p>
-						<pre><code class="http">POST https://api.marketcloud.it/v0/shippings</code></pre>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/shippings</code></pre>
 						<h5>Parameters</h5>
 						<div class="table-responsive">
 						<table class="table table-striped documentation">
@@ -134,7 +134,7 @@
 											<td>Number</td>
 											<td>Orders with a total weight smaller than <span class="code">max_weight</span> are eligible for this shipping rule.</td>
 										</tr>
-										
+
 									</tbody>
 								</table>
 								</div>
@@ -153,18 +153,18 @@
 		"max_weight" : 30.00
 	},
 	links : {
-		self : "https://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>							
+}</code></pre>
 							</div>
-<!-- / SHIPPING CREATE -->						
+<!-- / SHIPPING CREATE -->
 
 <!-- SHIPPING LIST -->
             <a class="anchor" id="shippings.list"></a>
 						<div class="documentation">
 						<h3>GET /shippings</h3>
 						<p >Retrieves a list of shippings from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-						<pre><code class="http">GET https://api.marketcloud.it/v0/shippings</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/shippings</code></pre>
 						<h5>Request parameters</h5>
 						<div class="table-responsive">
 						<table class="table table-striped documentation">
@@ -186,7 +186,7 @@
                   <td>Mixed</td>
                   <td>Any resource attribute that you want to use to filter the result list.</td>
               </tr>
-                                
+
 								<tr>
 									<td  class="code">per_page</td>
 									<td>Number</td>
@@ -211,67 +211,67 @@
 						<pre><code class="javascript">
 {
     "_links": {
-        "curr": "http://api.marketcloud.it/v0/shippings?country=Italy"
-    }, 
-    "count": 3, 
+        "curr": "https://api.marketcloud.studio404.net/v0/shippings?country=Italy"
+    },
+    "count": 3,
     "data": [
         {
-            "application_id": 1234, 
-            "base_cost": 10, 
-            "created_at": "2017-08-24T19:39:05.573Z", 
-            "id": 240835, 
-            "min_weight": 5, 
-            "name": "Shipping method for heavy orders", 
-            "per_item_cost": 0, 
-            "updated_at": "2017-08-24T19:39:05.573Z", 
+            "application_id": 1234,
+            "base_cost": 10,
+            "created_at": "2017-08-24T19:39:05.573Z",
+            "id": 240835,
+            "min_weight": 5,
+            "name": "Shipping method for heavy orders",
+            "per_item_cost": 0,
+            "updated_at": "2017-08-24T19:39:05.573Z",
             "zones": [
                 {
-                    "code": "ALL", 
+                    "code": "ALL",
                     "name": "All countries"
                 }
             ]
-        }, 
+        },
         {
-            "application_id": 1234, 
-            "base_cost": 5, 
-            "created_at": "2017-08-24T16:45:57.160Z", 
-            "id": 240813, 
-            "max_weight": 1, 
-            "min_value": 30, 
-            "name": "Shipping method plus", 
-            "per_item_cost": 0, 
-            "updated_at": "2017-08-24T19:40:13.019Z", 
+            "application_id": 1234,
+            "base_cost": 5,
+            "created_at": "2017-08-24T16:45:57.160Z",
+            "id": 240813,
+            "max_weight": 1,
+            "min_value": 30,
+            "name": "Shipping method plus",
+            "per_item_cost": 0,
+            "updated_at": "2017-08-24T19:40:13.019Z",
             "zones": [
                 {
-                    "code": "ALL", 
+                    "code": "ALL",
                     "name": "All countries"
                 }
             ]
-        }, 
+        },
         {
-            "application_id": 1234, 
-            "base_cost": 5, 
-            "created_at": "2017-08-24T16:45:38.348Z", 
-            "id": 240812, 
-            "max_value": 30, 
-            "name": "Regular shipping", 
-            "per_item_cost": 1, 
-            "updated_at": "2017-08-24T16:45:38.348Z", 
+            "application_id": 1234,
+            "base_cost": 5,
+            "created_at": "2017-08-24T16:45:38.348Z",
+            "id": 240812,
+            "max_value": 30,
+            "name": "Regular shipping",
+            "per_item_cost": 1,
+            "updated_at": "2017-08-24T16:45:38.348Z",
             "zones": [
                 {
-                    "code": "ALL", 
+                    "code": "ALL",
                     "name": "All countries"
                 }
             ]
         }
-    ], 
-    "page": 1, 
-    "pages": 1, 
+    ],
+    "page": 1,
+    "pages": 1,
     "status": true
-}</code></pre>							
+}</code></pre>
 
 						</div>
-<!-- / SHIPPING LIST -->			
+<!-- / SHIPPING LIST -->
 
 
 
@@ -280,7 +280,7 @@
 						<div class="documentation">
 						<h3>GET /shippings/cart/:cart_id</h3>
 						<p >Retrieves a list of shippings compatibles with a certain cart. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-						<pre><code class="http">GET https://api.marketcloud.it/v0/shippings/cart/:cart_id</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/shippings/cart/:cart_id</code></pre>
 						<h5>Request parameters</h5>
 						<div class="table-responsive">
 						<table class="table table-striped documentation">
@@ -302,7 +302,7 @@
                   <td>String</td>
                   <td>A country name to filter shippings by destination</td>
               </tr>
-                                
+
 								<tr>
 									<td  class="code">per_page</td>
 									<td>Number</td>
@@ -319,43 +319,43 @@
 						<h5>Example Request</h5>
 						<pre><code class="curl">
 curl --request GET \
-  --url http://api.marketcloud.it/v0/shippings/cart/:cart_id \
+  --url https://api.marketcloud.studio404.net/v0/shippings/cart/:cart_id \
   --header 'accept: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
 						</code></pre>
 						<h5>Example JSON response (200)</h5>
 						<pre><code class="javascript">{
 "_links": {
-    "curr": "http://api.marketcloud.it/v0/shippings/cart/1234"
-}, 
-"count": 3, 
+    "curr": "https://api.marketcloud.studio404.net/v0/shippings/cart/1234"
+},
+"count": 3,
 "data": [
     {
-        "application_id": 1234, 
-        "base_cost": 5, 
-        "created_at": "2017-08-24T16:45:57.160Z", 
-        "id": 240813, 
-        "max_weight": 1, 
-        "min_value": 30, 
-        "name": "Shipping method plus", 
-        "per_item_cost": 0, 
-        "updated_at": "2017-08-24T19:40:13.019Z", 
+        "application_id": 1234,
+        "base_cost": 5,
+        "created_at": "2017-08-24T16:45:57.160Z",
+        "id": 240813,
+        "max_weight": 1,
+        "min_value": 30,
+        "name": "Shipping method plus",
+        "per_item_cost": 0,
+        "updated_at": "2017-08-24T19:40:13.019Z",
         "zones": [
             {
-                "code": "ALL", 
+                "code": "ALL",
                 "name": "All countries"
             }
         ]
     }
-], 
-"page": 1, 
-"pages": 1, 
+],
+"page": 1,
+"pages": 1,
 "status": true
 }
-</code></pre>							
+</code></pre>
 
 						</div>
-<!-- / SHIPPING LIST -->	
+<!-- / SHIPPING LIST -->
 
 
 <!-- SHIPPING GET BY ID -->
@@ -363,7 +363,7 @@ curl --request GET \
 						<div class="documentation">
 						<h3>GET /shippings/:id</h3>
 						<p >Retrieve a specific shipping given its id.</p>
-						<pre><code class="http">GET https://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Parameters</h5>
 						<div class="table-responsive">
 						<table class="table table-striped documentation">
@@ -399,9 +399,9 @@ curl --request GET \
 		"max_weight" : 30.00
 	},
 	links : {
-		self : "https://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>							
+}</code></pre>
 							</div>
 						</div>
 <!-- / SHIPPING GET BY ID -->
@@ -410,7 +410,7 @@ curl --request GET \
 				<div class="documentation">
 						<h3>PUT /shippings/:id</h3>
 						<p>Updates a shipping given an id. Returns the updated shipping.</p>
-						<pre><code class="http">PUT https://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Parameters</h5>
 						<p>See <a href="#shippings.create" class="link">POST /shippings</a></p>
 						<h5>Example Request</h5>
@@ -428,23 +428,23 @@ curl --request GET \
 		"max_weight" : 40.00
 	},
 	links : {
-		self : "https://api.marketcloud.it/v0/shippings/3"
+		self : "https://api.marketcloud.studio404.net/v0/shippings/3"
 	}
-}</code></pre>						
-						</div>	
+}</code></pre>
+						</div>
 <!-- / SHIPPING UPDATE BY ID -->
 <!-- SHIPPING DELETE BY ID -->
         <a class="anchor" id="shippings.delete"></a>
 				<div class="documentation">
 						<h3>DELETE /shippings/:id</h3>
 						<p >Deletes a specific shipping given its id.</p>
-						<pre><code class="http">DELETE https://api.marketcloud.it/v0/shippings/:id;</code></pre>
+						<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/shippings/:id;</code></pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/shippings/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
 	status:true
-}</code></pre>		
-</div>							
+}</code></pre>
+</div>
 <!-- / SHIPPING DELETE BY ID -->

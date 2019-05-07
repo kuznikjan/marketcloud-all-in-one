@@ -6,11 +6,20 @@ angular.module('DataDashboard').controller('NewSimpleProductController', [
     scope.brands = []
     scope.newBrand = {}
 
-    
+    scope.selectedCategories = []
 
     scope.validation = {
       valid: true
     }
+
+    // Listening to category selector events
+    scope.$on('selectedCategory', function (event, data) {
+      var categoryId = data.category_id
+
+      if (scope.selectedCategories.map(cat => cat.category_id).indexOf(categoryId) === -1) {
+        scope.selectedCategories.push(data)
+      }
+    })
 
     // mapping non-core attributes into scope.customPropertiesData
     console.log("Cerco qui le core propseties",Models.Product, Models)
@@ -48,7 +57,7 @@ angular.module('DataDashboard').controller('NewSimpleProductController', [
       scope.product.images.splice(i, 1)
     }
 
-    
+
     scope.unsafeSlug = false
 
     scope.updateSlug = function() {
@@ -133,6 +142,16 @@ angular.module('DataDashboard').controller('NewSimpleProductController', [
       scope.errorField = null
     }
 
+
+    scope.setMainCategoryToLast = function () {
+
+      if (scope.selectedCategories.length > 0) {
+        scope.product.category_id = scope.selectedCategories[scope.selectedCategories.length - 1].category_id
+      } else {
+        scope.product.category_id = null
+      }
+    }
+
     scope.saveProduct = function(overwrites) {
       for (var k in scope.product) {
         if (scope.product[k] === null) {
@@ -146,13 +165,24 @@ angular.module('DataDashboard').controller('NewSimpleProductController', [
       // TODO schematic needs custom validator, so i can do something like
 
       scope.validation = Models.Product.validate(scope.product)
-      
+
 
       if (scope.validation.valid === false) {
         return;
       }
 
+      var categories = ''
+      scope.selectedCategories.forEach(function (category, idx) {
+        categories += category.category_id
 
+        if (idx < scope.selectedCategories.length - 1) {
+          categories += ','
+        }
+      })
+
+      if (categories.length > 0) {
+        scope.product.categories = categories
+      }
 
       for (var kk in scope.customPropertiesData) {
         scope.product[kk] = scope.customPropertiesData[kk]
@@ -179,7 +209,7 @@ angular.module('DataDashboard').controller('NewSimpleProductController', [
             scope.validation = error.data.errors[0]
             return;
           }
-          
+
           notie.alert(2, 'An error has occurred. Product not saved', 1)
         })
     }

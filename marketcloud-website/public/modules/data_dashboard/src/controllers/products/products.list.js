@@ -17,10 +17,10 @@ angular.module('DataDashboard')
     // This array will hold our data
     scope.products = []
 
-    
-    
 
-    
+
+
+
     // Bulk control
     // Here we place selected prodocuts for bulk actions
     scope.selected = []
@@ -64,7 +64,7 @@ angular.module('DataDashboard')
     }
 
 
-    
+
 
 
     // Parsing URL parameters, if provided
@@ -80,7 +80,7 @@ angular.module('DataDashboard')
       scope.query[k] = urlQuery[k];
     }
 
-    
+
 
     /************************************************************
      *                         COLUMNS
@@ -117,7 +117,7 @@ angular.module('DataDashboard')
      */
 
     scope.products.forEach(function(product) {
-      if (product.type === 'simple_product' || product.type === 'product_with_variants') {
+      if (product.type === 'simple_product' || product.type === 'product_with_variants' || product.type === 'bundled_product') {
         return
       }
 
@@ -152,7 +152,7 @@ angular.module('DataDashboard')
      *                         FILTERS
      **************************************************************/
 
-    
+
 
     // We want to be able to filter also by reserved attributes
     scope.filterAttributes = scope.reserved_attributes.concat(scope.available_attributes)
@@ -170,7 +170,7 @@ angular.module('DataDashboard')
     }
 
     scope.sortByColumn = function(columnName) {
-      
+
       var order = null;
 
       if (scope.query.sort_order === 'DESC')
@@ -308,7 +308,7 @@ angular.module('DataDashboard')
 
           var variantNames = [];
 
-          product.variants.forEach(function(i){ 
+          product.variants.forEach(function(i){
             i.type = "variant";
             bucket.push(i)
           })
@@ -337,7 +337,7 @@ angular.module('DataDashboard')
      *                         IMPORT/EXPORT
      **************************************************************/
     scope.importProducts = function() {
-      notie.alert(4, 'Contact us at info@marketcloud.it with import subject', 1.5)
+      notie.alert(4, 'Contact us at info@marketcloud.studio404.net with import subject', 1.5)
     }
 
 
@@ -355,7 +355,7 @@ angular.module('DataDashboard')
     scope.JSONFileChanged = function(){
 
       var file = document.getElementById("JSONFileInput").files[0];
-      
+
       //Resetting the file input so we can re-try uploads
       // of the same file and still detect changes
       document.getElementById("JSONFileInput").value = "";
@@ -364,7 +364,7 @@ angular.module('DataDashboard')
           var reader = new FileReader();
           reader.readAsText(file, "UTF-8");
           reader.onload = function (evt) {
-            
+
             // TODO add try catch to manage invalid json
             try {
               var jsonLines = JSON.parse(evt.target.result)
@@ -373,7 +373,7 @@ angular.module('DataDashboard')
                 message : 'Invalid JSON file, please check file syntax'
               })
             }
-            
+
             scope.importJSON(jsonLines)
           }
           reader.onerror = function (evt) {
@@ -385,7 +385,7 @@ angular.module('DataDashboard')
     scope.CSVFileChanged = function(){
 
       var file = document.getElementById("CSVFileInput").files[0];
-      
+
       //Resetting the file input so we can re-try uploads
       // of the same file and still detect changes
       document.getElementById("CSVFileInput").value = "";
@@ -394,12 +394,12 @@ angular.module('DataDashboard')
           var reader = new FileReader();
           reader.readAsText(file, "UTF-8");
           reader.onload = function (evt) {
-            
+
             // TODO add try catch to manage invalid json
             var csvFileContent = evt.target.result;
-            
+
             var productsToImport = $utils.CSVToJSON(csvFileContent);
-            
+
             // Sacrifice brevity in the name of clarity for the greater good
             // We flatten jsons before exporting to CSV so now we must unflatten them
             productsToImport = productsToImport.map( $utils.unflatten );
@@ -409,7 +409,7 @@ angular.module('DataDashboard')
 
 
             // JSON is an array
-            
+
           }
           reader.onerror = function (evt) {
               notie.alert(3,"error reading file",2)
@@ -457,7 +457,7 @@ angular.module('DataDashboard')
           }
           productsToImport.push(line);
         } else if (line.type === "product_with_variants" ){
-          
+
           var validation = $models.ProductWithVariants.validate(line);
           if (false === validation.valid) {
             //notie.alert(3,"Please check your JSON, element number "+String(i+1)+" is invalid.",2);
@@ -486,7 +486,7 @@ angular.module('DataDashboard')
             productsToImport[productsToImport.length-1].variants.push(line);
           }
 
-          
+
         } else {
           notie.alert(3,"Invalid data",2);
         }
@@ -502,10 +502,10 @@ angular.module('DataDashboard')
 
       }
 
-      
-      
 
-      
+
+
+
     }
 
 
@@ -686,7 +686,7 @@ angular.module('DataDashboard')
           scope.query[k] = query[k];
       }
 
-      
+
       return $marketcloud.products.list(scope.query)
         .then(function(response) {
           scope.pagination = {

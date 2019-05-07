@@ -1,3 +1,24 @@
+<style>
+
+	tags-input .tags .tag-item {
+		height: unset;
+	}
+
+	.category-select .tag-list + input {
+		display: none;
+	}
+
+	.category-select .tags {
+		border: none !important;
+	}
+
+	tags-input *:focus,
+	tags-input:focus, .tag-item:focus {
+		box-shadow: none !important;
+		outline: none;
+	}
+
+	</style>
 <div class="dashboard-section-header">
 	<span class="hidden-xs">
 	<a class="root link" href="#/products">Products</a> / {{product.id}} / Edit <b>simple</b> product
@@ -12,19 +33,19 @@
 		<ul class="dropdown-menu">
 			<li><a ng-click="updateProduct()">Save</a></li>
 			<li><a href="#/products/{{product.id}}/translations">Edit translations</a></li>
-			
+
 		</ul>
 	</div>
 	<back-button></back-button>
 </div>
 
 <div class="container-fluid" style="padding-bottom: 50px;">
-	
+
 	<div class="row">
-		
+
 
 		<div class="col-xs-12 col-md-8">
-			
+
 			<div class="card card-form mb20">
 				<div class="card-header"><h4>Basic information</h4></div>
 				<div class="card-content">
@@ -56,7 +77,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-xs-12">
-							
+
 							<label>Description</label>
 							<div trumbowyg-ng
 								ng-model="product.description"
@@ -69,8 +90,8 @@
 						</error-messages>
 						</div>
 					</div>
-					
-					
+
+
 				</div>
 			</div>
 			<div class="card card-form mb50">
@@ -113,7 +134,7 @@
 								ng-init="product.stock_status = 'in_stock'">
 								<option value="in_stock">In stock</option>
 								<option value="out_of_stock">Out of stock</option>
-								
+
 							</select>
 							<error-messages
 						validation="validation"
@@ -153,23 +174,23 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-md-4 col-xs-12">
 			<div class="card mb20">
 				<div class="card-header"><b>Publishing</b></div>
 				<div class="card-content">
 					<div class="form-group">
-						
+
 						<label>Product published</label>
 						<div><switch value="product.published"></switch></div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Pricing</h4></div>
 				<div class="card-content">
-					
+
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'price'}">
 						<label>Price*</label>
 						<div class="input-group input-group-right">
@@ -205,39 +226,57 @@
 						<taxes-selector
 						tax="product.tax_id"></taxes-selector>
 					</div>
-					
+
 				</div>
-				
+
 			</div>
 			<div class="card mb50">
 				<div class="card-header"><h4>Taxonomy</h4></div>
 				<div class="card-content">
-					<div class="form-group"
+					<div class="form-group category-select"
 						ng-class="{'has-error' : errorField === 'category_id'}">
 						<label>Category</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's category"></span>
+						<span style="font-size: 14px; color: #bababa; display: block;" ng-if="selectedCategories.length > 0">
+							Selected categories:
+						</span>
+						<tags-input
+								ng-model="selectedCategories"
+								min-length="1"
+								placeholder="e.g Blue"
+								on-tag-added=""
+								on-tag-removed="setMainCategoryToLast($tag)"
+								></tags-input>
 						<categories-selector
-						category="product.category_id"></categories-selector>
+						category="product.category_id" clear-input="true"></categories-selector>
+						<div ng-if="selectedCategories.length > 0">
+							<span style="font-size: 14px; color: #bababa; display: block;">
+								Main category:
+							</span>
+							<select ng-model="product.category_id" class="form-control">
+								<option ng-value="category.category_id" ng-repeat="category in selectedCategories">{{ category.text }}</option>
+							</select>
+						</div>
 					</div>
 					<div class="form-group"  ng-class="{'has-error' : errorField === 'brand_id'}">
 						<label>Brand</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose your product's brand"></span>
-						
+
 						<brands-selector
 						brand="product.brand_id"></brands-selector>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
+
 			<images-card items="product.images"></images-card>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
-			
+
+
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
 			<div class="card card-form mb50">
 				<div class="card-header"><h4>Shipping information</h4></div>
@@ -262,7 +301,7 @@
 						<div class="row">
 							<div class="form-group col-lg-8 col-xs-12">
 								<label>Weight (Kg)</label>
-								
+
 								<div class="input-group input-group-right">
 									<input type="number"
 									class="form-control  "
@@ -280,7 +319,7 @@
 						<div class="row">
 							<div class="form-group col-xs-4">
 								<label>Depth</label>
-								
+
 								<div class="input-group input-group-right">
 									<input type="number"
 									class="form-control  "
@@ -329,25 +368,25 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
-			
+
 			<custom-attributes-form
 			resource="product"
 			properties="customPropertiesData"
 			title="Custom properties"
 			></custom-attributes-form>
 		</div>
-		
+
 		<div class="col-xs-12 col-md-8">
 			<seo-form seo="product.seo"></seo-form>
 		</div>
-		
-		
-		
-		
+
+
+
+
 	</div>
-	
-	
-	
+
+
+
 </div>

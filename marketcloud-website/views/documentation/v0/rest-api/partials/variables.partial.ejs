@@ -51,7 +51,7 @@
 <div class="documentation">
   <h3>POST /variables</h3>
   <p >Creates a new Variable. </p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/variables</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/variables</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive">
   <table class="table table-striped documentation">
@@ -82,7 +82,7 @@
   </table></div>
   <h5>Example Request</h5>
   <pre><code class="bash">curl --request POST
-  --url http://api.marketcloud.it/v0/variables \
+  --url https://api.marketcloud.studio404.net/v0/variables \
   --header 'content-type: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{ "name" : "google_analytics_code",   "value" : "UA-12345678",   "type" : "string" }'
@@ -106,7 +106,7 @@
 <div class="documentation">
   <h3>GET /variables</h3>
   <p >Retrieves a list of variables from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/variables</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/variables</code></pre>
 <h5>Request parameters</h5>
 <div class="table-responsive"><table class="table table-striped documentation">
   <thead>
@@ -141,7 +141,7 @@
 </table></div>
 <h5>Example Request</h5>
 <pre><code>curl --request GET
-  --url http://api.marketcloud.it/v0/variables \
+  --url https://api.marketcloud.studio404.net/v0/variables \
   --header 'accept: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \</code></pre>
 <h5>Example JSON response (200)</h5>
@@ -167,7 +167,7 @@
       }
     ],
     "_links": {
-      "curr": "http://api.marketcloud.it/v0/variables"
+      "curr": "https://api.marketcloud.studio404.net/v0/variables"
     },
     "count": 2,
     "page": 1,
@@ -180,7 +180,7 @@
 <div class="documentation">
 <h3>GET /variables/:id</h3>
 <p >Retrieve a specific variable given its id.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/variables/:id;</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/variables/:id;</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive"><table class="table table-striped documentation">
 <thead>
@@ -200,7 +200,7 @@
 </table></div>
 <h5>Example Request</h5>
            <pre><code>curl --request GET
-  --url http://api.marketcloud.it/v0/variables/123 \
+  --url https://api.marketcloud.studio404.net/v0/variables/123 \
   --header 'accept: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \</code></pre>
 <div>
@@ -224,12 +224,12 @@
 <div class="documentation">
 <h3>PUT /variables/:id</h3>
 <p >Updates a variable given an id. Returns the updated variable.</p>
-<pre><code class="http">PUT https://api.marketcloud.it/v0/variables/:id;</code></pre>
+<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/variables/:id;</code></pre>
 <h5>Parameters</h5>
 <p>See <a href="#variables.create" class="link">POST /variables</a></p>
 <h5>Example Request</h5>
 <pre><code class="bash">curl --request PUT
-  --url http://api.marketcloud.it/v0/variables/123 \
+  --url https://api.marketcloud.studio404.net/v0/variables/123 \
   --header 'content-type: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{ "name" : "new_variable_name",   "value" : "new variable value"}'
@@ -254,10 +254,10 @@
 <div class="documentation">
 <h3>DELETE /variables/:id</h3>
 <p >Deletes a specific variable given its id.</p>
-<pre><code class="http">DELETE https://api.marketcloud.it/v0/variables/:id</code></pre>
+<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/variables/:id</code></pre>
 <h5>Example Request</h5>
            <pre><code>curl --request DELETE
-  --url http://api.marketcloud.it/v0/variables/123 \
+  --url https://api.marketcloud.studio404.net/v0/variables/123 \
   --header 'accept: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \</code></pre>
 <h5>Example JSON response (200)</h5>

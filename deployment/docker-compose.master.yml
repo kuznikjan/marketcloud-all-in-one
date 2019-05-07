@@ -1,0 +1,153 @@
+version: '3.4'
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
+  mongodb_data:
+  certs:
+  certs-data:
+  logs:
+
+
+services:
+  #############################################################
+  #                           NGINX                           #
+  #############################################################
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+    links:
+      - api
+      - website
+
+
+  #############################################################
+  #                 REDIS CONFIG BLOCK                     #
+  #############################################################
+  redis:
+    hostname: marketcloud-redis-1
+    image: "redis"
+    env_file: .master.env
+    # ports:
+    #   - "6379:6379"
+    expose:
+      - "6379"
+
+
+  #############################################################
+  #                 RABBITMQ CONFIG BLOCK                     #
+  #############################################################
+  rabbitmq:
+    build: ./rabbitmq
+    hostname: marketcloud-rabbitmq-1
+    env_file: .master.env
+    # ports:
+    #   - "5672:5672"
+    expose:
+      - "5672"
+    tty: true
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+
+
+  #############################################################
+  #                  MONGODB CONFIG BLOCK                     #
+  #############################################################
+  mongodb:
+    build: ./mongodb
+    restart: unless-stopped
+    hostname: marketcloud-mongodb-1
+    env_file: .master.env
+    # ports:
+    #   - '27017:27017'
+    expose:
+      - "27017"
+    volumes:
+      - ./mongodb_data:/data/db
+
+
+
+
+  #############################################################
+  #                 MYSQL CONFIG BLOCK                        #
+  #############################################################
+  mysql:
+    build: ./mysql
+    restart: unless-stopped
+    hostname: marketcloud-mysql-1
+    env_file: .master.env
+    # ports:
+    #   - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+
+
+  #############################################################
+  #                 API CONFIG BLOCK                        #
+  #############################################################
+  api:
+    restart: unless-stopped
+    build:
+      context: ../marketcloud-api
+      dockerfile: Dockerfile
+    env_file: .master.env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+
+
+
+    #############################################################
+  #                 ADMIN UI CONFIG BLOCK                      #
+  #############################################################
+  website:
+    restart: unless-stopped
+    build:
+      context: ../marketcloud-website
+      dockerfile: Dockerfile
+    env_file: .master.env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+      - api
+
+    #############################################################
+  #                 MAILER SERVICE CONFIG BLOCK                #
+  #############################################################
+  mailer-service:
+    restart: unless-stopped
+    build:
+      context: ../marketcloud-mailer
+      dockerfile: Dockerfile
+    env_file: .master.env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+      - api
+
+    #############################################################
+  #                 WEBHOOKS CONFIG BLOCK                      #
+  #############################################################
+  webhooks-service:
+    restart: unless-stopped
+    build:
+      context: ../marketcloud-webhook-service
+      dockerfile: Dockerfile
+    env_file: .master.env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+      - api

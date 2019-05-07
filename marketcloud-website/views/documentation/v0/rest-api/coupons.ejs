@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="/modules/documentation/css/documentation.css" />
 <section class="mt100" style="padding-top:100px;padding-bottom:200px">
   <div class="container-fluid">
-    
+
     <a name="introduction"></a>
     <div class="row">
       <div class="col-lg-3 col-md-3">
       <% include ./index.partial.ejs %>
       </div>
       <div class="col-lg-6 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-9 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-        
+
 
             <div class="row">
 
-          
+
 						<ol class="breadcrumb mt20">
 						  <li><a href="/documentation">Index</a></li>
 						  <li><a href="/documentation/rest-api">REST api</a></li>
@@ -58,13 +58,13 @@
         <td>String</td>
         <td>This parameter tells the API where the coupon can be applied. Use  <code>'CART_COUPON'</code> if you want to apply a discount to the whole cart, <code>'PRODUCT_COUPON'</code> if the discount is appliable only to a specific product, and <code>'CATEGORY_COUPON'</code> if the discount can be applied to all products in a certain category.</td>
       </tr>
-      
+
       <tr>
         <td class="code">discount_type <span  class="label label-success">Required</span></td>
         <td>String</td>
         <td>This parameter tells the API which is the type of discount. Use  <code>'NET_REDUCTION'</code> if you want to apply a net discount, or use <code>'PERCENTAGE_DISCOUNT'</code> if you want to apply a percentage discount.</td>
       </tr>
-      
+
       <tr>
         <td class="code">discount_value <span  class="label label-success">Required</span></td>
         <td>Number</td>
@@ -75,7 +75,7 @@
         <td>Boolean</td>
         <td>Tells wether the coupon is active or not.</td>
       </tr>
-      
+
     </tbody>
   </table>
 </div>
@@ -85,13 +85,13 @@
 					<div class="documentation"  id="coupons.create">
 						<h3>POST /coupons</h3>
 						<p class="lead">Creates a new Coupon. </p>
-						<pre><code class="http">POST http://api.marketcloud.it/v0/coupons</code></pre>
+						<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/coupons</code></pre>
 						<h5>Parameters</h5>
 						<p>See the model description above.</p>
 						<h5>Example Request</h5>
 						<pre><code class="curl">
 curl --request POST \
-  --url http://api.marketcloud.it/v0/coupons \
+  --url https://api.marketcloud.studio404.net/v0/coupons \
   --header 'accept: application/json' \
   --header 'Authorization:PUBLIC_KEY:TOKEN' \
   --header 'content-type: application/json' \
@@ -121,13 +121,13 @@ EOF
     "active": true,
     "id": 1,
   }
-}</code></pre>								
+}</code></pre>
 							</div>
 
 						<div class="documentation" id="coupons.list">
 						<h3>GET /coupons</h3>
 						<p class="lead">Retrieves a paginated response of a list of coupons from your application.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/coupons</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/coupons</code></pre>
 						<h5>Request parameters</h5>
 						<div class="table-responsive"><table class="table table-striped documentation">
       <thead>
@@ -138,8 +138,8 @@ EOF
         </tr>
       </thead>
       <tbody>
-        
-        
+
+
         <tr>
           <td><code>&lt;attribute_name&gt;</code></td>
           <td>Mixed</td>
@@ -168,43 +168,43 @@ EOF
 						<pre><code class="javascript">
 {
     "_links": {
-        "curr": "http://api.marketcloud.it/v0/coupons?"
-    }, 
-    "count": 2, 
+        "curr": "https://api.marketcloud.studio404.net/v0/coupons?"
+    },
+    "count": 2,
     "data": [
         {
-            "active": true, 
-            "code": "WELCOMECOUPON", 
-            "discount_type": "NET_REDUCTION", 
-            "discount_value": 10, 
-            "id": 1, 
-            "name": "welcome", 
-            "target_type": "CART_COUPON", 
+            "active": true,
+            "code": "WELCOMECOUPON",
+            "discount_type": "NET_REDUCTION",
+            "discount_value": 10,
+            "id": 1,
+            "name": "welcome",
+            "target_type": "CART_COUPON",
             "type": "total"
-        }, 
+        },
         {
-            "active": false, 
-            "code": "NERDS-ONLY", 
-            "discount_type": "NET_REDUCTION", 
-            "discount_value": 10, 
-            "id": 5, 
-            "name": "Nerds only", 
-            "target_type": "CART_COUPON", 
+            "active": false,
+            "code": "NERDS-ONLY",
+            "discount_type": "NET_REDUCTION",
+            "discount_value": 10,
+            "id": 5,
+            "name": "Nerds only",
+            "target_type": "CART_COUPON",
             "type": "total"
         }
-    ], 
-    "page": 1, 
-    "pages": 1, 
+    ],
+    "page": 1,
+    "pages": 1,
     "status": true
-}</code></pre>								
+}</code></pre>
 
 						</div>
-<!-- / PRODUCT LIST -->						
+<!-- / PRODUCT LIST -->
 <!-- PRODUCT GET BY ID -->
 						<div class="documentation"  id="coupons.getById">
 						<h3>GET /coupons/:id</h3>
 						<p class="lead">Retrieve a specific coupon given its id.</p>
-						<pre><code class="http">GET http://api.marketcloud.it/v0/coupons/:id;</code></pre>
+						<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/coupons/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 									<thead>
@@ -230,14 +230,14 @@ EOF
 {
 	status:true,
 	data: {
-       	"active": false, 
-        "code": "NERDS-ONLY", 
-        "discount_type": "NET_REDUCTION", 
-        "discount_value": 10, 
-        "id": 5, 
-        "name": "Nerds only", 
-        "target_type": "CART_COUPON", 
-}</code></pre>								
+       	"active": false,
+        "code": "NERDS-ONLY",
+        "discount_type": "NET_REDUCTION",
+        "discount_value": 10,
+        "id": 5,
+        "name": "Nerds only",
+        "target_type": "CART_COUPON",
+}</code></pre>
 							</div>
 						</div>
 <!-- / PRODUCT GET BY ID -->
@@ -245,7 +245,7 @@ EOF
 				<div class="documentation"  id="coupons.update">
 						<h3>PUT /coupons/:id</h3>
 						<p class="lead">Updates a coupon given an id. Returns the updated coupon.</p>
-						<pre><code class="http">PUT http://api.marketcloud.it/v0/coupons/:id;</code></pre>
+						<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/coupons/:id;</code></pre>
 						<h5>Parameters</h5>
 						<table class="table table-striped documentation">
 							<thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -309,31 +309,31 @@ EOF
 {
 	status:true,
 	data: {
-       	"active": false, 
-        "code": "NERDS-ONLY", 
-        "discount_type": "NET_REDUCTION", 
-        "discount_value": 10, 
-        "id": 5, 
-        "name": "10PERCENTDISCOUNT", 
-        "target_type": "CART_COUPON", 
+       	"active": false,
+        "code": "NERDS-ONLY",
+        "discount_type": "NET_REDUCTION",
+        "discount_value": 10,
+        "id": 5,
+        "name": "10PERCENTDISCOUNT",
+        "target_type": "CART_COUPON",
 }
 
-}</code></pre>							
-						</div>	
+}</code></pre>
+						</div>
 <!-- / PRODUCT UPDATE BY ID -->
 <!-- PRODUCT DELETE BY ID -->
 				<div class="documentation"  id="coupons.delete">
 						<h3>DELETE /coupons/:id</h3>
 						<p class="lead">Deletes a specific coupon given its id.</p>
-						<pre><code class="http">DELETE https://api.marketcloud.it/v0/coupons/:id;</code></pre>
+						<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/coupons/:id;</code></pre>
 						<h5>Example Request</h5>
 						<iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/coupons/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 						<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
 	status:true
-}</code></pre>			
-</div>							
+}</code></pre>
+</div>
 <!-- / PRODUCT DELETE BY ID -->
 
 
