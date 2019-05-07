@@ -9,14 +9,14 @@
 		<meta property="fb:admins" content="1524219834" />
 		<meta property="og:title" content="Ecommerce api as a service" />
 		<meta property="og:type" content="website"/>
-		<meta property="og:url" content="http://www.marketcloud.it"/>
+		<meta property="og:url" content="https://marketcloud.studio404.net"/>
 		<meta property="og:description" content="E-commerce api for developers. Build mobile and web e-commerce apps in minutes." />
-		<meta property="og:image" content="http://www.marketcloud.it/img/website_screenshot.png" />
+		<meta property="og:image" content="https://marketcloud.studio404.net/img/website_screenshot.png" />
 
 		<meta name="twitter:card" content="Ecommerce api as a service" />
-		<meta name="twitter:url" content="http://www.marketcloud.it"/>
+		<meta name="twitter:url" content="https://marketcloud.studio404.net"/>
 		<meta name="twitter:description" content="E-commerce api for developers. Build mobile and web e-commerce apps in minutes."/>
-		<meta property="twitter:image" content="http://www.marketcloud.it/img/website_screenshot.png" />
+		<meta property="twitter:image" content="https://marketcloud.studio404.net/img/website_screenshot.png" />
 
 		<title>Marketcloud | E-Commerce Backend as a Service | E-Commerce APIs for developers</title>
 		<link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -72,8 +72,8 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 				<button class="btn btn-sm btn-info" style="margin-left:10px" id="gotcha">Gotcha!</button></p>
 		</div>
 		<section id="first-section" class="blue">
-			
-			
+
+
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
@@ -92,9 +92,9 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 								<li><a href="/features">Features</a></li>
 								<li><a href="/pricing">Pricing</a></li>
 							<li><a href="/documentation">Documentation</a></li>
-							<li><a href="mailto:info@marketcloud.it" target="_blank">contact us</a></li>
+							<li><a href="mailto:info@marketcloud.studio404.net" target="_blank">contact us</a></li>
 						</ul>
-						
+
 						</div><!-- /.navbar-collapse -->
 						</div><!-- /.container-fluid -->
 					</nav>
@@ -105,7 +105,7 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 								<p class="lead">Less code, more customers. <a id="learn_more_link" href="/features" class="link-white">Learn more &#8594;</a></p>
 							</div>
 							<div class="col-xs-12 mt20 ct">
-								
+
 								<div class="form form-inline mb20" id="subscriptionForm">
 									<div class="form-group">
 										<input class="form-control input-lg noborder" type="email" placeholder="you@example.com" id="email" name="email"/>
@@ -116,15 +116,15 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 									<div class="mt20"> <p>We'll send you an invitation as soon as possible</p></div>
 								</div>
 
-								
+
 							</div>
 							<div class="col-xs-12 mt20 ct">
 								<p id="subscriptionSuccess" class="lead no-display">Check your inbox for the confirmation email!</p>
 								<p id="subscriptionError" class="lead no-display" ></p>
 							</div>
 						</div>
-						
-						
+
+
 					</div>
 				</section>
 				<section id="fourth-section"  class="grey">
@@ -136,7 +136,7 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-lg-4 col-lg-offset-2 mb50">
-								
+
 								<div class="mb20">
 									<h4>Efficient and concise api</h4>
 									<p class="lead">Build mobile and web e-commerce apps in minutes using our API.
@@ -147,8 +147,8 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 									<p class="lead">Choose the sdk for your preferred language or use plain HTTP calls. More languages will be supported soon!</p>
 								</div>
 								<a href="/features" class="link f18">Feature list &#8594;</a>
-								
-								
+
+
 							</div>
 							<div class="col-xs-12 col-lg-4 mb50">
 								<ul class="nav nav-pills" style="margin-bottom:10px;">
@@ -177,7 +177,7 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 											<li><span class="code">api.cart.<span class="code_function">checkout</span>();</span></li>
 										</ol>
 										<ol class="code" id="php_snippet">
-											
+
 											<li><span class="code"> $config = [...]</li>
 											<li><span class="code"> $api = <span>Marketcloud::Client($config)</span>;</span></li>
 											<li><span class="code"> $products = $api::products::<span class="code_function">search</span>(<span class="code_string">‘abc’</span>);</span></li>
@@ -187,11 +187,11 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</section>
-				
+
 				<section id="third-section">
 					<div class="container-fluid">
 						<div class="row">
@@ -221,7 +221,7 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 									<img src="img/Pocket.png" style="max-height:128px" alt="Ecommerce api shopping bag"/>
 									<h2>Production Ready</h2>
 									<p class="lead">We provide you cart, catalog, login, order and admin functionalities out of the box.</p>
-									
+
 								</div>
 							</div>
 							<div class="col-xs-12 col-lg-4 mb50">
@@ -237,11 +237,11 @@ mixpanel.init("08ed6ec8711a38f3eeed6246a4b662bf");
 									<img src="img/Infinity-Loop.png" style="max-height:128px" alt="Ecommerce api pricing"/>
 									<h2>Flexible pricing</h2>
 									<p class="lead">Jump in with our free plan, then choose the resources you need with our price selector.</p>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</section>
 				<% include footer %>

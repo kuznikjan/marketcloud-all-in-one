@@ -1,5 +1,3 @@
-var dotenv = require('dotenv').config('../.env');
-
 var Configuration = {};
 
 

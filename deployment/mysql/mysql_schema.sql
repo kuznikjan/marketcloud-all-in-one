@@ -128,7 +128,7 @@ CREATE TABLE `applications` (
   `currency_code` varchar(4) NOT NULL DEFAULT 'EUR',
   `timezone` varchar(40) NOT NULL DEFAULT 'GMT Standard Time',
   `email_address` varchar(255) DEFAULT NULL,
-  `logo` varchar(255) DEFAULT 'https://www.marketcloud.it/img/logo/normal.png',
+  `logo` varchar(255) DEFAULT 'https://marketcloud.studio404.net/img/logo/normal.png',
   `stripe_subscription_id` varchar(50) DEFAULT NULL,
   `storage_max` int(10) unsigned NOT NULL DEFAULT '524288',
   `storage_left` int(10) unsigned NOT NULL DEFAULT '524288',

@@ -1,17 +1,17 @@
 <h1  class="page-title">Braintree</h1>
       <div class="mb20"><span class="label label-info">Payments</span></div>
-     
+
 
       <p>This integration will allow you to charge credit cards and generate client tokens directly on Marketcloud, so you don't need to spin up a server side application just to process transactions.</p>
 
-      
-      
+
+
       <h4>Create a Marketcloud application</h4>
       <p>This is an obvious step, but you really need to create an application first.</p>
 
       <h4>Activate the integration</h4>
       <p>Log into the Marketcloud dashboard, click on  <b>SETTINGS</b> > <b>Payments</b> > <b>Braintree</b> </p>
-      <p>Click the "configure" button, then check the "enable this integration" checkbox. </p>	
+      <p>Click the "configure" button, then check the "enable this integration" checkbox. </p>
       <p>Now click on the "update braintree credentials" button to show the form in which you will enter your braintree credentials.</p>
       <div class="theme-default left-emphasis-info p10">
         You can find your credentials by visiting Braintree official website and logging into your Braintree dashboard under <b>Account</b> > <b>My user</b> > <b>View Authorizations</b>.
@@ -19,7 +19,7 @@
       <h4>Interact with the API</h4>
     <p>Once the integration is configured, you can fire a http request to the dedicated endpoint to charge credit cards and/or PayPal accounts. Remember that you will have to include a client-side Braintree SDK in your application and use it to generate a nonce.</p>
 
-    
+
     <div class="table-responsive">
     	<table class="table">
     		<thead>
@@ -31,12 +31,12 @@
     		<tbody>
     			<tr>
     				<td><span class="label label-info">POST</span></td>
-    				<td><code>https://api.marketcloud.it/v0/payments</code></td>
+    				<td><code>https://api.marketcloud.studio404.net/v0/payments</code></td>
     			</tr>
     		</tbody>
     	</table>
     </div>
-    <p>Braintree has <a href="https://developers.braintreepayments.com/start/hello-client/javascript/v2" class="link">a lot of documentation</a> about how to create a payment, in our example we will use the <a href="https://www.braintreepayments.com/en-it/products-and-features/drop-in-ui" class="link">Braintree Drop-in UI</a> which lets you easily accept Paypal and credit cards.</p> 
+    <p>Braintree has <a href="https://developers.braintreepayments.com/start/hello-client/javascript/v2" class="link">a lot of documentation</a> about how to create a payment, in our example we will use the <a href="https://www.braintreepayments.com/en-it/products-and-features/drop-in-ui" class="link">Braintree Drop-in UI</a> which lets you easily accept Paypal and credit cards.</p>
 
     <p>In our example we will use JQuery, marketcloud.js and Braintree.js</p>
     <ol>
@@ -57,12 +57,12 @@
 &lt;script src="https://js.braintreegateway.com/js/braintree-2.24.1.min.js"&gt;&lt;/script&gt;
     </code></pre>
 
-    <p>Then, we need to generate a client token. Usually you would have to spin up a server side app and generate the token from there, but with Marketcloud you can just ask us for a token: </p>	
+    <p>Then, we need to generate a client token. Usually you would have to spin up a server side app and generate the token from there, but with Marketcloud you can just ask us for a token: </p>
 <pre><code class="javascript">
 var BraintreeNonce = null;
 $.ajax({
   method: "POST",
-  url: "https://api.marketcloud.it/v0/integrations/braintree/clientToken",
+  url: "https://api.marketcloud.studio404.net/v0/integrations/braintree/clientToken",
   headers : {
     "Authorization" : 'your-marketcloud-app-public-key'
   }
@@ -77,12 +77,12 @@ $.ajax({
 	  onPaymentMethodReceived: function (nonce) {
 
       	// This callback is invoked after the payment method
-        // has been received and after braintree returned 
+        // has been received and after braintree returned
       	// a nonce.
-      	// 
+      	//
       	// We need this nonce to make payments, so
         // we store it in a variable.
-      	// 
+      	//
         BraintreeNonce = nonce;
     }
   });
@@ -128,7 +128,7 @@ marketcloud.orders.create(order_data,function(error,created_order){
                     </code></pre>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="php">
-                    
+
                     <pre><code class="php">
 $order_data = array(
    "shipping_address_id" => $_POST["shipping_address_id"],
@@ -157,7 +157,7 @@ if ($payment_response->body->status == false) {
                     </code></pre>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="nodejs">
-                    
+
                     <pre><code class="javascript">
 var order_data = req.body.order;
 var BraintreeNonce = req.body.nonce;
@@ -191,7 +191,7 @@ marketcloud.orders.create(order_data)
                     </code></pre>
                   </div>
                 </div>
-                
+
               </div>
 
 

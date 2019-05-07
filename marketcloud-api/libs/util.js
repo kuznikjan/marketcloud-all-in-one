@@ -238,7 +238,7 @@ Utils.GroupResourceRelationships = function (object, props) {
 Utils.RemoveNullRelationships = function (object, props) {
   if (!Array.isArray(props))
     throw new Error("props must be an array of strings");
-  
+
   props.forEach(function (p) {
     if (object.hasOwnProperty(p + '_id') && object[p + '_id'] === null) {
       for (var k in object) {
@@ -862,7 +862,7 @@ Utils.getPagination = function (config) {
 
   // Hypermedia links object
   var links = {
-    curr: 'http://api.marketcloud.it/v0/' + config.resource + Utils.objectToQueryString(config.req_query)
+    curr: 'https://marketcloud.studio404.net/api/v0/' + config.resource + Utils.objectToQueryString(config.req_query)
   }
 
   // TODO if the query has filters, they must be re-used here
@@ -871,7 +871,7 @@ Utils.getPagination = function (config) {
     var q = config.req_query
 
     q['page'] = Number(q['page']) - 1
-    links.prev = 'http://api.marketcloud.it/v0/' + config.resource + Utils.objectToQueryString(q)
+    links.prev = 'https://marketcloud.studio404.net/api/v0/' + config.resource + Utils.objectToQueryString(q)
   }
   if (skip + limit < count) {
     q = config.req_query
@@ -880,7 +880,7 @@ Utils.getPagination = function (config) {
     }
 
     q['page'] = Number(q['page']) + 1
-    links.next = 'http://api.marketcloud.it/v0/' + config.resource + Utils.objectToQueryString(q)
+    links.next = 'https://marketcloud.studio404.net/api/v0/' + config.resource + Utils.objectToQueryString(q)
   }
   return {
     _links: links,
@@ -924,7 +924,7 @@ Utils.getProductPrice = getProductPrice
 Utils.applyTaxesToProduct = function (product, application,taxes) {
 
   // To calculate tax from a tax_id we also need to know the billing address
-  // otherwise we attach the first rate we 
+  // otherwise we attach the first rate we
   var taxRate = application.tax_rate;
 
   //If the product has a tax_id and we have a tax with that tax_id, then we use that tax rule
@@ -1045,7 +1045,7 @@ function getTotalTaxesForProducts (order, application) {
       if (order.promotion) {
         discountForLineItem += getPromotionTotalForLineItem(product, order.promotion, order.products)
       }
-    
+
       total += applyPercentage(getLineItemPrice(product) - discountForLineItem, rateToApply);
 
     } else {
@@ -1637,7 +1637,7 @@ Utils.convertOrderPrices = function (order, wantedCurrencyCode, rate) {
     product = Utils.convertProductPrices(product, rate, wantedCurrencyCode)
 
     if (product.hasOwnProperty("variant")) {
-      product.variant = Utils.convertProductPrices(product.variant, rate, wantedCurrencyCode) 
+      product.variant = Utils.convertProductPrices(product.variant, rate, wantedCurrencyCode)
     }
 
     return product

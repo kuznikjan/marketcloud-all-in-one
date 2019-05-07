@@ -102,7 +102,7 @@ module.exports = function (sequelize, DataTypes) {
     logo: {
       type: DataTypes.STRING(255),
       allowNull: true,
-      defaultValue: 'https://www.marketcloud.it/img/logo/normal.png'
+      defaultValue: 'https://marketcloud.studio404.net/img/logo/normal.png'
     },
     stripe_subscription_id: {
       type: DataTypes.STRING(50),

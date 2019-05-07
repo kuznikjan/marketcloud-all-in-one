@@ -1,11 +1,11 @@
 <h1 class="page-title">Authentication</h1>
-        <p>In order to interact with Marketcloud's API, you need to authenticate your application with your credentials. Every API request fired from your app must provide an Authorization header in the form 
+        <p>In order to interact with Marketcloud's API, you need to authenticate your application with your credentials. Every API request fired from your app must provide an Authorization header in the form
         <code>Authorization: &lt;public-key&gt;</code> or <code>Authorization: &lt;public-key&gt;:&lt;token&gt;</code>
         </p>
         <p>The first form only works with public endpoints such as getting a list of products.</p>
         <p>The second form is required whenever invoking restricted endpoints or when making requests on behalf of a user inside your app.</p>
         <b>Example authenticated request</b>
-        <pre><code class="curl">curl 'https://api.marketcloud.it/v0/products' \
+        <pre><code class="curl">curl 'https://api.marketcloud.studio404.net/v0/products' \
 -H 'Authorization:f84af487-a315-42e6-a57a-d79296bd9d99'</code></pre>
         <p>If you fail to provide the correct credentials, you will receive a "Unauthorized" error:</p>
         <pre><code class="json">
@@ -18,7 +18,7 @@
       "message":"Authorization is missing"
     }
   ]
-}          
+}
         </code></pre>
         <h4 class="mt50">Obtaining a token</h4>
         <blockquote class="blockquote-info">
@@ -29,7 +29,7 @@
         <b>Example request</b>
         <pre><code class="bash">
 curl --request POST \
-  --url https://api.marketcloud.it/v0/tokens \
+  --url https://api.marketcloud.studio404.net/v0/tokens \
   --header 'content-type: application/json' \
   --data '{"publicKey" : "yourPublicKey","secretKey" : "yourHashedSecretKey","timestamp" : 1441724677832}'
         </code></pre>
@@ -45,6 +45,6 @@ curl --request POST \
         <script src="https://gist.github.com/fatmatto/4d50ee51c73c7883a4f9.js"></script>
         <p >A more complete example using <b>node.js</b> would be:</p>
         <script src="https://gist.github.com/fatmatto/748bebdf6da3f39d9da0.js"></script>
-        
+
         <p >At this point, you can use the generated token to authenticate your subsequent requests by setting the "Authorization" http header in every request.</p>
         <pre><code class="http">Authorization: your-public-key:generated-token</code></pre>

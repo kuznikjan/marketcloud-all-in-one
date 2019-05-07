@@ -89,7 +89,7 @@
 <div class="documentation">
 <h3>POST /orders</h3>
 <p >Creates a new ORDER.</p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/orders</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/orders</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive">
     <table class="table table-striped documentation">
@@ -233,16 +233,16 @@
         "display_total": "{{currency.name}} 7.79",
         "id": 1234
     }
-}</code></pre>                              
+}</code></pre>
 </div>
-<!-- / ORDER CREATE -->                     
+<!-- / ORDER CREATE -->
 
 <!-- ORDER LIST -->
 <a class="anchor" id="orders.list"></a>
 <div class="documentation">
     <h3>GET /orders</h3>
     <p >Retrieves a list of orders from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/orders</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/orders</code></pre>
 <h5>Request parameters</h5>
 <div class="table-responsive">
     <table class="table table-striped documentation">
@@ -264,7 +264,7 @@
                 <td>Mixed</td>
                 <td>Any resource attribute that you want to use to filter the result list.</td>
             </tr>
-            
+
             <tr>
                 <td  class="code">per_page</td>
                 <td>Number</td>
@@ -397,18 +397,18 @@
         "id": 13865
     }
     ]
-}</code></pre>                              
+}</code></pre>
 </div>
 
 
 
-<!-- / ORDER LIST -->                       
+<!-- / ORDER LIST -->
 <!-- ORDER GET BY ID -->
 <a class="anchor" id="orders.getbyid"></a>
 <div class="documentation">
   <h3>GET /orders/:id</h3>
   <p >Retrieve a specific order given its id.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/orders/:id;</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/orders/:id;</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive">
   <table class="table table-striped documentation">
@@ -495,7 +495,7 @@
     "display_total": "{{currency.name}} 15.58",
     "id": 13866
   }
-}</code></pre>                              
+}</code></pre>
                             </div>
                         </div>
 <!-- / ORDER GET BY ID -->
@@ -506,13 +506,13 @@
 <div class="documentation">
 <h3>PUT /orders/:id</h3>
 <p >Updates an order.</p>
-<pre><code class="http">PUT https://api.marketcloud.it/v0/orders/:id</code></pre>
+<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/orders/:id</code></pre>
 <h5>Parameters</h5>
 <p>See <a class="link" href="#orders.create">POST /orders</a></p>
 
 <h5>Example Request</h5>
 <pre><code class="bash">curl --request PUT \
-  --url http://api.marketcloud.it/v0/orders/:id \
+  --url https://api.marketcloud.studio404.net/v0/orders/:id \
   --header 'accept: application/json' \
   --header 'authorization: YourPublicKey:YourToken' \
   --data '{"some_attribute" : "some_value"}'
@@ -580,22 +580,22 @@
         "display_total": "{{currency.name}} 7.79",
         "id": 1234
     }
-}</code></pre>                              
+}</code></pre>
 </div>
-<!-- / ORDER UPDATE --> 
+<!-- / ORDER UPDATE -->
 
 <!-- ORDER DELETE BY ID -->
 <a class="anchor" id="orders.delete"></a>
 <div class="documentation">
   <h3>DELETE /orders/:id</h3>
   <p >Deletes a specific order given its id.</p>
-<pre><code class="http">DELETE https://api.marketcloud.it/v0/orders/:id;</code></pre>
+<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/orders/:id;</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/orders/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 <h5>Example JSON response (200)</h5>
 <pre><code class="javascript">
 {
     status:true
-}</code></pre>          
-</div>                          
+}</code></pre>
+</div>
 <!-- / ORDER DELETE BY ID -->

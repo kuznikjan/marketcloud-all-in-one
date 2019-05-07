@@ -67,7 +67,7 @@
 <div class="documentation">
   <h3 class="endpoint-title">POST /paymentmethods</h3>
   <p class="endpoint-description">Creates a new Payment method. </p>
-<pre><code class="http">POST https://api.marketcloud.it/v0/paymentmethods</code></pre>
+<pre><code class="http">POST https://api.marketcloud.studio404.net/v0/paymentmethods</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive">
   <table class="table table-striped documentation">
@@ -113,22 +113,22 @@
             <pre><code class="javascript">
 {
   "_links": {
-    "curr": "https://api.marketcloud.it/v0/paymentMethods"
-  }, 
-  "count": 1, 
+    "curr": "https://api.marketcloud.studio404.net/v0/paymentMethods"
+  },
+  "count": 1,
   "data": [
     {
-      "active": true, 
-      "application_id": 10338, 
-      "cost_type": "fixed_fee", 
-      "description": "The order is paid at delivery.", 
-      "fixed_fee": 5, 
-      "id": 1, 
+      "active": true,
+      "application_id": 10338,
+      "cost_type": "fixed_fee",
+      "description": "The order is paid at delivery.",
+      "fixed_fee": 5,
+      "id": 1,
       "name": "Cash on delivery"
     }
-  ], 
-  "page": 1, 
-  "pages": 1, 
+  ],
+  "page": 1,
+  "pages": 1,
   "status": true
 }
 
@@ -141,7 +141,7 @@
 <div class="documentation">
   <h3 class="endpoint-title">GET /paymentmethods</h3>
   <p class="endpoint-description">Retrieves a list of payment methods from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/paymentmethods</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/paymentmethods</code></pre>
 <h5>Request parameters</h5>
 <div class="table-responsive"><table class="table table-striped documentation">
   <thead>
@@ -196,7 +196,7 @@
 <div class="documentation">
   <h3 class="endpoint-title">GET /paymentmethods/:id</h3>
   <p class="endpoint-description">Retrieve a specific payment method given its id.</p>
-<pre><code class="http">GET https://api.marketcloud.it/v0/paymentmethods/:id;</code></pre>
+<pre><code class="http">GET https://api.marketcloud.studio404.net/v0/paymentmethods/:id;</code></pre>
 <h5>Parameters</h5>
 <div class="table-responsive"><table class="table table-striped documentation">
   <thead>
@@ -237,7 +237,7 @@
 <div class="documentation">
   <h3 class="endpoint-title">PUT /paymentmethods/:id</h3>
   <p class="endpoint-description">Updates a payment method given an id. Returns the updated payment method.</p>
-<pre><code class="http">PUT https://api.marketcloud.it/v0/paymentmethods/:id;</code></pre>
+<pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/paymentmethods/:id;</code></pre>
 <h5>Parameters</h5>
 <p>See <a href="#paymentMethods.create" class="link">POST /paymentMethods</a></p>
 <h5>Example Request</h5>
@@ -262,7 +262,7 @@
 <div class="documentation">
   <h3 class="endpoint-title">DELETE /paymentmethods/:id</h3>
   <p class="endpoint-description">Deletes a specific payment method given its id.</p>
-<pre><code class="http">DELETE https://api.marketcloud.it/v0/paymentmethods/:id</code></pre>
+<pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/paymentmethods/:id</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/paymentmethods/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 <h5>Example JSON response (200)</h5>

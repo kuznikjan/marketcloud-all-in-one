@@ -337,7 +337,7 @@ angular.module('DataDashboard')
      *                         IMPORT/EXPORT
      **************************************************************/
     scope.importProducts = function() {
-      notie.alert(4, 'Contact us at info@marketcloud.it with import subject', 1.5)
+      notie.alert(4, 'Contact us at info@marketcloud.studio404.net with import subject', 1.5)
     }
 
 

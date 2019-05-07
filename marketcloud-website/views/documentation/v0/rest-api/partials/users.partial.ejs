@@ -52,14 +52,14 @@
                     </tr>
                   </tbody>
                 </table></div>
-            
+
 <!-- USER CREATE -->
 
           <a class="anchor" id="users.create"></a>
           <div class="documentation">
             <h3>POST /users</h3>
             <p >Creates a new User. </p>
-            <pre><code class="http">POST https://api.marketcloud.it/v0/users</code></pre>
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/users</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -89,7 +89,7 @@
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/create.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
-            
+
 <pre><code class="javascript">
 {
   status:true,
@@ -98,21 +98,21 @@
     email: "jon@snow.wf"
     name: "Jon Snow",
     password: "winteriscoming",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
   }
   links : {
-    self : "https://api.marketcloud.it/v0/users/3"
+    self : "https://api.marketcloud.studio404.net/v0/users/3"
   }
-}</code></pre>               
+}</code></pre>
               </div>
-<!-- / USER CREATE -->            
+<!-- / USER CREATE -->
 
 <!-- USER LIST -->
             <a class="anchor" id="users.list"></a>
             <div class="documentation">
             <h3>GET /users</h3>
             <p >Retrieves a list of users from your application. The response includes <a href="/documentation/rest-api/introduction#pagination" target="_blank" class="link">Paging information</a>.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/users</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/users</code></pre>
             <h5>Request parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -133,7 +133,7 @@
                                     <td>Mixed</td>
                                     <td>Any resource attribute that you want to use to filter the result list.</td>
                                 </tr>
-                                
+
                 <tr>
                   <td  class="code">per_page</td>
                   <td>Number</td>
@@ -149,7 +149,7 @@
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/list.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
-            
+
 <pre><code class="javascript">
 {
   status:true,
@@ -159,14 +159,14 @@
       email: "eddard@stark.wf"
       name: "Eddard Stark",
       password: "myheadhurtz",
-      img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+      img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     },
     links : {
-        first : 'https://api.marketcloud.it/v0/users/1',
-        last : 'https://api.marketcloud.it/v0/users/3',
-        self : 'https://api.marketcloud.it/v0/users/1',
+        first : 'https://api.marketcloud.studio404.net/v0/users/1',
+        last : 'https://api.marketcloud.studio404.net/v0/users/3',
+        self : 'https://api.marketcloud.studio404.net/v0/users/1',
         prev : null,
-        next : 'https://api.marketcloud.it/v0/users/3'
+        next : 'https://api.marketcloud.studio404.net/v0/users/3'
     }
 
   },
@@ -176,28 +176,28 @@
         email: "jon@snow.wf"
         name: "Jon Snow",
         password: "winteriscoming",
-        img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+        img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
       },
       links : {
-        first : 'https://api.marketcloud.it/v0/users/1',
-        last : 'https://api.marketcloud.it/v0/users/3',
-        self : 'https://api.marketcloud.it/v0/users/3',
-        prev : 'https://api.marketcloud.it/v0/users/1',
+        first : 'https://api.marketcloud.studio404.net/v0/users/1',
+        last : 'https://api.marketcloud.studio404.net/v0/users/3',
+        self : 'https://api.marketcloud.studio404.net/v0/users/3',
+        prev : 'https://api.marketcloud.studio404.net/v0/users/1',
         next : null
 
       }
     }
   ]
-}</code></pre>               
+}</code></pre>
 
             </div>
-<!-- / USER LIST -->            
+<!-- / USER LIST -->
 <!-- USER GET BY ID -->
             <a class="anchor" id="users.getbyid"></a>
             <div class="documentation">
             <h3>GET /users/:id</h3>
             <p >Retrieve a specific user given its id.</p>
-            <pre><code class="http">GET https://api.marketcloud.it/v0/users/:id;</code></pre>
+            <pre><code class="http">GET https://api.marketcloud.studio404.net/v0/users/:id;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
                   <thead>
@@ -219,7 +219,7 @@
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/getbyid.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <div>
             <h5>Example JSON response (200)</h5>
-            
+
 <pre><code class="javascript">
 {
   status:true,
@@ -228,12 +228,12 @@
     email: "jon@snow.wf"
     name: "Jon Snow",
     password: "winteriscoming",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     }
   links : {
-    self : "https://api.marketcloud.it/v0/users/3"
+    self : "https://api.marketcloud.studio404.net/v0/users/3"
   }
-}</code></pre>               
+}</code></pre>
               </div>
             </div>
 <!-- / USER GET BY ID -->
@@ -242,13 +242,13 @@
         <div class="documentation">
             <h3>PUT /users/:id</h3>
             <p >Updates a <a href="#" class="link">user</a> given an id. Returns the updated <a href="#" class="link">user</a>.</p>
-            <pre><code class="http">PUT https://api.marketcloud.it/v0/users/:id;</code></pre>
+            <pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/users/:id;</code></pre>
             <h5>Parameters</h5>
             <p>See <a href="#users.create" class="link">POST /users</a></p>
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/update.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
-            
+
 <pre><code class="javascript">
 {
   status:true,
@@ -257,13 +257,13 @@
     email: "jon@snow.wf"
     name: "Jon of the Night's Watch",
     password: "winteriscoming",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     }
   links : {
-    self : "https://api.marketcloud.it/v0/users/3"
+    self : "https://api.marketcloud.studio404.net/v0/users/3"
   }
-}</code></pre>             
-            </div>  
+}</code></pre>
+            </div>
 <!-- / USER UPDATE BY ID -->
 
 
@@ -272,7 +272,7 @@
         <div class="documentation">
             <h3>PUT /users/:userId/updatePassword</h3>
             <p >Updates a user's password. </p>
-            <pre><code class="http">PUT https://api.marketcloud.it/v0/users/updatePassword;</code></pre>
+            <pre><code class="http">PUT https://api.marketcloud.studio404.net/v0/users/updatePassword;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -291,12 +291,12 @@
             </table></div>
             <h5>Example Request</h5>
             <pre><code class="bash">curl --request PUT \
---url https://api.marketcloud.it/v0/users/123/updatePassword \
+--url https://api.marketcloud.studio404.net/v0/users/123/updatePassword \
 --header "authorization: public_key:token" \
 --header 'content-type: application/json' \
 --data '{"old_password" : 1234, "new_password" : "a stronger one"}'      </code></pre>
             <h5>Example JSON response (200)</h5>
-            
+
 <pre><code class="javascript">
 {
   status:true,
@@ -305,13 +305,13 @@
     email: "jon@snow.wf"
     name: "Jon of the Night's Watch",
     password: "winteriscoming",
-    img_url: "http://media.marketcloud.it/gsh18xb1k715A217yC",
+    img_url: "http://media.marketcloud.studio404.net/gsh18xb1k715A217yC",
     }
   links : {
-    self : "https://api.marketcloud.it/v0/users/3"
+    self : "https://api.marketcloud.studio404.net/v0/users/3"
   }
-}</code></pre>             
-            </div>  
+}</code></pre>
+            </div>
 <!-- / USER UPDATE BY ID -->
 
 
@@ -324,7 +324,7 @@
               <b>Warning</b>
               <p>Remember that for the notification to be sent, you need to create and configure a password recovery notification in your dashboard under <b>System > Notifications</b></p>
             </blockquote>
-            <pre><code class="http">POST https://api.marketcloud.it/v0/users/recoverPassword;</code></pre>
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/users/recoverPassword;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -338,16 +338,16 @@
             </table></div>
             <h5>Example Request</h5>
             <pre><code class="bash">curl --request POST \
---url https://api.marketcloud.it/v0/users/recoverPassword \
+--url https://api.marketcloud.studio404.net/v0/users/recoverPassword \
 --header "authorization: public_key" \
 --header 'content-type: application/json' \
 --data '{"email" : "john.doe@example.com"}'      </code></pre>
 
-<h5>Example JSON response (200)</h5>            
+<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">{
   status:true
-}</code></pre>             
-</div>  
+}</code></pre>
+</div>
 <!-- / USER RECOVER PASSWORD -->
 
 
@@ -357,8 +357,8 @@
         <div class="documentation">
             <h3>POST /users/resetPassword</h3>
             <p>Resets a user password given an email address and verification code.</p>
-            
-            <pre><code class="http">POST https://api.marketcloud.it/v0/users/resetPassword;</code></pre>
+
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/users/resetPassword;</code></pre>
             <h5>Parameters</h5>
             <div class="table-responsive"><table class="table table-striped documentation">
               <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
@@ -382,16 +382,16 @@
             </table></div>
             <h5>Example Request</h5>
             <pre><code class="bash">curl --request POST \
---url https://api.marketcloud.it/resetPassword \
+--url https://api.marketcloud.studio404.net/resetPassword \
 --header "authorization: public_key" \
 --header 'content-type: application/json' \
 --data '{"email" : "john.doe@example.com", "verification_code" : "aaaa-aaaa-aaaaa-aaaa", "new_password" : "something secure"}'      </code></pre>
 
-<h5>Example JSON response (200)</h5>            
+<h5>Example JSON response (200)</h5>
 <pre><code class="javascript">{
   status:true
-}</code></pre>             
-</div>  
+}</code></pre>
+</div>
 <!-- / USER RECOVER PASSWORD -->
 
 
@@ -402,7 +402,7 @@
 
             <h3>DELETE /users/:id</h3>
             <p >Deletes a specific user given its id.</p>
-            <pre><code class="http">DELETE https://api.marketcloud.it/v0/users/:id;</code></pre>
+            <pre><code class="http">DELETE https://api.marketcloud.studio404.net/v0/users/:id;</code></pre>
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/delete.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
@@ -410,14 +410,14 @@
 <pre><code class="javascript">
 {
   status:true
-}</code></pre>     
-</div>              
+}</code></pre>
+</div>
 <!-- / USER DELETE BY ID -->
 <!-- USER AUTH -->
         <div class="documentation">
             <h3>POST /users/authenticate</h3>
             <p >Authenticate a specific user given its email.</p>
-            <pre><code class="http">POST https://api.marketcloud.it/v0/users/authenticate</code></pre>
+            <pre><code class="http">POST https://api.marketcloud.studio404.net/v0/users/authenticate</code></pre>
             <h5>Example Request</h5>
             <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/auth.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
             <h5>Example JSON response (200)</h5>
@@ -431,14 +431,14 @@
     },
     token : "GENERATED_TOKEN"
   }
-}</code></pre>     
-</div>              
+}</code></pre>
+</div>
 <!-- / USER AUTH -->
 <div class="documentation">
 
   <h3>POST /users/authenticate/facebook</h3>
   <p >Authenticate a specific user with its facebook access_token. You can learn how to obtain the <i>access_token</i> and the <i>user_id</i> from the <a href="https://developers.facebook.com/docs" class="link">official facebook documentation</a>.</p>
-<pre><code>POST https://api.marketcloud.it/v0/users/authenticate/facebook</code></pre>
+<pre><code>POST https://api.marketcloud.studio404.net/v0/users/authenticate/facebook</code></pre>
 <h5>Example Request</h5>
 <iframe src="//api.apiembed.com/?source=https://raw.githubusercontent.com/Marketcloud/json-request-examples/master/requests/users/fb_auth.json&targets=shell:curl,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,csharp:restsharp" frameborder="0" scrolling="no" width="100%" height="300px" seamless></iframe>
 <h5>Example JSON response (200)</h5>
@@ -452,5 +452,5 @@
     },
     token : "GENERATED_TOKEN"
   }
-}</code></pre>     
-  </div>  
+}</code></pre>
+  </div>
