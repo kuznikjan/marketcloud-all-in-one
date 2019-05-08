@@ -121,7 +121,6 @@ var userController = {
             var toSend = {
               verificationCode
             }
-            console.log(toSend);
 
             return res.send(toSend)
           })
