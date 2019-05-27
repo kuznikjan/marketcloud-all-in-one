@@ -350,12 +350,12 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
 
   var params = {
     Bucket: 'marketcloud',
-    Key: `${containerName}/${name}`,
+    Key: `${containerName}/${filename}`,
     Body: fileBuffer,
-    ACL: 'public-read',
+    ACL: 'public-read'
   };
 
-  s3.putObject(params, function(error, result) {
+  s3.putObject(params, function (error, result) {
     if (error) {
       return next(error)
     }
@@ -468,7 +468,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
           ACL: 'public-read',
         };
 
-        s3.putObject(params, function(error, result) {
+        s3.putObject(params, function (error, result) {
           if (error) {
             return next(error)
           }
@@ -484,7 +484,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
             application_id: req.client.application_id,
             original_filename: filename,
             filename: filename,
-            url: 'https://marketcloud.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+            url: 'https://marketcloud-' + (process.env.NODE_ENV || 'development') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
             size: Buffer.byteLength(data, 'utf8'),
             created_at: new Date()
           })
