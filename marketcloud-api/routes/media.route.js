@@ -349,7 +349,7 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
   }
 
   var params = {
-    Bucket: 'marketcloud',
+    Bucket: 'marketcloud-' + (process.env.NODE_ENV || 'development'),
     Key: `${containerName}/${filename}`,
     Body: fileBuffer,
     ACL: 'public-read'
@@ -462,7 +462,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
         if (err) throw err;
 
         var params = {
-          Bucket: 'marketcloud',
+          Bucket: 'marketcloud-' + (process.env.NODE_ENV || 'development'),
           Key: `${containerName}/${filename}`,
           Body: data,
           ACL: 'public-read',
