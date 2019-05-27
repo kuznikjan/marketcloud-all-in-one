@@ -13,6 +13,33 @@ app.controller('EditContentController', [
   function(scope, http, content, location, $marketcloud, $moment, $utils, $validation, $model) {
     scope.content = content.data.data
 
+    scope.products = []
+    scope.itemsToAdd = []
+
+    scope.selectedProducts = []
+
+    // Fetches items included in the content
+    // TODO: Move to the API. This should be populated on the API
+    if (scope.content.products && scope.content.products.length > 0) {
+      const itemIds = scope.content.products.split(',')
+
+      let itemPromises = []
+
+      itemIds.forEach(function (itemId) {
+        itemPromises.push($marketcloud.products.getById(itemId));
+      })
+
+      Promise.all(itemPromises)
+      .then(function (itemsResponse) {
+        scope.selectedProducts = itemsResponse.map(function (itemRes) {
+          return itemRes.data.data
+        })
+      })
+      .catch(function (err) {
+        notie.alert(2, 'Something went wrong fetching the products', 1.5);
+      })
+    }
+
     scope.content.date = $moment(scope.content.date);
 
     // mapping non-core attributes into scope.customPropertiesData
@@ -43,7 +70,53 @@ app.controller('EditContentController', [
       }
     }
 
+    scope.removeProduct = function (idx) {
+      scope.selectedProducts.splice(idx, 1);
+    }
 
+    scope.addProduct = function (product) {
+      product.quantity = 1
+
+      scope.selectedProducts.push(product)
+
+      scope.query.name.$regex = ''
+      scope.products = []
+    }
+
+    scope.showTheList = false
+    scope.showList = function() {
+      scope.showTheList = true
+    }
+
+    scope.hideList = function() {
+      window.setTimeout(function() {
+        scope.showTheList = false
+        scope.$apply()
+      }, 200)
+    }
+
+    scope.prepareRegex = function() {
+      scope.query.name.$options = 'i'
+    }
+
+    scope.loadProducts = function(query) {
+      query = query || scope.query
+
+      $marketcloud.products.list(query)
+        .then(function(response) {
+          scope.products = response.data.data
+            .filter(function(item) {
+              return scope.itemsToAdd
+                .map(function(i) {
+                  return i.id
+                })
+                .indexOf(item.id) < 0
+            })
+        })
+        .catch(function(response) {
+          notie.alert(3, 'An error has occurred. Please try again')
+        })
+    }
 
     scope.unsafeSlug = false
     scope.updateSlug = function() {
@@ -64,6 +137,21 @@ app.controller('EditContentController', [
       for (var k in scope.customPropertiesData) {
         toSave[k] = scope.customPropertiesData[k];
       }
+
+
+      var products = ''
+      scope.selectedProducts.map(function (prod) { return prod.id }).forEach(function (product, idx) {
+        products += product
+
+        if (idx < scope.selectedProducts.length - 1) {
+          products += ','
+        }
+      })
+
+      if (products.length > 0) {
+        toSave.products = products
+      }
+
       $marketcloud.contents.update(scope.content.id, toSave)
         .then(function(response) {
           notie.alert(1, 'Content updated with success', 1.5)

@@ -1,17 +1,28 @@
 angular.module('DataDashboard')
   .controller('NewProductWithVariantsController', [
     '$scope', '$http', '$location', '$marketcloud', '$utils',
-    function(scope, $http, location, $marketcloud, $utils) {
+    function (scope, $http, location, $marketcloud, $utils) {
+
+
       scope.categories = []
       scope.error = null
       scope.newCategory = {}
       scope.brands = []
       scope.newBrand = {}
+      scope.selectedCategories = []
 
       // Temporary storage for variants
       // while theyre being built
       scope.addedVariants = {}
 
+      // Listening to category selector events
+      scope.$on('selectedCategory', function (event, data) {
+        var categoryId = data.category_id
+
+        if (scope.selectedCategories.map(cat => cat.category_id).indexOf(categoryId) === -1) {
+          scope.selectedCategories.push(data)
+        }
+      })
       // mapping non-core attributes into scope.customPropertiesData
       var coreProperties = Models.Product.getPropertyNames()
       coreProperties.push(
@@ -54,6 +65,15 @@ angular.module('DataDashboard')
         scope.product.images.splice(i, 1)
       }
 
+
+      scope.setMainCategoryToLast = function () {
+
+        if (scope.selectedCategories.length > 0) {
+          scope.product.category_id = scope.selectedCategories[scope.selectedCategories.length - 1].category_id
+        } else {
+          scope.product.category_id = null
+        }
+      }
 
       scope.unsafeSlug = false
 
@@ -101,7 +121,7 @@ angular.module('DataDashboard')
         console.log("====================","Vado ad applicare questo template",angular.copy(tpl),"==========================")
 
         delete tpl['id']
-        
+
 
         scope.addedVariants2 = [];
 
@@ -125,14 +145,14 @@ angular.module('DataDashboard')
 
         console.log("Ora computedVariants è",angular.copy(scope.computedVariants))
 
-         
 
-        
+
+
 
 
 
         delete tpl.variants
-        
+
 
         scope.product = tpl
 
@@ -144,10 +164,10 @@ angular.module('DataDashboard')
         console.log("Applicato questo template",tpl)
 
         //scope.updateVariantsConfiguration()
-        
+
         console.log("Dopo updateVariantsConfiguration",angular.copy(scope.computedVariants))
         // Taking care of variants
-        
+
 
         for (var k in scope.product) {
           if (coreProperties.indexOf(k) < 0) {
@@ -483,7 +503,7 @@ angular.module('DataDashboard')
           })
         })
 
-        
+
         var temp_ComputedVariants = getArrayOfVariants2(angular.copy(scope.addedVariants2))
 
         scope.computedVariants = temp_ComputedVariants
@@ -589,6 +609,20 @@ angular.module('DataDashboard')
         for (var k in overwrites) {
           scope.product[k] = overwrites[k]
         }
+
+        var categories = ''
+        scope.selectedCategories.forEach(function (category, idx) {
+          categories += category.category_id
+
+          if (idx < scope.selectedCategories.length - 1) {
+            categories += ','
+          }
+        })
+
+        if (categories.length > 0) {
+          scope.product.categories = categories
+        }
+
         $marketcloud.products.save(scope.product)
           .then(function(response) {
             // Now i must save variants.

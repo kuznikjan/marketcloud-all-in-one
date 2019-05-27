@@ -786,7 +786,7 @@ var productsController = {
 
     var ids = []
     bundledProducts.forEach((product) => {
-      product.items.forEach((subProduct) => {
+      product.included_items.forEach((subProduct) => {
         if (ids.indexOf(subProduct.product_id) === -1) { ids.push(subProduct.product_id) }
       })
     })
@@ -812,14 +812,38 @@ var productsController = {
         if (Array.isArray(toSend)) {
           toSend.forEach(productToSend => {
             if (productToSend.type === 'bundled_product') {
-              productToSend.items = productToSend.items.map(item => {
+              productToSend.included_products = productToSend.included_items.map(item => {
                 return index[item.product_id]
+              })
+
+              productToSend.included_products.forEach(function (product, idx) {
+                var currentProduct = productToSend.included_items.find(function (item) {
+                  return item.product_id === product.id
+                })
+
+                if (product.has_variants) {
+                  productToSend.included_products[idx].selected_variant_id = currentProduct.variant_id
+                }
+
+                productToSend.included_products[idx].quantity = currentProduct.quantity
               })
             }
           })
         } else {
-          toSend.items = toSend.items.map(item => {
+          toSend.included_products = toSend.included_items.map(item => {
             return index[item.product_id]
+          })
+
+          toSend.included_products.forEach(function (product, idx) {
+            var currentProduct = toSend.included_items.find(function (item) {
+              return item.product_id === product.id
+            })
+
+            if (product.has_variants) {
+              toSend.included_products[idx].selected_variant_id = currentProduct.variant_id
+            }
+
+            toSend.included_products[idx].quantity = currentProduct.quantity
           })
         }
 
@@ -989,7 +1013,7 @@ var productsController = {
 
     // Now we check existance of items in bundle
 
-    var bundledProductsIds = product.items.map(function (item) {
+    var bundledProductsIds = product.included_items.map(function (item) {
       return item.product_id
     })
 
@@ -1017,8 +1041,8 @@ var productsController = {
         }
 
         // We look for bundle items
-        for (var i = 0; i < product.items.length; i++) {
-          var item = product.items[i]
+        for (var i = 0; i < product.included_items.length; i++) {
+          var item = product.included_items[i]
 
           // Now we look for this item in the products array got from db
           var found = false

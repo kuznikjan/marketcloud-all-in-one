@@ -117,7 +117,7 @@ angular.module('DataDashboard')
      */
 
     scope.products.forEach(function(product) {
-      if (product.type === 'simple_product' || product.type === 'product_with_variants') {
+      if (product.type === 'simple_product' || product.type === 'product_with_variants' || product.type === 'bundled_product') {
         return
       }
 

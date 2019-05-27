@@ -7,8 +7,8 @@
 		<div class="col-xs-12 col-lg-8">
 			<h4>Basic information</h4>
 			<div class="card mb50">
-				
-				
+
+
 				<div class="form-group" ng-class="{'has-error' : invalidPropertyName === 'name'}">
 					<label>Name*</label>
 					<input type="text"
@@ -37,7 +37,7 @@
 						<select class="form-control input-lg " ng-model="product.category_id" ng-options="category.id as category.name for category in categories">
 						</select>
 						<p>
-							<a data-target="#newCategoryModal" class="link" data-toggle="modal">Add a new category</a>
+							<a data-target="#newCategoryModal" class="link" data-toggle="modal">Create a new category</a>
 						</p>
 						<div ng-include="'/modules/data_dashboard/templates/modals/new_category_modal.html'"></div>
 					</div>
@@ -51,9 +51,9 @@
 						<div ng-include="'/modules/data_dashboard/templates/modals/new_brand_modal.html'"></div>
 					</div>
 				</div>
-				
-				
-				
+
+
+
 			</div>
 		</div>
 	</div>
@@ -94,17 +94,17 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-lg-8">
 			<h4>Images</h4>
 			<div class="card mb50">
-				
+
 				<div class="row">
 					<!-- including the media modal -->
 					<!-- <div ng-include="'/modules/data_dashboard/templates/modals/media_manager.html'" ng-controller="MediaManagerController"></div> -->
-					
+
 					<div class="col-xs-12 mt20">
 						<div ng-show="product.images.length === 0">
 							<div class="text-center text-muted">
@@ -117,7 +117,7 @@
 						<div ng-repeat="image in product.images track by $index">
 
 							<div class="col-xs-4">
-								
+
 								<image-thumbnail image-src="image"
 								on-delete="removeImage($index)"
 								on-edit=""></image-thumbnail>
@@ -131,14 +131,14 @@
 				            button-class="btn btn-info"
 				            button-text="Add media"
 				            button-icon="ion-images"
-				            
+
 				            images-container="product.images">
 				        </media-manager>
 					</div>
-					
+
 				</div>
-				
-				
+
+
 			</div>
 		</div>
 	</div>
@@ -152,8 +152,8 @@
 		<div class="col-xs-12 col-lg-8">
 			<h4>Inventory</h4>
 			<div class="card mb50">
-				
-				
+
+
 				<div class="row">
 					<div class="form-group col-lg-6"  ng-class="{'has-error' : invalidPropertyName === 'stock_type'}">
 						<label>Inventory policy *</label>  <span class="fa fa-question-circle" data-placement="right" title="Choose how should Marketcloud track your inventory"></span>
@@ -183,7 +183,7 @@
 							ng-model="product.stock_status">
 							<option value="in_stock">In stock</option>
 							<option value="out_of_stock">Out of stock</option>
-							
+
 						</select>
 					</div>
 				</div>
@@ -208,15 +208,15 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="col-xs-12 col-lg-8">
 			<h4>Description</h4>
 			<div class="card mb50">
 				<div class="row">
 					<div class="form-group col-xs-12" ng-class="{'has-error' : invalidPropertyName === 'description'}">
-						
-						
+
+
 						<div trumbowyg-ng
 					     ng-model="product.description"
 					     editor-config="{btns:[['viewHTML'],['formatting'],'btnGrp-semantic',['superscript','subscript'],['link'],['insertImage'],'btnGrp-justify','btnGrp-lists',['horizontalRule'],['removeformat'],['fullscreen']]}">
@@ -245,7 +245,7 @@
 				<div class="row">
 					<div class="form-group col-lg-8 col-xs-12">
 						<label>Weight (Kg)</label>
-						
+
 						<div class="input-group input-group-right">
 							<input type="number"
 							class="form-control input-lg "
@@ -258,7 +258,7 @@
 				<div class="row">
 					<div class="form-group col-xs-4">
 						<label>Depth</label>
-						
+
 						<div class="input-group input-group-right">
 							<input type="number"
 							class="form-control input-lg "
@@ -292,7 +292,7 @@
 			</div>
 		</div>
 	</div> -->
-	
+
 	<div class="row">
 		<div class="col-xs-12 col-lg-8">
 			<h4>Custom properties</h4>
@@ -302,17 +302,17 @@
 			></custom-attributes-form>
 		</div>
 	</div>
-	
+
 	<div class="row">
 			<div class="col-lg-8 col-xs-12">
 				<h4>SEO</h4>
-				
+
 				<seo-form seo="content.seo"></seo-form>
 			</div>
 		</div>
-	
-	
-	
+
+
+
 	<div class="row">
 		<div class="col-xs-12">
 				<div class="alert alert-danger" ng-show="!!error">
@@ -322,7 +322,7 @@
 	</div>
 	<div class="row">
 			<div class="col-lg-8 col-xs-12">
-				
+
 				<div class="card mb50">
 					<div class="row">
 						<div class="text-right col-xs-12">
@@ -335,9 +335,9 @@
 		</div>
 
 
-			
-	
-	
+
+
+
 </div>
 </div>
 </div>

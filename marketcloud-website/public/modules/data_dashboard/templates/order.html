@@ -216,18 +216,30 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="product in order.products track by $index">
+						<tr ng-repeat="product in order.products track by $index" ng-init="sectionIndex = $index">
 							<td>
 								<div class="thumbnail" style="width:48px;height:48px;padding:0px;">
 									<img ng-src="{{product.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" class="fluid" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/>
 								</div>
 							</td>
 							<td>
-								<a ng-href="#/{{product.type}}/{{product.id}}/edit" class="link">{{product.name}} x</a>
+								<a ng-href="#/{{product.type}}/{{product.id}}/edit" class="link">{{product.name}}</a>
+								<span>&nbsp;x&nbsp;</span>
 								<span ng-if="!editingOrder">{{product.quantity}}</span>
 								<input ng-if="editingOrder" class="form-control" type="number" ng-model="order.items[$index].quantity">
 								<div ng-if="true === product.has_variants">
-									<span ng-repeat="(k,v) in getSelectedVariantValues(product) track by $index" style="margin-right:5px;" class="text-muted small">{{v}} /</span>
+									<div style="display: flex">
+										<div ng-repeat="(k,v) in getSelectedVariantValues(product) track by $index" style="margin-right:5px;" class="text-muted small variant-label">{{v}}</div>
+									</div>
+									<div ng-if="product.variants" ng-repeat="(key, values) in product.variantsDefinition">
+										{{ key }}
+										<select ng-model="product.selectedVariant[key]" ng-change="updateSelectedVariantForProduct(sectionIndex, key, product.selectedVariant[key])">
+											<option ng-value="variant" ng-repeat="variant in values">
+												{{ variant }}
+											</option>
+										</select>
+									</div>
+									<!-- <span ng-if="!product.variants" ng-model="(k,v) in getSelectedVariantValues(product) track by $index" style="margin-right:5px;" class="text-muted small">{{v}} /</span> -->
 								</div>
 							</td>
 							<td ng-if="product.type==='simple_product'">
@@ -515,8 +527,17 @@
 							<div class="form-group">
 								<label>Shipping method</label>
 								<select class="form-control"
-								ng-model="newShipment.method"
-								ng-options="method as method.name for method in shippingMethods"></select>
+									ng-model="newShipment.method"
+									ng-options="method as method.name for method in shippingMethods"></select>
+							</div>
+							<div class="form-group">
+								<label>Select shipping company URI preset</label>
+								<select class="form-control"
+									ng-model="shipmentURIPreset" ng-change="updateShipmentUrl()">
+									<option selected value="">None</option>
+									<option value="postaSlovenije">Pošta slovenije</option>
+									<option value="gls">GLS</option>
+								</select>
 							</div>
 							<div class="row">
 								<div class="form-group col-xs-6">
@@ -524,6 +545,7 @@
 									<input class="form-control"
 									type="text"
 									ng-model="newShipment.tracking_code"
+									ng-change="updateShipmentUrl()"
 									placeholder="00000" />
 								</div>
 								<div class="form-group col-xs-6">

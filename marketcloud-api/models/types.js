@@ -279,7 +279,7 @@ Types.BundledProduct = new Schematic.Schema('Bundle', {
   description: {
     type: 'string'
   },
-  items: {
+  included_items: {
     type: 'array',
     required: true,
     min: 0,

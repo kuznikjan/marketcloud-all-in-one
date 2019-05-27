@@ -1,9 +1,9 @@
 <div  ng-class="{'card mb50' : 'true' !== ctrl.removeCardFrame}">
-	
+
 	<div class="card-header" ng-if="'true' !== ctrl.removeCardFrame"><h4>{{ctrl.title || "Custom properties"}}</h4></div>
 	<div ng-if="ctrl.disableAdd !== true">
 		<p class="text-muted mt10">Here you can add custom properties selecting name and value. When you're done with a new property, click "add"</p>
-		
+
 		<div class="row">
 			<div class="form-group col-md-6"  ng-class="{'has-error' : errorField === 'newAttribute.value'}">
 				<label>Type</label>
@@ -20,7 +20,7 @@
 				placeholder="e.g. Author"
 				ng-model="newAttribute.name" />
 			</div>
-			
+
 			<div class="form-group col-md-12"  ng-class="{'has-error' : errorField === 'newAttribute.value'}">
 				<label>Value</label>
 				<input type="text"
@@ -44,7 +44,7 @@
 					 editor-config="{btns:[['viewHTML'],['formatting'],'btnGrp-semantic',['superscript','subscript'],['link'],['insertImage'],'btnGrp-justify','btnGrp-lists',['horizontalRule'],['removeformat'],['fullscreen']]}">
 					</div>
 				</div>
-				
+
 				<div ng-if="newAttribute.type === 'URL'">
 				<div class="input-group">
 					<input class="form-control solid" placeholder="http(s)://www.example.com/myfile" ng-model="newAttribute.value">
@@ -65,7 +65,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="">
 		<div class="card-toolbar" ng-if="propertiesStack.length > 0" style="border-top:1px solid #DDD">
 			<span>Root object > </span>
 			<span ng-repeat="item in propertiesStack track by $index">
@@ -84,7 +84,7 @@
 				<tr ng-repeat="(k,v) in properties" ng-if="null !== properties[k]">
 					<td>{{k}}</td>
 					<td>
-						
+
 						<input type="text"
 						class="form-control  solid"
 						placeholder="any text value"
@@ -100,7 +100,7 @@
 							ng-if="'boolean' === propertiesTypes[k]"
 							ng-options="(item?'True':'False') for item in [true, false]"
 							>
-							
+
 						</select>
 						<a class="link" ng-click="showRecursiveObjectEditor(k)" ng-if="null !== properties[k] && 'object' === propertiesTypes[k]">View and edit</a>
 						<div  ng-if="propertiesTypes[k] === 'richtext'">
@@ -120,19 +120,19 @@
 							</div>
 							<!-- /input-group -->
 						</div>
-						
+
 					</td>
 					<td ng-if="ctrl.disableAdd !== true">
 						<button class="btn btn-default" ng-click="deleteCustomProperty(k)"><span class="fa fa-trash-o"></span></button>
 					</td>
 				</tr>
 			</tbody>
-			
+
 		</table>
 		<p ng-if="false === hasCustomProperties()" class="text-muted text-center lead">There are no custom properties yet.</p>
 	</div>
-	
-	
+
+
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" id="newAttributeModal">
 	<div class="modal-dialog" role="document">

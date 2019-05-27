@@ -78,6 +78,55 @@ var userController = {
       })
   },
 
+  sendPasswordResetVerificationCode: function (req, res, next) {
+    var emailAddress = req.body.email
+
+    var query = {
+      application_id: req.client.application_id,
+      email: req.body.email
+    }
+    req.app.get('mongodb')
+      .collection('users')
+      .findOne(query, function (err, user) {
+        if (err) {
+          return next(err)
+        }
+
+        if (user === null) {
+          return next(new Errors.NotFound('Unable to find user with email address ' + emailAddress))
+        }
+
+        var verificationCode = uuid()
+        req.app.get('mongodb')
+          .collection('users')
+          .findAndModify(query, [], {
+            '$set': {
+              verification_code: verificationCode
+            }
+          }, { new: true },
+          function (err, data) {
+            if (err) {
+              return next(err)
+            }
+
+            if (!data) {
+              return res.status(404).send({
+                status: false,
+                errors: [new Errors.NotFound()]
+              })
+            }
+
+            var verificationCode = data.value.verification_code
+
+            var toSend = {
+              verificationCode
+            }
+
+            return res.send(toSend)
+          })
+      })
+  },
+
   resetPassword: function (req, res, next) {
     var verificationCode = req.body.verification_code
     var emailAddress = req.body.email
@@ -974,6 +1023,7 @@ Router.get('/:userId', Middlewares.verifyClientAuthorization('users', 'getById')
 Router.delete('/:userId', Middlewares.verifyClientAuthorization('users', 'delete'), userController.delete)
 Router.put('/:userId/updatePassword', Middlewares.verifyClientAuthorization('users', 'getById'), userController.updatePassword)
 Router.post('/recoverPassword', Middlewares.verifyClientAuthorization('users', 'authenticate'), userController.sendRecoverPasswordEmail)
+Router.post('/recoverPasswordManual', Middlewares.verifyClientAuthorization('users', 'authenticate'), userController.sendPasswordResetVerificationCode)
 Router.post('/resetPassword', Middlewares.verifyClientAuthorization('users', 'authenticate'), userController.resetPassword)
 Router.put('/:userId', Middlewares.verifyClientAuthorization('users', 'update'), userController.update)
 Router.patch('/:userId', Middlewares.verifyClientAuthorization('users', 'update'), userController.patch)

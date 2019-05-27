@@ -11,6 +11,7 @@ var resource = Resource({
   validator: Types.Category,
   hooks: {
     beforeCreate: initializeCategoryPath,
+    beforeUpdate: initializeCategoryPath,
     afterList: fetchSubcategories,
     afterGetById: fetchSubcategories
   }

@@ -1,6 +1,6 @@
 /* exported Router,orderController */
 'use strict'
-
+var Decimal = require('decimal.js').set({ precision: 13, rounding: 4 })
 var Express = require('express'),
   Router = Express.Router(),
   Types = require('../models/types.js'),
@@ -743,31 +743,33 @@ var orderController = {
         req.order.taxes_total = taxAmount
 
         // Solving rounding issues
-        req.order.taxes_total = (Math.round(req.order.taxes_total * 100) / 100)
+        req.order.taxes_total = new Decimal(req.order.taxes_total).mul(100).div(100).toDP(2, Decimal.ROUND_HALF_UP).toNumber()
 
         // TODO this will take in account discount, taxes, shipping etc....
         // req.order.total = req.order.products.map(x => x.price * x.quantity).reduce((x, y) => x + y);
 
-        req.order.total = 0
-        req.order.total += req.order.items_total
-        req.order.total += req.order.taxes_total
-        req.order.total += req.order.shipping_total
+        var _calculatedTotal = new Decimal(0)
+
+        _calculatedTotal = _calculatedTotal.plus(new Decimal(req.order.items_total).toNumber())
+        _calculatedTotal = _calculatedTotal.plus(new Decimal(req.order.taxes_total).toNumber())
+        _calculatedTotal = _calculatedTotal.plus(new Decimal(req.order.shipping_total).toNumber())
 
         if (req.order.payment_method) {
-          req.order.total = req.order.total + req.order.payment_method_total
+          _calculatedTotal = _calculatedTotal.plus(new Decimal(req.order.payment_method_total)).toDP(2, Decimal.ROUND_HALF_UP)
         }
 
         // now we check for the promotion
         if (req.order.promotion) {
-          req.order.total = req.order.total - req.order.promotion_total
+          _calculatedTotal = _calculatedTotal.sub(new Decimal(req.order.promotion_total)).toDP(2, Decimal.ROUND_HALF_UP)
         }
 
         if (req.order.coupon) {
-          req.order.total = req.order.total - req.order.coupon_total
+          _calculatedTotal = _calculatedTotal.sub(new Decimal(req.order.coupon_total)).toDP(2, Decimal.ROUND_HALF_UP)
         }
 
+        console.log(req.order.total)
         // Solving rounding issues. Tnx javascript
-        req.order.total = (Math.round(req.order.total * 100) / 100)
+        req.order.total = _calculatedTotal.toDP(2, Decimal.ROUND_HALF_UP).toNumber()
 
         // Ho deciso che non salvo sti valori, li aggiungo quando sputo i metodi GET
         // req.order.display_total = String(req.order.total)+" "+req.client.application.currency_code;

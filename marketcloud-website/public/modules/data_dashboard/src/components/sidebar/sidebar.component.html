@@ -2,8 +2,8 @@
 <div class="sidebar">
   <a class="entry" ng-class="{'active' : currentSection === 'home'}" href="#/"><i class="fa fa-home"></i> <span>Home</span></a>
   <div class="sidebar-title">Store</div>
-  
-  
+
+
   <a class="entry" ng-click="toggleSubEntries('inventory')" ng-class="{'active' : subEntriesGroupShown['inventory'] === true}" ><i class="fa fa-tags"></i> <span>Inventory</span> </a>
   <div ng-if="subEntriesGroupShown['inventory'] === true">
     <a class="entry sub-entry" href="#/products" ng-class="{'active' : currentSection === 'products'}"><span>Products</span></a>
@@ -11,29 +11,29 @@
     <a class="entry sub-entry" href="#/brands" ng-class="{'active' : currentSection === 'brands'}"><span>Brands</span></a>
     <a class="entry sub-entry" href="#/collections" ng-class="{'active' : currentSection === 'collections'}"><span>Collections</span></a>
   </div>
-  <a class="entry" href="#/promotions" ng-class="{'active' : currentSection === 'promotions'}"><i class="fa fa-bullhorn"></i> <span>Promotions</span></a>
+  <a class="entry" style="display: none" href="#/promotions" ng-class="{'active' : currentSection === 'promotions'}"><i class="fa fa-bullhorn"></i> <span>Promotions</span></a>
   <a class="entry" href="#/coupons" ng-class="{'active' : currentSection === 'coupons'}"><i class="fa fa-ticket"></i> <span>Coupons</span></a>
 
 
 
   <div class="sidebar-title">Sales</div>
   <a class="entry" href="#/orders" ng-class="{'active' : currentSection === 'orders'}"><i class="fa fa-inbox"></i> <span>Orders</span></a>
-  
+
   <a class="entry" href="#/invoices" ng-class="{'active' : currentSection === 'invoices'}"><i class="fa fa-file-o"></i> <span>Invoices</span></a>
-  
-  
+
+
   <a class="entry" href="#/users" ng-class="{'active' : currentSection === 'users'}"><i class="fa fa-user-o"></i> <span>Customers</span></a>
   <a class="entry" ng-class="{'active' : currentSection === 'analytics'}" href="#/analytics"><i class="fa fa-bar-chart"></i> <span>Analytics</span> <span class="label label-success">New</span></a>
-  
+
   <div class="sidebar-title">Content</div>
 
   <a class="entry" href="#/contents" ng-class="{'active' : currentSection === 'contents'}"><i class="fa fa-newspaper-o"></i> <span>Contents</span></a>
 
-  
-  
-  
+
+
+
   <a class="entry" href="#/media" ng-class="{'active' : currentSection === 'media'}"><i class="fa fa-picture-o"></i> <span>Files</span></a>
-  
+
   <div class="sidebar-title">Settings</div>
   <a class="entry" ng-click="toggleSubEntries('system')" ng-class="{'active' : subEntriesGroupShown['system'] === true}" ><i class="fa fa-cog"></i> <span>System</span></a>
   <div ng-if="subEntriesGroupShown['system'] === true">
@@ -45,7 +45,7 @@
     <a class="entry sub-entry" href="#/notifications" ng-class="{'active' : currentSubsection === 'notifications'}"><span>Notifications</span></a>
     <a class="entry sub-entry" href="#/variables" ng-class="{'active' : currentSection === 'variables'}"><span>Variables</span></a>
   </div>
-  
+
   <div class="sidebar-footer">
     <div class="row">
       <div class="col-xs-6">
@@ -60,7 +60,7 @@
         </a>
       </div>
     </div>
-    
+
   </div>
 </div>
 <!-- END sidebar-->

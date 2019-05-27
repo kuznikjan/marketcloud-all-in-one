@@ -100,10 +100,18 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
 
     scope.addProduct = function (product) {
       product.quantity = 1;
+
+      if (product.has_variants) {
+        product.selectedVariant = {};
+        Object.keys(product.variantsDefinition).forEach(function (k) {
+          product.selectedVariant[k] = product.variantsDefinition[k][0]
+        })
+      }
+
       scope.order.items.push({
         product_id: product.id,
         quantity: product.quantity,
-        variant_id: product.variant_id ? product.variant_id : null,
+        variant_id: product.has_variants ? 1 : null
       });
       scope.order.products.push(product);
       scope.query.name.$regex = '';
@@ -290,6 +298,36 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
       return temp
     }
 
+    scope.updateSelectedVariantForProduct = function (idx, key, value) {
+      var selectedVariantData = scope.order.products[idx].selectedVariant
+
+
+      var productVariants = scope.order.products[idx].variants
+
+      var selectedVariant = findObjectWithKeyValue(productVariants, selectedVariantData)
+
+      scope.order.items[idx].variant_id = selectedVariant.variant_id
+    }
+
+    var findObjectWithKeyValue = function (array, object) {
+      var current = array
+      var result
+
+      Object.keys(object).forEach(function (k) {
+        var value = object[k]
+
+        current = current.filter(function (val) {
+          return val[k] === value
+        })
+
+        if (current.length === 1) {
+          result = current[0]
+        }
+      })
+
+      return result
+    }
+
     // delete scope.order['items']
 
     scope.updateStatus = function (status) {
@@ -407,6 +445,25 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
                       notie.alert(2, 'An error has occurred. Please try again.', 1)
                     })
                 }) */
+    }
+
+    scope.updateShipmentUrl = function () {
+      var trackingCode = scope.newShipment.tracking_code
+      var shipmetUrlStructures = {
+        gls: `http://online.gls-slovenia.com/tt_page.php?tt_value=${trackingCode}`,
+        postaSlovenije: `http://sledenje.posta.si/Default.aspx?tn=${trackingCode}&guid=577712B3-9D04&lang=sl`
+      }
+
+      if (scope.shipmentURIPreset) {
+        if (scope.shipmentURIPreset === 'gls') {
+          scope.newShipment.tracking_link = shipmetUrlStructures.gls
+        } else if (scope.shipmentURIPreset === 'postaSlovenije') {
+          scope.newShipment.tracking_link = shipmetUrlStructures.postaSlovenije
+        }
+      } else {
+        scope.newShipment.tracking_link = ''
+        scope.newShipment.tracking_code = ''
+      }
     }
 
     scope.saveShipment = function () {

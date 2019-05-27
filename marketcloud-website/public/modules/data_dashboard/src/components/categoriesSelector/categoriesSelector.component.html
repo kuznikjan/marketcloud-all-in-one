@@ -11,19 +11,19 @@
 	}
 </style>
 
-<div class="dropdown">
+<div class="dropdown" style="margin-bottom: 0.5rem">
   <a class="select-box-component" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    
+
     <div class="row">
     	<div class="col-xs-10">{{category.path || category.name || "Select a category"}} </div>
     	<div class="col-xs-2 text-right"><span class="caret "></span></div>
     </div>
-    
+
   </a>
   <ul class="dropdown-menu">
     <li style="padding:5px 10px;">
-    	<input type="text" 
-    					class="form-control input-sm" 
+    	<input type="text"
+    					class="form-control input-sm"
     					placeholder="Type a category name to filter.."
     					ng-model="ctrl.query.name.$regex"
     					ng-model-options='{ debounce: 600 }'
@@ -34,7 +34,7 @@
   </ul>
 </div>
 <p ng-if="true === enableCreateCategory">
-	<a class="link" ng-click="showModal()">Add a new category</a>
+	<a class="link" ng-click="showModal()">Create a new category</a>
 </p>
 <div class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog">

@@ -8,14 +8,14 @@ app.controller('ContentController', [
   '$validation',
   '$models',
   '$account',
-  function(scope, http, location, $marketcloud, $utils, $validation, $models, $account) {
-
+  function (scope, http, location, $marketcloud, $utils, $validation, $models, $account) {
 
     scope.content = {
       title: '',
       slug: '',
       text: '',
       published: false,
+      items: [],
       author: {
         name: $account.get('full_name'),
         description: '',
@@ -28,6 +28,11 @@ app.controller('ContentController', [
         facebook: {}
       }
     }
+
+    scope.products = []
+    scope.itemsToAdd = []
+
+    scope.selectedProducts = []
 
     scope.customPropertiesData = {}
 
@@ -47,6 +52,54 @@ app.controller('ContentController', [
 
     }
 
+    scope.removeProduct = function (idx) {
+      scope.selectedProducts.splice(idx, 1);
+    }
+
+    scope.addProduct = function (product) {
+      product.quantity = 1
+
+      scope.selectedProducts.push(product)
+
+      scope.query.name.$regex = ''
+      scope.products = []
+    }
+
+    scope.showTheList = false
+    scope.showList = function() {
+      scope.showTheList = true
+    }
+
+    scope.hideList = function() {
+      window.setTimeout(function() {
+        scope.showTheList = false
+        scope.$apply()
+      }, 200)
+    }
+
+    scope.prepareRegex = function() {
+      scope.query.name.$options = 'i'
+    }
+
+    scope.loadProducts = function(query) {
+      query = query || scope.query
+
+      $marketcloud.products.list(query)
+        .then(function(response) {
+          scope.products = response.data.data
+            .filter(function(item) {
+              return scope.itemsToAdd
+                .map(function(i) {
+                  return i.id
+                })
+                .indexOf(item.id) < 0
+            })
+        })
+        .catch(function(response) {
+          notie.alert(3, 'An error has occurred. Please try again')
+        })
+    }
+
     scope.unsafeSlug = false
     scope.updateSlug = function() {
       scope.content.slug = $utils.getSlugFromString(scope.content.title)
@@ -55,7 +108,20 @@ app.controller('ContentController', [
       for (var k in scope.customPropertiesData) {
         scope.content[k] = scope.customPropertiesData[k]
       }
-      console.log("Salvo questo",scope.content)
+
+      var products = ''
+      scope.selectedProducts.map(function (prod) { return prod.id }).forEach(function (product, idx) {
+        products += product
+
+        if (idx < scope.selectedProducts.length - 1) {
+          products += ','
+        }
+      })
+
+      if (products.length > 0) {
+        scope.content.products = products
+      }
+
       $validation.hideErrors()
       $marketcloud.contents.save(scope.content)
         .then(function(response) {
