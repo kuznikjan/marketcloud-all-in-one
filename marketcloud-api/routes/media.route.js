@@ -349,7 +349,7 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
   }
 
   var params = {
-    Bucket: 'marketcloud-' + (process.env.NODE_ENV || 'development'),
+    Bucket: process.env.MC_S3_BUCKET_NAME,
     Key: `${containerName}/${filename}`,
     Body: fileBuffer,
     ACL: 'public-read'
