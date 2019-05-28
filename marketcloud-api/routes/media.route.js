@@ -372,7 +372,7 @@ var uploadBase64FileToDigitalOcean = function (req, res, next) {
       original_filename: originalFileName,
       filename: filename,
       name: req.body.name,
-      url: 'https://marketcloud-' + (process.env.NODE_ENV || 'development') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+      url: 'https://' + process.env.MC_S3_BUCKET_NAME + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
       size: Buffer.byteLength(req.body.file, 'utf8'),
       created_at: new Date()
     })
@@ -462,7 +462,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
         if (err) throw err;
 
         var params = {
-          Bucket: 'marketcloud-' + (process.env.NODE_ENV || 'development'),
+          Bucket: process.env.MC_S3_BUCKET_NAME,
           Key: `${containerName}/${filename}`,
           Body: data,
           ACL: 'public-read',
@@ -484,7 +484,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
             application_id: req.client.application_id,
             original_filename: filename,
             filename: filename,
-            url: 'https://marketcloud-' + (process.env.NODE_ENV || 'development') + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+            url: 'https://marketcloud-' + process.env.MC_S3_BUCKET_NAME + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
             size: Buffer.byteLength(data, 'utf8'),
             created_at: new Date()
           })
