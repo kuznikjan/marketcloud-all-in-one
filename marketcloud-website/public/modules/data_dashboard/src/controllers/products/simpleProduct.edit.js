@@ -24,7 +24,7 @@
 
     scope.selectedCategories = []
 
-    if (scope.product.categories.length) {
+    if (scope.product.categories && scope.product.categories.length) {
       var cats = scope.product.categories.split(',')
       var promises = []
       cats.forEach(function (categoryId) {
