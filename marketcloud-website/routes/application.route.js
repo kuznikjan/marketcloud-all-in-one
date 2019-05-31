@@ -14,6 +14,7 @@ var crypto = require('crypto')
 var qs = require('querystring')
 var Utils = require('../libs/util.js')
 var Cipher = require('../libs/cipher.js')
+var Elasticsearch = require('../services/elasticsearch')
 const configuration = require('../configuration/default.js')
 
 const ENV = process.env.NODE_ENV
@@ -609,6 +610,7 @@ router.delete('/:applicationId', function(req, res, next) {
           })
           return
         } else {
+          Elasticsearch.deleteIndex(app.id)
           res.send({
             status: true
           })
@@ -1708,6 +1710,7 @@ router.post('/', function(req, res, next) {
                   errors: [new Errors.BadRequest('Invalid owner email ' + app.owner)]
                 })
               } else {
+                Elasticsearch.createIndex(app.id)
                 next(err)
               }
               return

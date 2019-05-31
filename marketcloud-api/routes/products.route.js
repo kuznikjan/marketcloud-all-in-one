@@ -581,6 +581,14 @@ var productsController = {
         return next()
       })
   },
+  aggregate: function (req, res, next) {
+    if (!req.query.hasOwnProperty('agg')) {
+      return next()
+    }
+
+    var db = req.app.get('mongodb')
+
+  },
   search: function (req, res, next) {
     if (!req.query.hasOwnProperty('q')) {
       return next()
@@ -1894,6 +1902,7 @@ Router.get('/',
   productsController.searchInInventory, // Performs the first query into the inventory
   productsController.search, // Performs a full text query in ElasticSearch
   productsController.filterByCollection, // Looks for a collection and restricts the result to items in that collection
+  productsController.aggregate, // Aggregates by a custom field
   productsController.list, // Finally performs the query into the catalogue.
   productsController.populateBundledProducts,
   productsController.convertCurrency,
