@@ -581,14 +581,6 @@ var productsController = {
         return next()
       })
   },
-  aggregate: function (req, res, next) {
-    if (!req.query.hasOwnProperty('agg')) {
-      return next()
-    }
-
-    var db = req.app.get('mongodb')
-
-  },
   search: function (req, res, next) {
     if (!req.query.hasOwnProperty('q')) {
       return next()
