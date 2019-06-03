@@ -1,7 +1,7 @@
 "use strict"
 
 var elasticsearch = require('elasticsearch')
-var configuration = require('../config/default.js')
+var configuration = require('../configuration/default.js')
 
 // Singleton instance
 var ESClient = new elasticsearch.Client({
