@@ -47,5 +47,26 @@ module.exports = {
         done(null, result)
       }
     })
+  },
+
+  search: function (applicationId, filters, limit, skip, sort, minScore, done) {
+    ESClient.search({
+      index: applicationId,
+      sort: sort,
+      body: {
+        size: limit,
+        from: skip,
+        min_score: minScore,
+        query: {
+          bool: filters
+        }
+      }
+    }, (err, result) => {
+      if (err) {
+        done(err)
+      } else {
+        done(null, result)
+      }
+    })
   }
 }

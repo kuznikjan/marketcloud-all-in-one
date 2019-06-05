@@ -586,7 +586,7 @@ var productsController = {
       return next()
     }
 
-    var db = elasticsearch.getDatabaseInstance()
+    // var db = elasticsearch.getDatabaseInstance()
 
     var query = req.data_query
 
@@ -600,47 +600,41 @@ var productsController = {
       .replace(/OR/g, '\\O\\R') // replace OR
       .replace(/NOT/g, '\\N\\O\\T') // replace NOT
 
-    db.search({
-      index: 'products',
-      from: query.skip,
-      size: query.limit,
-      _source: false, // we just need productIds // but this way cant filter
-      body: {
-        'query': {
-          'bool': {
-            'must': {
-              'query_string': {
-                'query': '*' + searchWord + '*'
-              }
-            },
-            'filter': {
-              'term': {
-                'application_id': req.client.application_id
-              }
-            }
-          }
+    const filters = {
+      must: {
+        query_string: {
+          query: searchWord,
+          fuzziness: 2
         }
-
+      },
+      filter: {
+        term: {
+          published: true
+        }
       }
+    }
 
-    },
-    function (error, response) {
+    const sort = []
+    const minScore = 0
+
+    elasticsearch.search(req.client.application_id, filters, query.limit, query.skip, sort, minScore, function (error, response) {
       if (error) {
         return next(error)
       }
 
-      // Ids of products matching the fulltext query
+        // Ids of products matching the fulltext query
+      // console.log(response.hits)
       var matchingDocumentIds = response.hits.hits.map((hit) => Number(hit._id))
 
-      // Remove mongodb full text param
+        // Remove mongodb full text param
       delete req.data_query.where_statement['$text']
 
       if (
-        Utils.ensureObjectHasProperty(req.data_query, 'where_statement.id.$in') &&
-          Array.isArray(req.data_query.where_statement.id['$in'])
-      ) {
-        // Then, a middleware is already using the $in operator
-        // Whe have to intersect the two sets of ids
+          Utils.ensureObjectHasProperty(req.data_query, 'where_statement.id.$in') &&
+            Array.isArray(req.data_query.where_statement.id['$in'])
+        ) {
+          // Then, a middleware is already using the $in operator
+          // Whe have to intersect the two sets of ids
         var intersection = Utils.intersect(matchingDocumentIds, req.data_query.where_statement.id['$in'])
         req.data_query.where_statement.id['$in'] = intersection
       } else {
@@ -651,6 +645,7 @@ var productsController = {
 
       return next()
     })
+
   },
 
   getById: function (req, res, next) {
@@ -1922,7 +1917,7 @@ Router.get('/',
   productsController.searchInInventory, // Performs the first query into the inventory
   productsController.search, // Performs a full text query in ElasticSearch
   productsController.filterByCollection, // Looks for a collection and restricts the result to items in that collection
-  productsController.aggregate, // Aggregates by a custom field
+  // productsController.aggregate, // Aggregates by a custom field
   productsController.list, // Finally performs the query into the catalogue.
   productsController.populateBundledProducts,
   productsController.convertCurrency,
