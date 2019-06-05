@@ -4,17 +4,48 @@ var elasticsearch = require('elasticsearch')
 var configuration = require('../config/default.js')
 
 // Singleton instance
-var client = null
+var ESClient = new elasticsearch.Client({
+  host: configuration.elasticsearch.connectionString
+})
 
 module.exports = {
-
-  getDatabaseInstance: function () {
-    if (client) { return client }
-
-    client = new elasticsearch.Client({
-      host: configuration.elasticsearch.connectionString
+  updateOne: function (applicationId, product, done) {
+    // variants empty definition fix
+    if (product.variantsDefinition) {
+      Object.keys(product.variantsDefinition).forEach(function (key) {
+        if (key === '') {
+          delete product.variantsDefinition[key]
+        }
+      })
+    }
+    ESClient.update({
+      index: applicationId,
+      type: '_doc',
+      id: product.id,
+      body: {
+        doc: product,
+        upsert: product
+      }
+    }, (err, result) => {
+      if (err) {
+        done(err)
+      } else {
+        done(null, result)
+      }
     })
+  },
 
-    return client
+  deleteById: function (applicationId, productId, done) {
+    ESClient.delete({
+      index: applicationId,
+      type: '_doc',
+      id: productId
+    }, (err, result) => {
+      if (err) {
+        done(err)
+      } else {
+        done(null, result)
+      }
+    })
   }
 }

@@ -940,6 +940,13 @@ var productsController = {
         var productWithoutInventoryData = Utils.filterObject(product, InventoryAttributesList)
         productWithoutInventoryData.application_id = req.client.application_id
 
+        // add to ES
+        elasticsearch.updateOne(req.client.application_id, product, function (err, done) {
+          if (err) {
+            console.log(err)
+          }
+        })
+
         mongodb.collection('products')
           .insert(productWithoutInventoryData, function (err) {
             if (err) {
@@ -1083,6 +1090,13 @@ var productsController = {
 
             product.id = newId
             product.application_id = req.client.application_id
+
+            // ES update
+            elasticsearch.updateOne(req.client.application_id, product, function (err, done) {
+              if (err) {
+                console.log(err)
+              }
+            })
 
             mongodb.collection('products')
               .insert(product, function (err) {
@@ -1313,6 +1327,13 @@ var productsController = {
               data: document
             }
 
+            // ES update
+            elasticsearch.updateOne(req.client.application_id, document, function (err, done) {
+              if (err) {
+                console.log(err)
+              }
+            })
+
             // We send the message to the queue to notify the indexing system
             var queue = req.app.get('search-queue')
             queue.sendToQueue('marketcloud-search-index', message)
@@ -1368,6 +1389,13 @@ var productsController = {
       })
       return
     }
+
+    // delete from ES
+    elasticsearch.deleteById(req.client.application_id, req.params.productId, function (err, done) {
+      if (err) {
+        console.log(err)
+      }
+    })
     var mongodb = req.app.get('mongodb')
     var sequelize = req.app.get('sequelize')
     sequelize.query(
