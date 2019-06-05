@@ -610,7 +610,7 @@ router.delete('/:applicationId', function(req, res, next) {
           })
           return
         } else {
-          Elasticsearch.deleteIndex(app.id)
+          Elasticsearch.deleteIndex(req.params.applicationId)
           res.send({
             status: true
           })
@@ -1698,12 +1698,21 @@ router.post('/', function(req, res, next) {
           reset: next_month.getTime()
         }
 
+        // Create ES index
+
+        Elasticsearch.createIndex(app.id, function (err, done) {
+          if (err) {
+            console.log(err);
+          }
+        });
+
         connection.query('INSERT INTO applications SET ?',
           app,
           function(err, result) {
             connection.release()
 
             if (err) {
+              console.log(err);
               if (err.code.indexOf('_REFERENCED') > -1) {
                 res.send(400, {
                   status: false,

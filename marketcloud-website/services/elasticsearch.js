@@ -1,9 +1,10 @@
-"use strict"
+'use strict'
 
 var elasticsearch = require('elasticsearch')
 var configuration = require('../configuration/default.js')
 
 // Singleton instance
+
 var ESClient = new elasticsearch.Client({
   host: configuration.elasticsearch.connectionString
 })
@@ -18,22 +19,18 @@ module.exports = {
           number_of_shards: 1
         },
         mappings: {
-          product: {
-            properties: {
-              name: { type: 'text', fielddata: true },
-              deleted: { type: 'boolean' }
-            }
+          properties: {
+            name: { type: 'text', fielddata: true }
           }
         }
       }
+    }, (err) => {
+      if (err) {
+        done(err)
+      } else {
+        done(null, true)
+      }
     })
-      .then((response) => {
-        if (response.acknowledged === true) {
-          done(null, true)
-        } else {
-          done(response)
-        }
-      });
   },
   deleteIndex: function (applicationId, done) {
     ESClient.indices.delete({
