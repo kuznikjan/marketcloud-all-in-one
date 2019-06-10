@@ -171,9 +171,7 @@ var productsController = {
     // Text searches
     if (req.query.hasOwnProperty('q')) {
       delete query.where_statement['q']
-      query.where_statement['$text'] = {
-        $search: String(req.query.q)
-      }
+      query.where_statement['name'] = String(req.query.q)
     }
 
     // Handling on_sale parameters which allows to look for products wiht a price_discount
@@ -334,6 +332,25 @@ var productsController = {
               var error = new Errors.InternalServerError()
               return next(error)
             } else {
+              // if no sort is set, use ES scoring
+              if (req.query.hasOwnProperty('q') && query.sort.length === 1 && req.data_query.where_statement.id) {
+                const orderIds = req.data_query.where_statement.id['$in']
+
+                let newData = []
+
+                orderIds.forEach(orderId => {
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].id === orderId) {
+                      newData.push(data[i])
+                      data.splice(i, 1)
+                      break
+                    }
+                  }
+                })
+
+                data = newData
+              }
+
               // Let's look for the corresponding data in the Inventory table
               Inventory.findAll({
                 where: {
@@ -581,6 +598,15 @@ var productsController = {
         return next()
       })
   },
+  updateElasticSearch: function (req, res, next) {
+    elasticsearch.updateAll(req.client.application_id, function (error, response) {
+      if (error) {
+        return next(error)
+      }
+      return res.send(response)
+    })
+  },
+
   search: function (req, res, next) {
     if (!req.query.hasOwnProperty('q')) {
       return next()
@@ -588,7 +614,7 @@ var productsController = {
 
     // var db = elasticsearch.getDatabaseInstance()
 
-    var query = req.data_query
+    // var query = req.data_query
 
     var searchWord = String(req.query.q)
     // Escaping the query
@@ -615,10 +641,13 @@ var productsController = {
     }
 
     const sort = []
-    const minScore = 0
 
-    elasticsearch.search(req.client.application_id, filters, query.limit, query.skip, sort, minScore, function (error, response) {
+    elasticsearch.search(req.client.application_id, filters, 9999, 0, sort, function (error, response) {
       if (error) {
+        // If ES index not found for application, skip to mongo search
+        if (error.status === 404) {
+          return next()
+        }
         return next(error)
       }
 
@@ -627,7 +656,7 @@ var productsController = {
       var matchingDocumentIds = response.hits.hits.map((hit) => Number(hit._id))
 
         // Remove mongodb full text param
-      delete req.data_query.where_statement['$text']
+      delete req.data_query.where_statement['name']
 
       if (
           Utils.ensureObjectHasProperty(req.data_query, 'where_statement.id.$in') &&
@@ -645,7 +674,6 @@ var productsController = {
 
       return next()
     })
-
   },
 
   getById: function (req, res, next) {
@@ -2009,4 +2037,8 @@ Router.get('/:productId/variants/:variantId',
 
 Router.delete('/:productId/variants/:variantId', Middlewares.verifyClientAuthorization('products', 'delete'), productsController.deleteVariantById)
 
+Router.post('/updateEs',
+  // Middlewares.verifyClientAuthorization('products', 'update'),
+  productsController.updateElasticSearch
+)
 module.exports = Router

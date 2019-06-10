@@ -6,7 +6,7 @@
 <div class="container-fluid" style="padding-bottom: 50px;">
 <div class="row">
 	<div class="col-xs-12 col-lg-8">
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Basic information</h4></div>
 			<div class="form">
@@ -34,8 +34,8 @@
 					<label>Store URL</label>
 					<input type="text" ng-model="application.url" class="form-control " placeholder="https://www.mystore.com">
 				</div>
-				
-				
+
+
 				<div class="form-group">
 					<label>Base Currency</label>
 					<select ng-model="application.currency_code"
@@ -46,7 +46,7 @@
 					<select ng-model="application.timezone"
 					ng-options="timezone.value as timezone.text for timezone in timezones" class="form-control "></select>
 				</div>
-			
+
 			</div>
 		</div>
 
@@ -68,15 +68,15 @@
 
 				<div class="form-group">
 					<label>Company country</label>
-					<autocomplete 
-								items="countries" 
-								label="name" 
+					<autocomplete
+								items="countries"
+								label="name"
 								value="name"
 								my-model="application.company_country"/>
 				</div>
 
 
-				
+
 				<div class="form-group">
 					<label>Company state</label>
 					<input type="text" ng-model="application.company_state" class="form-control " placeholder="My state">
@@ -97,8 +97,8 @@
 					<label>Company postal code</label>
 					<input type="text" ng-model="application.company_postalcode" class="form-control " placeholder="1234">
 				</div>
-				
-			
+
+
 			</div>
 		</div>
 
@@ -115,13 +115,13 @@
 				</div>
 			</div>
 
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Taxes</h4></div>
 			<div class="form">
-				
-				
-				
+
+
+
 				<div class="form-group">
 					<label>Taxing method</label>
 					<select ng-model="application.tax_type"
@@ -139,9 +139,9 @@
 						</label>
 						<p class="small text-muted">Check this option if you want to calculate taxes <b>after</b> calculating discounts, in this way the total including taxes will be lower.</p>
 				</div>
-				
-				
-				
+
+
+
 			</div>
 			<div class="card-footer">
 				<div class="text-right">
@@ -149,15 +149,15 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="card mb50">
 			<div class="card-header"><h4>Notifications</h4></div>
 			<p class="text-muted mt10">The email address of the store. Email notifications (e.g. order creations, user creations) will be sent to your customers with this address as "from" field.</p>
 			<p class="text-muted">The store name will be used as "from name" field.</p>
 			<div class="form">
-				
-				
-				
+
+
+
 				<div class="form-group">
 					<label>From address</label>
 					<input type="email" class="form-control" name="application.email_address" ng-model="application.email_address">
@@ -169,7 +169,19 @@
 				</div>
 			</div>
 		</div>
-		
+
+		<div class="card mb50">
+			<div class="card-header"><h4>Search</h4></div>
+			<p class="text-muted mt10">You can set search behaviour, by setting fields and weights that search engine will be using. Use ',' to seperate fields, and '^' to set weight (optional): FIELD1^WEIGHT,FIELD2,FIELD3^WEIGHT (name^5,description).</p>
+			<p class="text-muted">Higher weight on fields means better score for product with that field match will have, meaning it will place higher when showing results.</p>
+			<p class="text-muted">Custom fields can also be used, make sure that name matches custom field name.</p>
+			<div class="form">
+				<div class="form-group">
+						<input type="text" placeholder="description,name^5" class="form-control" name="application.es_weights" ng-model="application.es_weights">
+				</div>
+			</div>
+		</div>
+
 	</div>
 </div>
 </div>
