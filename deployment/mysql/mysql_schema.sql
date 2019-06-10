@@ -143,6 +143,8 @@ CREATE TABLE `applications` (
   `currencies` text,
   `storm_version` varchar(10) DEFAULT '1.0.0',
   `invoices_prefix` varchar(50) DEFAULT '',
+  `es_weights` varchar(1000) DEFAULT '',
+  `es_min_score` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_applications_accounts_idx` (`owner`),
   KEY `public_key_index` (`public_key`),

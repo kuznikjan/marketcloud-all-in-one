@@ -166,6 +166,16 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: false,
       defaultValue: ''
+    },
+    es_weights: {
+      type: DataTypes.STRING(1000),
+      allowNull: false,
+      defaultValue: ''
+    },
+    es_min_score: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false,
+      defaultValue: '0'
     }
   }, {
     tableName: 'applications'

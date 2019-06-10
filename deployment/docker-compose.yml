@@ -152,4 +152,6 @@ services:
     volumes:
       - ./elasticsearch_data:/usr/share/elasticsearch/data
     environment:
+      - node.name=elasticsearch
       - cluster.initial_master_nodes=elasticsearch
+      - discovery.seed_hosts=elasticsearch
