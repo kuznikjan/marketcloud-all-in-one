@@ -315,7 +315,53 @@ var productsController = {
       query.skip = 0
     }
 
-    db.collection('products')
+    if (req.query.hasOwnProperty('af')) {
+      var aggregateField = String(req.query.af)
+      delete query.where_statement.af
+
+      var aggregateQuery = [
+        {$match: query.where_statement },
+        {$unwind: `$${aggregateField}`},
+        {$group: {_id: `$${aggregateField}`, count: {$sum: 1}}},
+        {$sort: {count: -1}}
+      ]
+
+      if (aggregateField === 'brands') {
+        aggregateQuery = [
+          {$match: query.where_statement },
+          { '$lookup': {
+            'from': 'brands',
+            'foreignField': 'id',
+            'localField': 'brand_id',
+            'as': 'brand'
+          }},
+          {'$project': {
+            'brand': { '$arrayElemAt': [ '$brand', 0 ]}
+          }},
+          {$group: {_id: '$brand.name', count: {$sum: 1} }},
+          {$sort: {count: -1}}
+        ]
+      }
+      db.collection('products')
+      .aggregate(aggregateQuery, function (err, data) {
+        if (err) {
+          var error = new Errors.InternalServerError()
+          return next(error)
+        } else {
+          var response = Utils.augment({
+            status: true,
+            data: data
+          })
+
+          // res.send(response)
+
+          req.toSend = response
+          // GOing to expansion middleware
+          return next()
+        }
+      })
+    } else {
+      db.collection('products')
       .find(query.where_statement, query.projection)
       .count(function (err, count) {
         if (err) {
@@ -447,6 +493,7 @@ var productsController = {
             }
           })
       })
+    }
   },
 
   expandSubResources: function (req, res, next) {
@@ -642,7 +689,7 @@ var productsController = {
 
     const sort = []
 
-    elasticsearch.search(req.client.application_id, filters, 9999, 0, sort, function (error, response) {
+    elasticsearch.search(req.client.application_id, filters, req.query.limit, req.query.skip, sort, function (error, response) {
       if (error) {
         // If ES index not found for application, skip to mongo search
         if (error.status === 404) {
