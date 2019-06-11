@@ -4,6 +4,7 @@ volumes:
   mysql_data:
   rabbitmq_data:
   mongodb_data:
+  elasticsearch_data:
   certs:
   certs-data:
   logs:
