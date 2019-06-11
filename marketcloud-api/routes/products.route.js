@@ -322,7 +322,7 @@ var productsController = {
       var aggregateQuery = [
         {$match: query.where_statement },
         {$unwind: `$${aggregateField}`},
-        {$group: {_id: `$${aggregateField}`, count: {$sum: 1}}},
+        {$group: {_id: `$${aggregateField}`, name: {$first: `$${aggregateField}`}, count: {$sum: 1}}},
         {$sort: {count: -1}}
       ]
 
@@ -338,13 +338,14 @@ var productsController = {
           {'$project': {
             'brand': { '$arrayElemAt': [ '$brand', 0 ]}
           }},
-          {$group: {_id: '$brand.name', count: {$sum: 1} }},
+          {$group: {_id: '$brand.id', id: {$first: '$brand.id'}, name: {$first: '$brand.name'}, count: {$sum: 1} }},
           {$sort: {count: -1}}
         ]
       }
       db.collection('products')
       .aggregate(aggregateQuery, function (err, data) {
         if (err) {
+          console.log(err)
           var error = new Errors.InternalServerError()
           return next(error)
         } else {
@@ -673,10 +674,21 @@ var productsController = {
       .replace(/OR/g, '\\O\\R') // replace OR
       .replace(/NOT/g, '\\N\\O\\T') // replace NOT
 
+    var searchString
+    var searchArray = searchWord.split(' ')
+    if (searchArray.length > 1) {
+      searchString = `${searchArray[0]}*`
+      for (let i = 1; i < searchArray.length; i += 1) {
+        searchString += ` AND ${searchArray[i]}*`
+      }
+    } else {
+      searchString = `(${searchWord}~1 OR ${searchWord}*)`
+    }
+
     const filters = {
       must: {
         query_string: {
-          query: searchWord,
+          query: searchString,
           fuzziness: 2
         }
       },
