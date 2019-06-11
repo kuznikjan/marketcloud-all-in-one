@@ -116,6 +116,10 @@ var productsController = {
     // clausola where.
     query.where_statement = Utils.subsetInverse(req.query, Utils.OutputOperatorsList)
 
+    if (query.where_statement.categories) {
+      query.where_statement.categories = new RegExp(query.where_statement.categories, 'i')
+    }
+
     // Handling queries for multiple products
     // the OR features
     // r.g. GET /v0/products/?id=1,2,3,4,5
