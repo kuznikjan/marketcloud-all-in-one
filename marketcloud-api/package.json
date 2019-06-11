@@ -22,8 +22,7 @@
     "lint": "node ./node_modules/eslint/bin/eslint.js ./*.js",
     "test:e2e": "jasmine-node test/e2e/*.spec.js --config url http://localhost:5000",
     "test:functional": "jasmine-node test/functional/*.spec.js --config url http://localhost:5000",
-    "test:unit": "mocha test/unit",
-    "deploy:master": "docker-compose -f deployment/docker-compose.master.yml -p marketcloud up -d --build"
+    "test:unit": "mocha test/unit"
   },
   "dependencies": {
     "amqp-connection-manager": "^1.3.3",

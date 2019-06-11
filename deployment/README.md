@@ -6,7 +6,7 @@ This is the open source version of the discontinued backend as a service [market
 
 First thigns first, clone the repository
 
-```
+```bash
 git clone https://github.com/Marketcloud/marketcloud-all-in-one.git
 cd marketcloud-all-in-one
 cd deployment
@@ -14,14 +14,15 @@ cd deployment
 
 At this point we need to create an env file in which we will populate the needed environment variables. The repository provide an example env file you can use as a template:
 
-```
+```bash
 cp .env-example .env
 ```
 
 Now open it with your favourite text editor
 
 ## Configuration
-```
+
+```bash
 NODE_ENV=development
 
 # Maketcloud API url
@@ -80,12 +81,17 @@ As you can see variables are quite self explainatory, just remembter that every 
 
 The recommended way to run everything is through docker-compose, if your server doesn't have it uou can read about how to install it [here](https://docs.docker.com/compose/).
 
-```
+```bash
 docker-compose -p marketcloud up -d
 ```
 
 The above command will take some time, doing the following things:
+
 - download missing docker images
 - build images for local projects (api, website, workers)
 - build containers from images
 - start everything
+
+## Deploy
+
+`docker-compose -f deployment/docker-compose.master.yml -p marketcloud up -d --build`
