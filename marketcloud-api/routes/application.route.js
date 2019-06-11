@@ -59,7 +59,8 @@ Router.put('/', function (req, res, next) {
     'company_state',
     'company_country',
     'company_taxid',
-    'invoices_prefix'
+    'invoices_prefix',
+    'es_weights'
   ]
 
   var readableProperties = updatableProperties.concat([

@@ -14,6 +14,7 @@ var crypto = require('crypto')
 var qs = require('querystring')
 var Utils = require('../libs/util.js')
 var Cipher = require('../libs/cipher.js')
+var Elasticsearch = require('../services/elasticsearch')
 const configuration = require('../configuration/default.js')
 
 const ENV = process.env.NODE_ENV
@@ -609,6 +610,7 @@ router.delete('/:applicationId', function(req, res, next) {
           })
           return
         } else {
+          Elasticsearch.deleteIndex(req.params.applicationId)
           res.send({
             status: true
           })
@@ -1696,18 +1698,28 @@ router.post('/', function(req, res, next) {
           reset: next_month.getTime()
         }
 
+        // Create ES index
+
+        Elasticsearch.createIndex(app.id, function (err, done) {
+          if (err) {
+            console.log(err);
+          }
+        });
+
         connection.query('INSERT INTO applications SET ?',
           app,
           function(err, result) {
             connection.release()
 
             if (err) {
+              console.log(err);
               if (err.code.indexOf('_REFERENCED') > -1) {
                 res.send(400, {
                   status: false,
                   errors: [new Errors.BadRequest('Invalid owner email ' + app.owner)]
                 })
               } else {
+                Elasticsearch.createIndex(app.id)
                 next(err)
               }
               return

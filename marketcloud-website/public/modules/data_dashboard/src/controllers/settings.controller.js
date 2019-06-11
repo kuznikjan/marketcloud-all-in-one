@@ -81,7 +81,8 @@ app.controller('SettingsController', [
         company_city: scope.application.company_city,
         company_address: scope.application.company_address,
         company_postalcode: scope.application.company_postalcode,
-        invoices_prefix: scope.application.invoices_prefix
+        invoices_prefix: scope.application.invoices_prefix,
+        es_weights: scope.application.es_weights
       }
 
       if (scope.images.length >= 1) { payload.logo = scope.images[0] }
