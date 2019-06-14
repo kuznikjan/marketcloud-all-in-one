@@ -1096,8 +1096,8 @@ var productsController = {
     if (product.type !== 'bundled_product') { throw new Error('Cannot call createBundle on non-bundle products.') }
 
     // We must force bundles to have price 0 if we don't want to change code in checkout
-    product.price = 0
-    delete product['price_discount']
+    // product.price = 0
+    // delete product['price_discount']
 
     var validation = Types.BundledProduct.validate(product)
 
