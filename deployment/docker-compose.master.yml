@@ -166,7 +166,7 @@ services:
       - rabbitmq
       - api
     volumes:
-      - ./elasticsearch_data:/usr/share/elasticsearch/data
+      - elasticsearch_data:/usr/share/elasticsearch/data
     environment:
       - node.name=elasticsearch
       - cluster.initial_master_nodes=elasticsearch

@@ -95,3 +95,7 @@ The above command will take some time, doing the following things:
 ## Deploy
 
 `docker-compose -f deployment/docker-compose.master.yml -p marketcloud up -d --build`
+
+**Important**
+To fix max_map_count error run this command on docker host machine:
+`sysctl -w vm.max_map_count=262144`
