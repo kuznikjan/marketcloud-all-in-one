@@ -325,8 +325,9 @@ var productsController = {
 
       var aggregateQuery = [
         {$match: query.where_statement },
-        {$unwind: `$${aggregateField}`},
-        {$group: {_id: `$${aggregateField}`, name: {$first: `$${aggregateField}`}, count: {$sum: 1}}},
+        {$project: { fields: { $split: [`$${aggregateField}`, ','] }}},
+        {$unwind: '$fields'},
+        {$group: {_id: { $trim: { input: '$fields', chars: ' ' } }, name: {$first: { $trim: { input: '$fields', chars: ' ' } } }, count: {$sum: 1}}},
         {$sort: {count: -1}}
       ]
 
@@ -1095,8 +1096,8 @@ var productsController = {
     if (product.type !== 'bundled_product') { throw new Error('Cannot call createBundle on non-bundle products.') }
 
     // We must force bundles to have price 0 if we don't want to change code in checkout
-    product.price = 0
-    delete product['price_discount']
+    // product.price = 0
+    // delete product['price_discount']
 
     var validation = Types.BundledProduct.validate(product)
 

@@ -51,7 +51,6 @@ var s3 = new aws.S3({
 });
 
 /*
-
  */
 Router.get('/', Middlewares.verifyClientAuthorization('media', 'list'), function (req, res, next) {
   var mongodb = req.app.get('mongodb')
@@ -484,7 +483,7 @@ Router.post('/', Middlewares.verifyClientAuthorization('media', 'create'),
             application_id: req.client.application_id,
             original_filename: filename,
             filename: filename,
-            url: 'https://marketcloud-' + process.env.MC_S3_BUCKET_NAME + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
+            url: 'https://' + process.env.MC_S3_BUCKET_NAME + '.' + process.env.DO_S3_SPACES_ENDPOINT + '/files/' + filename,
             size: Buffer.byteLength(data, 'utf8'),
             created_at: new Date()
           })

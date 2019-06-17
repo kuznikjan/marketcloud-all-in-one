@@ -430,6 +430,45 @@
 					</div>
 				</div>
 
+				<div class="card mb50">
+					<div class="card-header"><h4>Pricing</h4></div>
+					<div class="card-content">
+
+						<div class="form-group"  ng-class="{'has-error' : errorField === 'price'}">
+							<label>Price*</label>
+							<div class="input-group input-group-right">
+								<input type="text"
+								class="form-control "
+								placeholder="9.99"
+								ng-model="product.price" money>
+								<span class="input-group-addon ">{{application.currency_code}}</span>
+							</div>
+							<error-messages
+							validation="validation"
+							property-name="price"
+							schema="schema">
+							</error-messages>
+						</div>
+						<div class="form-group"  ng-class="{'has-error' : errorField === 'price_discount'}">
+							<label>Discount price</label>
+							<div class="input-group input-group-right">
+								<input type="text"
+								class="form-control "
+								placeholder="9.99"
+								ng-model="product.price_discount" money>
+								<span class="input-group-addon ">{{application.currency_code}}</span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Tax class</label>
+							<taxes-selector
+							tax="product.tax_id"></taxes-selector>
+						</div>
+
+					</div>
+				</div>
+
 				<div class="card mb20">
 					<div class="card-header">
 						<h4>Taxonomy</h4>
