@@ -61,7 +61,7 @@
 			</div>
 			<div class="form-group col-lg-2">
 				<label class="invisible">.</label><br>
-				<button class="btn btn-sm btn-default" ng-click="addCustomProperty()">Add</button>
+				<button class="btn btn-sm btn-default" ng-click="addCustomProperty()">{{ btnText }}</button>
 			</div>
 		</div>
 	</div>
@@ -78,6 +78,7 @@
 					<th>Name</th>
 					<th>Value</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody ng-if="hasCustomProperties()">
@@ -86,16 +87,19 @@
 					<td>
 
 						<input type="text"
+						ng-disabled="inObject"
 						class="form-control  solid"
 						placeholder="any text value"
 						ng-model="properties[k]"
 						ng-if="'string' === propertiesTypes[k]"/>
 						<input type="number"
+						ng-disabled="inObject"
 						class="form-control solid"
 						placeholder="any numeric value"
 						ng-model="properties[k]"
 						ng-if="'number' === propertiesTypes[k]"/>
 						<select ng-model="properties[k]"
+						ng-disabled="inObject"
 							class="form-control  solid"
 							ng-if="'boolean' === propertiesTypes[k]"
 							ng-options="(item?'True':'False') for item in [true, false]"
@@ -123,7 +127,10 @@
 
 					</td>
 					<td ng-if="ctrl.disableAdd !== true">
-						<button class="btn btn-default" ng-click="deleteCustomProperty(k)"><span class="fa fa-trash-o"></span></button>
+							<button class="btn btn-default" ng-click="deleteCustomProperty(k)"><span class="fa fa-trash-o"></span></button>
+						</td>
+					<td ng-if="ctrl.disableAdd !== true && inObject">
+						<button class="btn btn-default" ng-click="editCustomProperty(k)"><span class="fa fa-edit"></span></button>
 					</td>
 				</tr>
 			</tbody>

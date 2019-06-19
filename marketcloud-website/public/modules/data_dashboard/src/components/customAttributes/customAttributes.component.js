@@ -8,6 +8,7 @@ app.controller('CustomAttributesFormController', [
     this.$onInit = function () {
       scope.ctrl = this
       scope.inObject = false
+      scope.btnText = 'Add'
 
       scope.resource = this.resource
 
@@ -159,7 +160,7 @@ app.controller('CustomAttributesFormController', [
       if (scope.resource.hasOwnProperty(scope.newAttribute.name)) {
         // scope.productError = "CUSTOM_PROPERTY_NAME_ALREADY_EXISTS";
         scope.errorMessage = 'Name already exists'
-      } else if (!scope.newAttribute.name) {
+      } else if (scope.newAttribute.name !== 0 && !scope.newAttribute.name) {
         scope.errorMessage = 'Please, enter a valid property name'
       } else if (scope.inObject && scope.properties.indexOf(scope.newAttribute.value) !== -1) {
         scope.errorMessage = 'Duplicated value'
@@ -173,6 +174,7 @@ app.controller('CustomAttributesFormController', [
         if (scope.inObject) {
           scope.newAttribute.name = scope.properties.length
         }
+        scope.btnText = 'Add'
         // Re-calculating types
         computePropertiesTypes()
       }
@@ -188,6 +190,13 @@ app.controller('CustomAttributesFormController', [
         scope.newAttribute.name = scope.properties.length
       }
       computePropertiesTypes()
+    }
+
+    scope.editCustomProperty = function (propertyName) {
+      scope.newAttribute.name = propertyName
+      scope.newAttribute.value = scope.properties[propertyName]
+      scope.newAttribute.type = scope.propertiesTypes[propertyName]
+      scope.btnText = 'edit'
     }
 
     scope.propertiesStack = []
@@ -224,6 +233,7 @@ app.controller('CustomAttributesFormController', [
       if (index === 0) {
         scope.inObject = false
         scope.newAttribute.name = null
+        scope.btnText = 'Add'
       }
 
       // Adjusting the stack to the wanted level
