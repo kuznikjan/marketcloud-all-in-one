@@ -4,6 +4,7 @@ volumes:
   mysql_data:
   rabbitmq_data:
   mongodb_data:
+  elasticsearch_data:
   certs:
   certs-data:
   logs:
@@ -151,3 +152,22 @@ services:
       - mysql
       - rabbitmq
       - api
+
+
+  elasticsearch:
+    restart: unless-stopped
+    image: elasticsearch:7.0.0
+    # ports:
+    #   - 9200:9200
+    env_file: .master.env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+      - api
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - node.name=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - discovery.seed_hosts=elasticsearch

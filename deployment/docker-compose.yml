@@ -4,6 +4,7 @@ volumes:
   mysql_data:
   rabbitmq_data:
   mongodb_data:
+  elasticsearch_data:
   logs:
 
 
@@ -48,7 +49,7 @@ services:
     expose:
       - "27017"
     volumes:
-      - ./mongodb_data:/data/db
+      - mongodb_data:/data/db
       - ./mongodb:/docker-entrypoint-initdb.d
 
 
@@ -135,3 +136,22 @@ services:
       - mysql
       - rabbitmq
       - api
+
+
+  elasticsearch:
+    restart: unless-stopped
+    image: elasticsearch:7.0.0
+    ports:
+      - 9200:9200
+    env_file: .env
+    depends_on:
+      - mongodb
+      - mysql
+      - rabbitmq
+      - api
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - node.name=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - discovery.seed_hosts=elasticsearch

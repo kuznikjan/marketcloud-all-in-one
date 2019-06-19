@@ -116,6 +116,10 @@ var productsController = {
     // clausola where.
     query.where_statement = Utils.subsetInverse(req.query, Utils.OutputOperatorsList)
 
+    if (query.where_statement.categories) {
+      query.where_statement.categories = new RegExp(query.where_statement.categories, 'i')
+    }
+
     // Handling queries for multiple products
     // the OR features
     // r.g. GET /v0/products/?id=1,2,3,4,5
@@ -171,9 +175,7 @@ var productsController = {
     // Text searches
     if (req.query.hasOwnProperty('q')) {
       delete query.where_statement['q']
-      query.where_statement['$text'] = {
-        $search: String(req.query.q)
-      }
+      query.where_statement['name'] = String(req.query.q)
     }
 
     // Handling on_sale parameters which allows to look for products wiht a price_discount
@@ -317,7 +319,55 @@ var productsController = {
       query.skip = 0
     }
 
-    db.collection('products')
+    if (req.query.hasOwnProperty('af')) {
+      var aggregateField = String(req.query.af)
+      delete query.where_statement.af
+
+      var aggregateQuery = [
+        {$match: query.where_statement },
+        {$project: { fields: { $split: [`$${aggregateField}`, ','] }}},
+        {$unwind: '$fields'},
+        {$group: {_id: { $trim: { input: '$fields', chars: ' ' } }, name: {$first: { $trim: { input: '$fields', chars: ' ' } } }, count: {$sum: 1}}},
+        {$sort: {count: -1}}
+      ]
+
+      if (aggregateField === 'brands') {
+        aggregateQuery = [
+          {$match: query.where_statement },
+          { '$lookup': {
+            'from': 'brands',
+            'foreignField': 'id',
+            'localField': 'brand_id',
+            'as': 'brand'
+          }},
+          {'$project': {
+            'brand': { '$arrayElemAt': [ '$brand', 0 ]}
+          }},
+          {$group: {_id: '$brand.id', id: {$first: '$brand.id'}, name: {$first: '$brand.name'}, count: {$sum: 1} }},
+          {$sort: {count: -1}}
+        ]
+      }
+      db.collection('products')
+      .aggregate(aggregateQuery, function (err, data) {
+        if (err) {
+          console.log(err)
+          var error = new Errors.InternalServerError()
+          return next(error)
+        } else {
+          var response = Utils.augment({
+            status: true,
+            data: data
+          })
+
+          // res.send(response)
+
+          req.toSend = response
+          // GOing to expansion middleware
+          return next()
+        }
+      })
+    } else {
+      db.collection('products')
       .find(query.where_statement, query.projection)
       .count(function (err, count) {
         if (err) {
@@ -334,6 +384,25 @@ var productsController = {
               var error = new Errors.InternalServerError()
               return next(error)
             } else {
+              // if no sort is set, use ES scoring
+              if (req.query.hasOwnProperty('q') && query.sort.length === 1 && req.data_query.where_statement.id) {
+                const orderIds = req.data_query.where_statement.id['$in']
+
+                let newData = []
+
+                orderIds.forEach(orderId => {
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].id === orderId) {
+                      newData.push(data[i])
+                      data.splice(i, 1)
+                      break
+                    }
+                  }
+                })
+
+                data = newData
+              }
+
               // Let's look for the corresponding data in the Inventory table
               Inventory.findAll({
                 where: {
@@ -430,6 +499,7 @@ var productsController = {
             }
           })
       })
+    }
   },
 
   expandSubResources: function (req, res, next) {
@@ -581,14 +651,23 @@ var productsController = {
         return next()
       })
   },
+  updateElasticSearch: function (req, res, next) {
+    elasticsearch.updateAll(req.client.application_id, function (error, response) {
+      if (error) {
+        return next(error)
+      }
+      return res.send(response)
+    })
+  },
+
   search: function (req, res, next) {
     if (!req.query.hasOwnProperty('q')) {
       return next()
     }
 
-    var db = elasticsearch.getDatabaseInstance()
+    // var db = elasticsearch.getDatabaseInstance()
 
-    var query = req.data_query
+    // var query = req.data_query
 
     var searchWord = String(req.query.q)
     // Escaping the query
@@ -600,47 +679,55 @@ var productsController = {
       .replace(/OR/g, '\\O\\R') // replace OR
       .replace(/NOT/g, '\\N\\O\\T') // replace NOT
 
-    db.search({
-      index: 'products',
-      from: query.skip,
-      size: query.limit,
-      _source: false, // we just need productIds // but this way cant filter
-      body: {
-        'query': {
-          'bool': {
-            'must': {
-              'query_string': {
-                'query': '*' + searchWord + '*'
-              }
-            },
-            'filter': {
-              'term': {
-                'application_id': req.client.application_id
-              }
-            }
-          }
-        }
-
+    var searchString
+    var searchArray = searchWord.split(' ')
+    if (searchArray.length > 1) {
+      searchString = `${searchArray[0]}*`
+      for (let i = 1; i < searchArray.length; i += 1) {
+        searchString += ` AND ${searchArray[i]}*`
       }
+    } else {
+      searchString = `(${searchWord}~1 OR ${searchWord}*)`
+    }
 
-    },
-    function (error, response) {
+    const filters = {
+      must: {
+        query_string: {
+          query: searchString,
+          fuzziness: 2
+        }
+      },
+      filter: {
+        term: {
+          published: true
+        }
+      }
+    }
+
+    const sort = []
+
+    elasticsearch.search(req.client.application_id, filters, req.query.limit, req.query.skip, sort, function (error, response) {
       if (error) {
+        // If ES index not found for application, skip to mongo search
+        if (error.status === 404) {
+          return next()
+        }
         return next(error)
       }
 
-      // Ids of products matching the fulltext query
+        // Ids of products matching the fulltext query
+      // console.log(response.hits)
       var matchingDocumentIds = response.hits.hits.map((hit) => Number(hit._id))
 
-      // Remove mongodb full text param
-      delete req.data_query.where_statement['$text']
+        // Remove mongodb full text param
+      delete req.data_query.where_statement['name']
 
       if (
-        Utils.ensureObjectHasProperty(req.data_query, 'where_statement.id.$in') &&
-          Array.isArray(req.data_query.where_statement.id['$in'])
-      ) {
-        // Then, a middleware is already using the $in operator
-        // Whe have to intersect the two sets of ids
+          Utils.ensureObjectHasProperty(req.data_query, 'where_statement.id.$in') &&
+            Array.isArray(req.data_query.where_statement.id['$in'])
+        ) {
+          // Then, a middleware is already using the $in operator
+          // Whe have to intersect the two sets of ids
         var intersection = Utils.intersect(matchingDocumentIds, req.data_query.where_statement.id['$in'])
         req.data_query.where_statement.id['$in'] = intersection
       } else {
@@ -940,6 +1027,13 @@ var productsController = {
         var productWithoutInventoryData = Utils.filterObject(product, InventoryAttributesList)
         productWithoutInventoryData.application_id = req.client.application_id
 
+        // add to ES
+        elasticsearch.updateOne(req.client.application_id, product, function (err, done) {
+          if (err) {
+            console.log(err)
+          }
+        })
+
         mongodb.collection('products')
           .insert(productWithoutInventoryData, function (err) {
             if (err) {
@@ -1002,8 +1096,8 @@ var productsController = {
     if (product.type !== 'bundled_product') { throw new Error('Cannot call createBundle on non-bundle products.') }
 
     // We must force bundles to have price 0 if we don't want to change code in checkout
-    product.price = 0
-    delete product['price_discount']
+    // product.price = 0
+    // delete product['price_discount']
 
     var validation = Types.BundledProduct.validate(product)
 
@@ -1083,6 +1177,13 @@ var productsController = {
 
             product.id = newId
             product.application_id = req.client.application_id
+
+            // ES update
+            elasticsearch.updateOne(req.client.application_id, product, function (err, done) {
+              if (err) {
+                console.log(err)
+              }
+            })
 
             mongodb.collection('products')
               .insert(product, function (err) {
@@ -1313,6 +1414,13 @@ var productsController = {
               data: document
             }
 
+            // ES update
+            elasticsearch.updateOne(req.client.application_id, document, function (err, done) {
+              if (err) {
+                console.log(err)
+              }
+            })
+
             // We send the message to the queue to notify the indexing system
             var queue = req.app.get('search-queue')
             queue.sendToQueue('marketcloud-search-index', message)
@@ -1368,6 +1476,13 @@ var productsController = {
       })
       return
     }
+
+    // delete from ES
+    elasticsearch.deleteById(req.client.application_id, req.params.productId, function (err, done) {
+      if (err) {
+        console.log(err)
+      }
+    })
     var mongodb = req.app.get('mongodb')
     var sequelize = req.app.get('sequelize')
     sequelize.query(
@@ -1894,6 +2009,7 @@ Router.get('/',
   productsController.searchInInventory, // Performs the first query into the inventory
   productsController.search, // Performs a full text query in ElasticSearch
   productsController.filterByCollection, // Looks for a collection and restricts the result to items in that collection
+  // productsController.aggregate, // Aggregates by a custom field
   productsController.list, // Finally performs the query into the catalogue.
   productsController.populateBundledProducts,
   productsController.convertCurrency,
@@ -1985,4 +2101,8 @@ Router.get('/:productId/variants/:variantId',
 
 Router.delete('/:productId/variants/:variantId', Middlewares.verifyClientAuthorization('products', 'delete'), productsController.deleteVariantById)
 
+Router.post('/updateEs',
+  // Middlewares.verifyClientAuthorization('products', 'update'),
+  productsController.updateElasticSearch
+)
 module.exports = Router

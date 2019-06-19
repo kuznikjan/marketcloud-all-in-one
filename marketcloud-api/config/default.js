@@ -63,6 +63,9 @@ Configuration.stripe = {
 	testingSecretKey: process.env.STRIPE_TESTING_SECRET_KEY,
 }
 
+Configuration.elasticsearch = {
+	connectionString: process.env.ELASTICSEARCH_HOSTNAME,
+}
 
 
 
