@@ -325,9 +325,9 @@ var productsController = {
 
       var aggregateQuery = [
         {$match: query.where_statement },
-        {$project: { fields: { $split: [`$${aggregateField}`, ','] }}},
-        {$unwind: '$fields'},
-        {$group: {_id: { $trim: { input: '$fields', chars: ' ' } }, name: {$first: { $trim: { input: '$fields', chars: ' ' } } }, count: {$sum: 1}}},
+        // {$project: { fields: { $split: [`$${aggregateField}`, ','] }}},
+        {$unwind: `$${aggregateField}`},
+        {$group: {_id: `$${aggregateField}`, name: {$first: `$${aggregateField}` }, count: {$sum: 1}}},
         {$sort: {count: -1}}
       ]
 
