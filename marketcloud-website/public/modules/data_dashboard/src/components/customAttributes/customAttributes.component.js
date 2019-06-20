@@ -7,10 +7,13 @@ app.controller('CustomAttributesFormController', [
   function (scope, $element, $attrs, $moment) {
     this.$onInit = function () {
       scope.ctrl = this
+      scope.inObject = false
+      scope.btnText = 'Add'
 
       scope.resource = this.resource
 
       scope.properties = this.properties || {}
+      scope.type = this.type || {}
 
       // Keeping a reference for nesting
       scope.rootObject = scope.properties
@@ -56,6 +59,10 @@ app.controller('CustomAttributesFormController', [
       {
         name: 'URL/Media',
         value: 'URL'
+      },
+      {
+        name: 'List',
+        value: 'list'
       }]
     }
 
@@ -72,6 +79,11 @@ app.controller('CustomAttributesFormController', [
     function computePropertiesTypes () {
       for (var k in scope.properties) {
         scope.propertiesTypes[k] = typeof scope.properties[k]
+
+        if (scope.type[k] === 'list') {
+          scope.properties[k] = scope.properties[k].split(',').map(item => item.trim())
+          scope.propertiesTypes[k] = 'object'
+        }
 
         if (scope.isNull(k) === true) {
           scope.propertiesTypes[k] = 'null'
@@ -148,12 +160,21 @@ app.controller('CustomAttributesFormController', [
       if (scope.resource.hasOwnProperty(scope.newAttribute.name)) {
         // scope.productError = "CUSTOM_PROPERTY_NAME_ALREADY_EXISTS";
         scope.errorMessage = 'Name already exists'
-      } else if (!scope.newAttribute.name) {
+      } else if (scope.newAttribute.name !== 0 && !scope.newAttribute.name) {
         scope.errorMessage = 'Please, enter a valid property name'
+      } else if (scope.inObject && scope.properties.indexOf(scope.newAttribute.value) !== -1) {
+        scope.errorMessage = 'Duplicated value'
       } else {
         scope.properties[scope.newAttribute.name] = scope.newAttribute.value
+        scope.type[scope.newAttribute.name] = scope.newAttribute.type
+
         scope.newAttribute.value = null
         scope.newAttribute.name = null
+
+        if (scope.inObject) {
+          scope.newAttribute.name = scope.properties.length
+        }
+        scope.btnText = 'Add'
         // Re-calculating types
         computePropertiesTypes()
       }
@@ -164,7 +185,18 @@ app.controller('CustomAttributesFormController', [
 
       scope.properties[propertyName] = null
       // Re-calculating types
+      if (scope.inObject) {
+        scope.properties.splice(propertyName, 1)
+        scope.newAttribute.name = scope.properties.length
+      }
       computePropertiesTypes()
+    }
+
+    scope.editCustomProperty = function (propertyName) {
+      scope.newAttribute.name = propertyName
+      scope.newAttribute.value = scope.properties[propertyName]
+      scope.newAttribute.type = scope.propertiesTypes[propertyName]
+      scope.btnText = 'edit'
     }
 
     scope.propertiesStack = []
@@ -186,6 +218,10 @@ app.controller('CustomAttributesFormController', [
         }
       }
 
+      scope.newAttribute.name = scope.properties.length
+      scope.newAttribute.type = 'string'
+      scope.inObject = true
+
       // Recalculating the propertiesTypes object for the current properties object
       computePropertiesTypes()
     }
@@ -193,6 +229,12 @@ app.controller('CustomAttributesFormController', [
     scope.goToNestedStep = function (index) {
       // Getting the pointer to the root of the object
       scope.properties = scope.rootObject
+
+      if (index === 0) {
+        scope.inObject = false
+        scope.newAttribute.name = null
+        scope.btnText = 'Add'
+      }
 
       // Adjusting the stack to the wanted level
       scope.propertiesStack = scope.propertiesStack.slice(0, index)

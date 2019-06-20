@@ -24,24 +24,61 @@ function initializeCategoryPath (req, res, next) {
     return next()
   }
 
-  mongodb.getDatabaseInstance()
-    .collection('categories')
-    .findOne({
-      application_id: req.client.application_id,
-      id: req.body.parent_id
-    }, function (err, document) {
+  // Returns all categories (current and parents)
+  if (req.body.parent_id) {
+    findCategoryTree(req.body, function (err, categories) {
       if (err) {
         return next(err)
       }
-
-      if (document === null) {
-        return next(new Errors.NotFound('Unable to find parent category with id ' + req.body.parent_id))
-      }
-
-      req.body.path = document.path + '/' + req.body.name
+      var path = ''
+      categories.forEach(function (cat) {
+        path += `/${cat.name}`
+      })
+      req.body.path = path + `/${req.body.name}`
 
       return next()
     })
+  }
+}
+
+function findParent (currentId, done) {
+  mongodb.getDatabaseInstance()
+    .collection('categories')
+    .findOne({
+      id: currentId
+    }, function (err, document) {
+      if (err) {
+        return done(err)
+      }
+
+      if (document === null) {
+        return done(new Errors.NotFound('Unable to find parent category with id ' + document.parent_id))
+      }
+
+      if (!document.parent_id) {
+        return done(null, [document])
+      }
+
+      findCategoryTree(document, function (err, cats) {
+        if (err) {
+          return done(err)
+        }
+
+        var _cats = cats
+        _cats.push(document)
+        return done(null, _cats)
+      })
+    })
+}
+
+function findCategoryTree (category, done) {
+  findParent(category.parent_id, function (err, _cats) {
+    if (err) {
+      return done(err)
+    }
+
+    return done(null, _cats)
+  })
 }
 
 /*
