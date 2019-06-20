@@ -109,17 +109,10 @@ app.controller('ContentController', [
         scope.content[k] = scope.customPropertiesData[k]
       }
 
-      var products = ''
-      scope.selectedProducts.map(function (prod) { return prod.id }).forEach(function (product, idx) {
-        products += product
-
-        if (idx < scope.selectedProducts.length - 1) {
-          products += ','
-        }
-      })
+      var products = scope.selectedProducts.map(function (prod) { return parseInt(prod.id) });
 
       if (products.length > 0) {
-        scope.content.products = products
+        scope.content.items = products
       }
 
       $validation.hideErrors()

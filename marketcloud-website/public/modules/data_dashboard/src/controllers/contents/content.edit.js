@@ -18,26 +18,8 @@ app.controller('EditContentController', [
 
     scope.selectedProducts = []
 
-    // Fetches items included in the content
-    // TODO: Move to the API. This should be populated on the API
     if (scope.content.products && scope.content.products.length > 0) {
-      const itemIds = scope.content.products.split(',')
-
-      let itemPromises = []
-
-      itemIds.forEach(function (itemId) {
-        itemPromises.push($marketcloud.products.getById(itemId));
-      })
-
-      Promise.all(itemPromises)
-      .then(function (itemsResponse) {
-        scope.selectedProducts = itemsResponse.map(function (itemRes) {
-          return itemRes.data.data
-        })
-      })
-      .catch(function (err) {
-        notie.alert(2, 'Something went wrong fetching the products', 1.5);
-      })
+      scope.selectedProducts = scope.content.products
     }
 
     scope.content.date = $moment(scope.content.date);
@@ -71,7 +53,7 @@ app.controller('EditContentController', [
     }
 
     scope.removeProduct = function (idx) {
-      scope.selectedProducts.splice(idx, 1);
+      scope.selectedProducts.splice(idx, 1)
     }
 
     scope.addProduct = function (product) {
@@ -138,19 +120,9 @@ app.controller('EditContentController', [
         toSave[k] = scope.customPropertiesData[k];
       }
 
+      var products = scope.selectedProducts.map(function (prod) { return parseInt(prod.id) });
 
-      var products = ''
-      scope.selectedProducts.map(function (prod) { return prod.id }).forEach(function (product, idx) {
-        products += product
-
-        if (idx < scope.selectedProducts.length - 1) {
-          products += ','
-        }
-      })
-
-      if (products.length > 0) {
-        toSave.products = products
-      }
+      toSave.items = products
 
       $marketcloud.contents.update(scope.content.id, toSave)
         .then(function(response) {
