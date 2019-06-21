@@ -1095,6 +1095,10 @@ var productsController = {
 
     if (product.type !== 'bundled_product') { throw new Error('Cannot call createBundle on non-bundle products.') }
 
+     var sequelize = req.app.get('sequelize')
+
+    var Inventory = sequelize.import(__dirname + '/../models/inventory.model.js')
+
     // We must force bundles to have price 0 if we don't want to change code in checkout
     // product.price = 0
     // delete product['price_discount']
@@ -1202,6 +1206,19 @@ var productsController = {
                   }).catch(function (err) {
                     return console.log('Message was not enqueued', err)
                   })
+
+                var inventoryData = Utils.subset(product, InventoryAttributesList)
+                inventoryData.product_id = product.id
+                inventoryData.application_id = product.application_id
+
+                Inventory.create(inventoryData)
+                    .then(function (result) {
+                      res.send({
+                        status: true,
+                        data: product
+                      })
+                    })
+                    .catch(Utils.getSequelizeErrorHandler(req, res, next))
 
                 return res.send({
                   status: true,
