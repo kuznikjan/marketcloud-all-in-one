@@ -473,9 +473,13 @@ app.controller('OrderController', ['$scope', '$http', 'order', 'shippingMethods'
 
       // Validating the new shipment
       if (scope.newShipment.method === null) {
-        $('select[ng-model="newShipment.method"]').parent().addClass('has-error')
-        $('select[ng-model="newShipment.method"]').parent().append($('<div class="text-danger">This field is required</div>'))
-        return
+        if (scope.order.shipping) {
+          scope.newShipment.method = scope.order.shipping
+        } else {
+          $('select[ng-model="newShipment.method"]').parent().addClass('has-error')
+          $('select[ng-model="newShipment.method"]').parent().append($('<div class="text-danger">This field is required</div>'))
+          return
+        }
       }
 
       if (scope.newShipment.date) { scope.newShipment.date = new Date(scope.newShipment.date) }

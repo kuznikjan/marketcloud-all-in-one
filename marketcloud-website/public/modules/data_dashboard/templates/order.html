@@ -148,20 +148,31 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<div class="text-muted small">Invoice</div>
-						<p ng-if="order.hasOwnProperty('invoice_id')">
-							<a href="#/invoices/{{order.invoice_id}}/edit" class="link">Invoice #{{order.invoice_id}}</a>
+						<div class="text-muted small">Documents</div>
+						<p ng-if="order.hasOwnProperty('estimate_id')">
+							<span>Estimate: {{order.estimate_id}}</span>
 							<br/>
-
-							<button class="btn btn-sm btn-info" ng-click="createPDFInvoice()">Download Invoice</button>
 						</p>
-						<p ng-show="!order.hasOwnProperty('invoice_id')">
-							<a href="#/invoices/create/{{order.id}}" class="link">Click to create an invoice</a>
+						<p ng-if="order.hasOwnProperty('invoice_id')">
+							<span>Invoice: {{order.invoice_id}}</span>
+							<br/>
 						</p>
 					</div>
 					<div class="col-md-6">
 						<div class="text-muted small">Total</div>
 						<p><b>{{order.display_total}}</b></p>
+					</div>
+				</div>
+				<div ng-if="order.pickupSpotType && order.pickupSpotType.length > 0" class="row">
+					<div class="col-md-12">
+						<div class="text-muted small">Pickup location</div>
+						<p>{{ order.pickupSpotLocation }}</p>
+					</div>
+				</div>
+				<div ng-if="order.comment && order.comment !== ''" class="row">
+					<div class="col-md-12">
+						<div class="text-muted small">Customer message</div>
+						<p>"{{ order.comment }}"</p>
 					</div>
 				</div>
 			</div>
@@ -532,9 +543,11 @@
 						<div class="form">
 							<div class="form-group">
 								<label>Shipping method</label>
+								<input type="text" disabled="disabled" name="" ng-model="order.shipping.name" class="form-control" ng-if="order.hasOwnProperty('shipping')">
 								<select class="form-control"
 									ng-model="newShipment.method"
-									ng-options="method as method.name for method in shippingMethods"></select>
+									ng-options="method as method.name for method in shippingMethods"
+									ng-if="!order.hasOwnProperty('shipping')"></select>
 							</div>
 							<div class="form-group">
 								<label>Select shipping company URI preset</label>
