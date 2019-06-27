@@ -497,9 +497,15 @@
 						<tr ng-repeat="payment in order.payments">
 							<td><span class="label label-info">{{payment.method}}</span></td>
 							<td>{{payment.created_at  | date : "MMM d, yyyy 'at' hh:mm"}}</td>
-							<td>
+							<td ng-if="payment.method !== 'Bankart'">
 								<span ng-if="payment.successful === true" class="label label-success">Succeded</span>
 								<span ng-if="payment.successful !== true" class="label label-danger">Failed</span>
+							</td>
+							<td ng-if="payment.method === 'Bankart'">
+								<span ng-if="payment.data.payment_status === 'NOT APPROVED'" class="label label-danger">Not approved</span>
+								<span ng-if="payment.data.payment_status === 'APPROVED'" class="label label-warning">Approved</span>
+								<span ng-if="payment.data.payment_status === 'CAPTURED'" class="label label-success">Captured</span>
+								<span ng-if="payment.data.payment_status !== 'APPROVED' && payment.data.payment_status !== 'CAPTURED' && payment.data.payment_status !== 'NOT APPROVED'" class="label label-danger">{{payment.data.payment_status}}</span>
 							</td>
 							<td>{{payment.data.description || payment.description}}</td>
 							<td><button class="btn btn-sm btn-default" ng-click="inspectObject(payment)"><span class="fa fa-search"></span></button></td>
