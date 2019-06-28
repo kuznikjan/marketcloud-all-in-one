@@ -1,6 +1,6 @@
 <div class="activeFiltersComponent">
   <style type="text/css">
-  
+
   </style>
   <a class="label label-info label-rounded pull-left filterLabel raised"
     data-toggle="modal"
@@ -39,7 +39,7 @@
                   ng-model="filter.value"
                   class="form-control  solid"
                   ng-if="'productTypeSelector' === getControlForFilter(filter)"
-                  ng-options="o.value as o.label for o in [{label : 'Simple product', value : 'simple_product'},{label : 'Product with variants', value : 'product_with_variants'}]"
+                  ng-options="o.value as o.label for o in [{label : 'Simple product', value : 'simple_product'},{label : 'Product with variants', value : 'product_with_variants'},{label : 'Bundled products ', value : 'bundled_product'}]"
                 ></select>
                 <!-- END OF PRODUCT TYPE FILTER -->
                 <!-- CATEGORY FILTER -->
@@ -69,7 +69,7 @@
                 ng-model="filter.value"
                 ng-if="'numberInput' === getControlForFilter(filter)"/>
                 <!-- END OF NUMERIC FILTERS -->
-                
+
                 <!-- BOOLEAN FILTERS -->
                 <select
                   ng-model="filter.value"
@@ -129,7 +129,7 @@
                       ng-model="newFilter.value"
                       class="form-control  solid"
                       ng-if="'productTypeSelector' === getControlForFilter(newFilter)"
-                      ng-options="o.value as o.label for o in [{label : 'Simple product', value : 'simple_product'},{label : 'Product with variants', value : 'product_with_variants'}]"
+                      ng-options="o.value as o.label for o in [{label : 'Simple product', value : 'simple_product'},{label : 'Product with variants', value : 'product_with_variants'},{label : 'Bundled products ', value : 'bundled_product'}]"
                     ></select>
                     <!-- END OF PRODUCT TYPE FILTER -->
                     <!-- CATEGORY FILTER -->
@@ -159,7 +159,7 @@
                     ng-model="newFilter.value"
                     ng-if="'numberInput' === getControlForFilter(newFilter)"/>
                     <!-- END OF NUMERIC FILTERS -->
-                    
+
                     <!-- BOOLEAN FILTERS -->
                     <select
                       ng-model="newFilter.value"
@@ -178,7 +178,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-info" ng-click="saveNewFilterAndApply()">Save filter</button>
