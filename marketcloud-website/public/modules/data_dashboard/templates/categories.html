@@ -1,6 +1,6 @@
 <div class="dashboard-section-header">
   <span class="root">Categories</span>
-   
+
   <back-button></back-button>
 </div>
 <div class="row" >
@@ -24,7 +24,7 @@
               </div>
           </div>
         </div>
-        
+
       </div>
       <div class="card-toolbar" ng-show="getSelectedItems().length > 0">
         <strong style="margin-right:50px;">{{getSelectedItems().length}} selected</strong>
@@ -60,7 +60,7 @@
               </td>
               <td>
                 <div class="thumbnail" style="width:48px;height:48px;padding:0px">
-                  <img ng-src="{{p.image_url || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png" class="fluid"/>
+                  <img ng-src="{{p.image_url || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png" class="fluid"/>
                 </div>
               </td>
               <td><a href="#/categories/{{p.id}}/edit" class="link">{{p.path}}</a></td>
@@ -80,7 +80,7 @@
                   </ul>
                 </div>
 
-              
+
             </tr>
           </tbody>
         </table>
@@ -92,7 +92,7 @@
         <p class="lead text-muted">Your categories will be displayed here</p>
         <a href="#/categories/create" class="btn btn-info">Add a category</a>
       </div>
-      
+
       <div class="card-footer">
         <div class="row">
           <div class="col-xs-12 text-right">

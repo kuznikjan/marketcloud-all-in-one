@@ -3,7 +3,7 @@
 	<% if('undefined' !== typeof miniprofiler) { %>
 	<%- miniprofiler.include() %>
 	<% } %>
-	
+
 	<style type="text/css">
 		.navbar-default .navbar-nav>li>a {
 		color: #3498db;
@@ -20,7 +20,7 @@
 		}
 	</style>
 	<div ng-controller="NavigationController">
-		
+
 		<!-- SPASHSCREEN -->
 		<div id="splashscreen" ng-show="true">
 			<div class="text-center center">
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<!-- Desktop Sidebar -->
-		
+
 	</div>
 
 	<div id="page-wrapper" style="margin-left:0px;">
@@ -46,22 +46,22 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-4 col-md-4 col-xs-6">
-						
-						<a href="/"><img src="https://marketcloud.azureedge.net/website-v2/logo-text-right-small-v2.png" style="max-height: 32px"></a>
-						
+
+						<a href="/"><img src="https://marketcloud.studio404.net/img/logo/normal.png" style="max-height: 32px"></a>
+
 					</div>
 					<div class="col-lg-4 col-md-4 text-center has-feedback hidden-xs hidden-sm">
-						
+
 					</div>
 					<div class="col-lg-4 col-md-4 col-xs-6 text-right">
-						
+
 						<ul class="horizontal-menu">
-							
-							
+
+
 							<li class="pull-right">
 								<div class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;">
-									
+
 									<img ng-src="{{'<%= user.image_url %>' || '/img/user.png'}}" fallback-src="/img/user.png" style="max-width: 32px;border-radius: 2px;" class="avatarImage">
 									<i class="fa fa-angle-down"></i>
 								</a>
@@ -93,20 +93,20 @@
 						<div class="col-xs-12">
 							<div class="applications-breadcrumb">
 								<a class="root" href="#/">
-									<span class="fa fa-th"></span> Applications</a> 
-									<span class="fa fa-angle-right"></span> 
+									<span class="fa fa-th"></span> Applications</a>
+									<span class="fa fa-angle-right"></span>
 								<span class="application-name">{{application.name}}</span>
-								<span class="fa fa-angle-right"></span> 
+								<span class="fa fa-angle-right"></span>
 								<span class="application-name">{{currentSection}}</span>
 							</div>
 							<a class="btn btn-info pull-right hidden-xs" href="/applications/{{application.id}}/dashboard">Backoffice</a>
 						</div>
-						
-						
+
+
 					</div>
 				</div>
-				
-				
+
+
 			</div>
 			<div class="dashboard-navbar"
 				style="" ng-cloak=""
@@ -181,7 +181,7 @@
 								</li> -->
 							</ul>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

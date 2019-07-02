@@ -14,7 +14,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">
-      	<img src="https://marketcloud.azureedge.net/website-v2/logo-text-right-small.png">
+      	<img src="https://marketcloud.studio404.net/img/logo/normal.png">
       </a>
     </div>
 
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 
-      	
+
       <li class="<%= (pageTitle.toLowerCase().indexOf('homepage') > -1) ?  "active" : "" %>">
           <a href="/">Home</a>
         </li>
@@ -45,7 +45,7 @@
         </li>
         <li><a href="/community">Community</a></li>
       </ul>
-      
+
       <ul class="nav navbar-nav navbar-right">
         <% if ('undefined' !== typeof user && user.isAuthenticated===true) { %>
 					<li>
@@ -53,8 +53,8 @@
 							<a href="/applications" class="btn btn-empty-info">DASHBOARD</a>
 						</p>
 					</li>
-					
-					
+
+
 					<% } else { %>
 					<li><a href="/account/login" title="Log in page">Log in</a></li>
 					<li>
@@ -159,8 +159,8 @@ nav.mobile-sidenav{
               <a href="/applications" class="btn btn-empty-info">DASHBOARD</a>
             </p>
           </li>
-          
-          
+
+
           <% } else { %>
           <li><a href="/account/login" title="Log in page">Log in</a></li>
           <li>

@@ -1,10 +1,10 @@
 <div class="dashboard-section-header">
   <span class="root">Brands</span>
-   
+
   <back-button></back-button>
 </div>
 <div class="container-fluid">
-  
+
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-xs-12">
       <!-- -->
@@ -60,9 +60,9 @@
                   </div>
                 </td>
                 <td>
-                  
+
                   <div class="thumbnail" style="width:48px;height:48px;padding:0px;">
-                    <img ng-src="{{p.images[0]  || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" class="fluid" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/>
+                    <img ng-src="{{p.images[0]  || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" class="fluid" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png"/>
                   </div>
                 </td>
                 <td><a href="#/brands/{{p.id}}/edit" class="link">{{p.name}}</a></td>
@@ -81,13 +81,13 @@
                 </div>
 
                 </td>
-                
+
               </tr>
             </tbody>
           </table>
         </div>
         <div ng-show="resources.length <= 0" class="text-center p10">
-          
+
           <span class="fa fa-tag f48 text-muted"></span>
           <p class="lead text-muted text-center">Your brands will be displayed here</p>
           <a href="#/brands/create" class="btn btn-info">Add a brand</a>
@@ -108,5 +108,5 @@
       </div>
     </div>
   </div>
-  
+
 </div>

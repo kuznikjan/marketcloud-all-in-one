@@ -1,6 +1,6 @@
 <div class="dashboard-section-header">
   <span class="root">Contents</span>
-  
+
   <back-button></back-button>
 </div>
 <div class="container-fluid">
@@ -16,12 +16,12 @@
           <li><a ng-click="loadData({type:'page'})">Pages</a></li>
           <li><a ng-click="loadData({type:'post'})">Posts</a></li>
           <li><a ng-click="resetQuery(); loadData()">All</a></li>
-          
+
         </ul>
       </div>
     </div>
   </div>
-  
+
   <div class="row" >
     <div class="col-xs-12">
       <div class="card card-table mb50">
@@ -80,7 +80,7 @@
                     </div></td>
                     <td>
                       <div class="thumbnail" style="width:48px;height:48px;padding:0px;">
-                        <img ng-src="{{c.images[0] || c.author.image || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" class="fluid" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/>
+                        <img ng-src="{{c.images[0] || c.author.image || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" class="fluid" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png"/>
                       </div>
                     </td>
                     <td><a href="#/contents/{{c.id}}/edit">{{c.title}}</a></td>
@@ -92,12 +92,12 @@
                     </td>
                     <td>
                       <div class="actions" ng-class="{'dropup' : true === $last && resources.length !== 1, 'dropdown' : false === $last || resources.length === 1 }" >
-                        
+
                         <a class="dropdown-toggle text-muted btn btn-transparent btn-sm" data-toggle="dropdown" role="button" >
                           <i class="fa fa-ellipsis-v f18"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                          
+
                           <li><a href="#/contents/{{c.id}}/edit" >Edit</a></li>
                           <li><a ng-click="delete(c.id,$index)">Delete</a></li>
                           <li><a ng-click="clone(p)">Clone</a></li>
@@ -109,12 +109,12 @@
               </table>
             </div>
             <div class="text-center text-muted p10" ng-show="resources.length === 0">
-              
+
               <span class="fa fa-newspaper-o f48"></span>
               <p class="lead">Your contents will be displayed here.</p>
               <a href="#/contents/create" class="btn btn-info">Add a content</a>
             </div>
-            
+
             <div class="card-footer">
               <div class="row">
                 <div class="col-xs-12 text-right">

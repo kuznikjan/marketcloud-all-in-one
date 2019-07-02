@@ -368,7 +368,7 @@
 									<tr ng-repeat="variant in product.variants track by $index">
 										<td>#{{variant.variant_id}}</td>
 										<td><span ng-repeat="(k,v) in filterVariantProps(variant) track by $index" ng-style="getVariantStyle($index)">&#8226; {{v}}</span></td>
-										<td><img ng-src="{{variant.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" style="max-width:64px;border:1px solid #CCC" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/></td>
+										<td><img ng-src="{{variant.images[0] || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" style="max-width:64px;border:1px solid #CCC" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png"/></td>
 
 										<td>{{variant.price}} {{application.currency_code}}</td>
 										<td>{{variant.sku || "unknown"}}</td>

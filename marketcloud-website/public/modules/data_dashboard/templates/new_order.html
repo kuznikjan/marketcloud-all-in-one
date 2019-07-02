@@ -30,7 +30,7 @@
 								<div ng-bind-html="json"></div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -41,11 +41,11 @@
 				</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 				<div class="row mb20">
-					
+
 					<div class="col-xs-12 col-lg-8">
 						<h4>Details</h4>
 						<div class="card mb50">
-							
+
 							<div class="row">
 								<div class="col-lg-6">
 									<p><span class="ion-calendar"></span> <strong>Order date</strong></p>
@@ -107,7 +107,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<div class="form">
-														
+
 														<div class="form-group has-feedback" >
 															<input type="text" class="form-control solid" placeholder="Search products" style="padding-left:30px;" ng-model="query.q" ng-change="filter()">
 															<i class="fa fa-search form-control-feedback" style="left:5px;right:none;color:#CCC;"></i>
@@ -131,15 +131,15 @@
 														<div class="form-group">
 														<filtered-select></filtered-select>
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="col-xs-6">
-													
+
 												</div>
 											</div>
 										</div>
-										
+
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -165,7 +165,7 @@
 											</thead>
 											<tbody>
 												<tr ng-repeat="product in order.products">
-													<td><img ng-src="{{product.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" style="max-width:64px;border:1px solid #CCC" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/></td>
+													<td><img ng-src="{{product.images[0] || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" style="max-width:64px;border:1px solid #CCC" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png"/></td>
 													<td>
 														<a href="#/products/{{product.id}}/edit" class="link">{{product.name}}</a> <span>x{{product.quantity}}</span>
 														<div><span ng-repeat="(k,v) in getSelectedVariantKeysAndValues(product) track by $index" class="{{getVariantClass($index)}}" style="margin-right:5px;">{{v}}</span></div></td>
@@ -242,10 +242,10 @@
 										</div>
 										<h4>Payment</h4>
 										<div class="card mb50">
-											
+
 											<div ng-hide='true === order.hasOwnProperty("payment")'>
 												<p class="lead text-muted text-center">No payment was captured for this order.</p>
-												
+
 											</div>
 											<table class="table table-striped" ng-show='true === order.hasOwnProperty("payment")'>
 												<thead>
@@ -326,10 +326,10 @@
 														</div> -->
 														<h4>Shipment</h4>
 														<div class="card mb50">
-															
+
 															<div ng-hide='order.hasOwnProperty("shipments")'>
 																<p >No shipment was found for this order.</p>
-																
+
 															</div>
 															<div ng-show='order.hasOwnProperty("shipments")'>
 																<div class="table-responsive">
@@ -359,7 +359,7 @@
 													<div class="col-xs-12 col-lg-4">
 														<h4>Customer details</h4>
 														<div class="card">
-															
+
 															<div ng-show="order.user">
 																<p><span class="ion-person"></span> {{order.user.name}}</p>
 																<p><span class="ion-email"></span> {{order.user.email}}</p>
@@ -392,5 +392,5 @@
 															</div>
 														</div>
 													</div>
-													
+
 												</div>

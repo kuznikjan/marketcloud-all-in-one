@@ -17,10 +17,10 @@ cursor: pointer;
 <div class="container-fluid" style="margin-top: 70px;">
 <div class="row">
   <div class="col-xs-12 col-lg-12">
-    
+
     <div class="card card-table mb50">
       <div class="card-header"><h4>Variants</h4></div>
-      
+
       <div class="table-responsive">
         <table class="table table-hover variants-table">
           <thead>
@@ -36,12 +36,12 @@ cursor: pointer;
             ng-repeat="v in product.variants"
             ng-class="{'activeVariant': v.id === variant.id}"
             ng-click="editVariant(v)">
-            <td><img ng-src="{{v.images[0] || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" style="max-width:32px;border:1px solid #CCC" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png"/></td>
+            <td><img ng-src="{{v.images[0] || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" style="max-width:32px;border:1px solid #CCC" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png"/></td>
             <td ng-repeat="(name, values) in product.variantsDefinition">{{v[name]}}</td>
             <td>{{v.price}} {{application.currency_code}}</td>
             <td ng-switch on="v.stock_type">
               <!-- Inventory Column -->
-              
+
               <div ng-if="'infinite' === v.stock_type"><em>Not tracking</em></div>
               <div ng-if="'track' === v.stock_type">{{v.stock_level}}</div>
               <div ng-if="'status' === v.stock_type">
@@ -66,10 +66,10 @@ cursor: pointer;
           </tr>
         </table>
       </div>
-      
+
     </div>
   </div>
-  
-  
+
+
 </div>
 </div>

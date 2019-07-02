@@ -46,13 +46,13 @@
               </td>
               <td>
                 <div class="imageContainer" style="width:64px;height:64px;">
-                  <img ng-src="{{p.image_url || 'marketcloud.azureedge.net/storm-images/placeholder.png'}}" style="max-width:60px;max-height:60px;" fallback-src="https://marketcloud.azureedge.net/storm-images/placeholder.png" class="thumbnail-image"/>
+                  <img ng-src="{{p.image_url || 'https://marketcloud.studio404.net/img/logo/normal.png'}}" style="max-width:60px;max-height:60px;" fallback-src=https://marketcloud.studio404.net/img/logo/normal.png" class="thumbnail-image"/>
                 </div>
               </td>
               <td><a href="#/categories/{{p.id}}/edit" class="link">{{p.path}}</a></td>
               <td><a href="#/categories/{{p.id}}/edit" class="link">{{p.name}}</a></td>
               <td><a href="#/categories/{{p.id}}/edit" class="btn btn-default btn-sm"><span class="fa fa-pencil"></a> <button class="btn btn-default btn-sm" ng-click="deleteCategory(p.id,$index)"><span class="fa fa-trash-o"></button></td>
-              
+
             </tr>
           </tbody>
         </table>
@@ -63,8 +63,8 @@
         </div>
         <p class="lead text-muted text-center">Your categories will be displayed here</p>
       </div>
-      
-      <pagination-nav 
+
+      <pagination-nav
             pagination="pagination"
             on-change-page="loadPage(page)"
           ></pagination-nav>
